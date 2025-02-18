@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class AnimalScript : MonoBehaviour
 {
-    public GameObject animal;
     private Sprite image;
     public Tilemap ground;
     public Tilemap fence;
@@ -16,7 +15,8 @@ public class AnimalScript : MonoBehaviour
 
     void Start()
     {
-        animal = GameObject.Find("Animal");
+        ground = GameObject.Find("Ground").GetComponent<Tilemap>();
+        fence = GameObject.Find("Fence").GetComponent<Tilemap>();
     }
 
     void Update()
