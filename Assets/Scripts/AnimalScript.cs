@@ -40,9 +40,9 @@ public class AnimalScript : MonoBehaviour
         Vector3Int groundDest = ground.WorldToCell(destPoint);
         Vector3Int fenceDest = fence.WorldToCell(destPoint);
         if (ground.HasTile(groundDest) &&
-        !fence.HasTile(fenceDest + Vector3Int.down) &&
-        !fence.HasTile(fenceDest + Vector3Int.down + Vector3Int.left) &&
-        !fence.HasTile(fenceDest + Vector3Int.down + Vector3Int.right))
+        !fence.HasTile(fenceDest + Vector3Int.up) &&
+        !fence.HasTile(fenceDest + Vector3Int.up + Vector3Int.left) &&
+        !fence.HasTile(fenceDest + Vector3Int.up + Vector3Int.right))
         {
             hasDestPoint = true;
         }
