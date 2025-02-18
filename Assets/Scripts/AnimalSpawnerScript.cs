@@ -5,12 +5,15 @@ public class AnimalSpawnerScript : MonoBehaviour
 {
     public GameObject prefabAnimal;
     public Sprite cowSprite;
+    public Sprite chickenSprite;
+    public Sprite chicSprite;
+
     void Start()
     {
-        for (int i = 0; i < 100; i++)
-        {
-            SpawnAnimal();
-        }
+        SpawnAnimal(cowSprite);
+        SpawnAnimal(chickenSprite);
+        SpawnAnimal(chicSprite);
+
     }
 
     void Update()
@@ -18,10 +21,10 @@ public class AnimalSpawnerScript : MonoBehaviour
 
     }
 
-    void SpawnAnimal()
+    void SpawnAnimal(Sprite animalSprite)
     {
         GameObject spawnedAnimal = Instantiate(prefabAnimal, transform.position, transform.rotation);
         SpriteRenderer spriteRenderer = spawnedAnimal.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = cowSprite;
+        spriteRenderer.sprite = animalSprite;
     }
 }

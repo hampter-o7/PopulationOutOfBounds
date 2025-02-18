@@ -103,4 +103,4 @@ MonoBehaviour:
   ground: {fileID: 0}
   fence: {fileID: 0}
   range: 10
-  movementSpeed: 10
+  movementSpeed: 1
