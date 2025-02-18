@@ -1,6 +1,4 @@
-using System.Data;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 
 public class AnimalScript : MonoBehaviour
@@ -10,7 +8,7 @@ public class AnimalScript : MonoBehaviour
     public Tilemap fence;
     Vector3 destPoint;
     bool hasDestPoint;
-    [SerializeField] float range = 1;
+    [SerializeField] float range = 10;
     [SerializeField] float movementSpeed;
 
     void Start()
@@ -37,14 +35,29 @@ public class AnimalScript : MonoBehaviour
         float y = Random.Range(-range, range);
 
         destPoint = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z);
+        Vector3 startPoint = transform.position;
         Vector3Int groundDest = ground.WorldToCell(destPoint);
-        Vector3Int fenceDest = fence.WorldToCell(destPoint);
-        if (ground.HasTile(groundDest) &&
-        !fence.HasTile(fenceDest + Vector3Int.up) &&
-        !fence.HasTile(fenceDest + Vector3Int.up + Vector3Int.left) &&
-        !fence.HasTile(fenceDest + Vector3Int.up + Vector3Int.right))
+
+        if (ground.HasTile(groundDest) && IsPathClear(startPoint, destPoint))
         {
             hasDestPoint = true;
         }
     }
+
+    bool IsPathClear(Vector3 start, Vector3 end)
+    {
+        float steps = range * range;
+        for (int i = 0; i <= steps; i++)
+        {
+            Vector3 point = Vector3.Lerp(start, end, i / (float)steps);
+            Vector3Int fenceCheck = fence.WorldToCell(point);
+
+            if (fence.HasTile(fenceCheck))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

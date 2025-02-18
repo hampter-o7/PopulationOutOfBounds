@@ -7,7 +7,10 @@ public class AnimalSpawnerScript : MonoBehaviour
     public Sprite cowSprite;
     void Start()
     {
-        SpawnAnimal();
+        for (int i = 0; i < 100; i++)
+        {
+            SpawnAnimal();
+        }
     }
 
     void Update()

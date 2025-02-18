@@ -100,8 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26d3088e71e15c4ab96c30d09ecfec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animal: {fileID: 0}
   ground: {fileID: 0}
   fence: {fileID: 0}
-  range: 1
-  movementSpeed: 1
+  range: 10
+  movementSpeed: 10
