@@ -7,13 +7,14 @@ public class AnimalSpawnerScript : MonoBehaviour
     public Sprite cowSprite;
     public Sprite chickenSprite;
     public Sprite chicSprite;
+    public Sprite foxSprite;
 
     void Start()
     {
         SpawnAnimal(cowSprite);
         SpawnAnimal(chickenSprite);
         SpawnAnimal(chicSprite);
-
+        SpawnAnimal(foxSprite);
     }
 
     void Update()
