@@ -14,17 +14,15 @@ public class AnimalSpawnerScript : MonoBehaviour
 
     void Start()
     {
-        SpawnAnimal(cowSprite);
-        SpawnAnimal(chickenSprite);
-        SpawnAnimal(chicSprite);
-        SpawnAnimal(foxSprite);
-        SpawnAnimal(wolfSprite);
-        SpawnAnimal(sheepSprite);
+
     }
 
     void Update()
     {
-
+        if (Input.GetMouseButtonDown(1))
+        {
+            SpawnAnimal(cowSprite);
+        }
     }
 
     public void SpawnAnimal(Sprite animalSprite)

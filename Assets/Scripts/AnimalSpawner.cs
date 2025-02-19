@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class AnimalSpawner : MonoBehaviour
 {
-    GameObject parent;
     [SerializeField] GameObject animal;
     //[SerializeField] AnimalSpawnerScript animalSpawnerScript;
     void Start()
     {
-        parent = transform.parent?.gameObject;
+
     }
 
     void Update()
