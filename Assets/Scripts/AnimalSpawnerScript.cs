@@ -4,12 +4,12 @@ using UnityEngine;
 public class AnimalSpawnerScript : MonoBehaviour
 {
     public GameObject prefabAnimal;
-    public Sprite cowSprite;
-    public Sprite chickenSprite;
-    public Sprite chicSprite;
-    public Sprite foxSprite;
-    public Sprite wolfSprite;
-    public Sprite sheepSprite;
+    public Sprite animalSprite;
+    //public Sprite chickenSprite;
+    //public Sprite chicSprite;
+    //public Sprite foxSprite;
+    //public Sprite wolfSprite;
+    //public Sprite sheepSprite;
 
 
     void Start()
@@ -17,13 +17,13 @@ public class AnimalSpawnerScript : MonoBehaviour
 
     }
 
-    void Update()
+    /*void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
-            SpawnAnimal(cowSprite);
+            SpawnAnimal(animalSprite);
         }
-    }
+    }*/
 
     public void SpawnAnimal(Sprite animalSprite)
     {
