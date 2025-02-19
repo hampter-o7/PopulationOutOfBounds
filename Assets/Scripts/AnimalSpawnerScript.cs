@@ -22,7 +22,7 @@ public class AnimalSpawnerScript : MonoBehaviour
 
     }
 
-    void SpawnAnimal(Sprite animalSprite)
+    public void SpawnAnimal(Sprite animalSprite)
     {
         GameObject spawnedAnimal = Instantiate(prefabAnimal, transform.position, transform.rotation);
         SpriteRenderer spriteRenderer = spawnedAnimal.GetComponent<SpriteRenderer>();
