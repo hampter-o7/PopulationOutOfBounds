@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,10 +122,10 @@ TextureImporter:
       name: AnimalsForPopulationOutOfBounds_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 123
-        width: 34
-        height: 36
+        x: 109
+        y: 1
+        width: 32
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,10 +144,10 @@ TextureImporter:
       name: AnimalsForPopulationOutOfBounds_1
       rect:
         serializedVersion: 2
-        x: 11
-        y: 91
-        width: 8
-        height: 8
+        x: 151
+        y: 3
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,10 +166,10 @@ TextureImporter:
       name: AnimalsForPopulationOutOfBounds_2
       rect:
         serializedVersion: 2
-        x: 29
-        y: 34
+        x: 1
+        y: 1
         width: 96
-        height: 68
+        height: 66
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,13 +188,13 @@ TextureImporter:
       name: AnimalsForPopulationOutOfBounds_3
       rect:
         serializedVersion: 2
-        x: 77
-        y: 112
-        width: 71
-        height: 48
+        x: 1
+        y: 67
+        width: 69
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 2, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -202,6 +202,50 @@ TextureImporter:
       bones: []
       spriteID: 05e08cbc48707ff47b6ec3a6202626b1
       internalID: -1183179499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimalsForPopulationOutOfBounds_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 115
+        width: 64
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e18fbe7390228a64abd8dbb0c447cd0e
+      internalID: 295433193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnimalsForPopulationOutOfBounds_5
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 79
+        width: 64
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9edfa02450f36694096e9db25649f36b
+      internalID: 1153976805
       vertices: []
       indices: 
       edges: []
@@ -224,6 +268,8 @@ TextureImporter:
       AnimalsForPopulationOutOfBounds_1: 4148669247279383911
       AnimalsForPopulationOutOfBounds_2: 4591469621628248817
       AnimalsForPopulationOutOfBounds_3: -1183179499
+      AnimalsForPopulationOutOfBounds_4: 295433193
+      AnimalsForPopulationOutOfBounds_5: 1153976805
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
