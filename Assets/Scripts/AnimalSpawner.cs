@@ -8,7 +8,7 @@ public class AnimalSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-         parent = transform.parent?.gameObject;
+        parent = transform.parent?.gameObject;
     }
 
     // Update is called once per frame

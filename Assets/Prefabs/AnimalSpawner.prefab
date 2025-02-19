@@ -48,4 +48,6 @@ MonoBehaviour:
   cowSprite: {fileID: 4591469621628248817, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
   chickenSprite: {fileID: 8233521805015788675, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
   chicSprite: {fileID: 4148669247279383911, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
-  foxSprite: {fileID: 0}
+  foxSprite: {fileID: -1183179499, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+  wolfSprite: {fileID: 295433193, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+  sheepSprite: {fileID: 1153976805, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
