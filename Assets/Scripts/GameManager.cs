@@ -36,6 +36,12 @@ public class GameManager : MonoBehaviour
     {
         if (animalCount > maxAnimalCount)
         {
+            GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+
+            foreach (GameObject animal in animals)
+            {
+                animal.GetComponent<AnimalScript>().stop = true;
+            }
             Debug.Log("AnimalCount exceeded " + maxAnimalCount + " --- GAME OVER");
             _canvas.SetActive(true);
         }

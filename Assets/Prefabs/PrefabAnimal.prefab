@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6267654864203174608}
   m_Layer: 8
   m_Name: PrefabAnimal
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26d3088e71e15c4ab96c30d09ecfec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 2831048922751087686}
   ground: {fileID: 0}
   fence: {fileID: 0}
   range: 10
   movementSpeed: 1
+  waitTime: 1
