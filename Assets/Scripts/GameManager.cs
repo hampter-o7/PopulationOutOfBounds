@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public Tilemap fences;
     public Tile replacementFence;
 
+    public AudioSource mainTheme;
+    public AudioSource bearTheme;
+
     public GameObject retryButton;
     public GameObject spawnAnimalButtons;
     public GameObject inventoryManager;
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
     {
         removedFences.AddRange(originalRemovedFences);
         UpdateAnimalCountText();
+        PlayMusic(mainTheme);
     }
 
     void Update()
@@ -67,9 +71,17 @@ public class GameManager : MonoBehaviour
                 removedFences.AddRange(tempRemovedFences);
                 tempRemovedFences.Clear();
             }
+            mainTheme.Stop();
+            Debug.Log("Stopped playing " + mainTheme.name);
+            PlayMusic(bearTheme);
+            Debug.Log("Now playing " + bearTheme.name);
         }
         else
         {
+            bearTheme.Stop();
+            Debug.Log("Stopped playing " + bearTheme.name);
+            PlayMusic(mainTheme);
+            Debug.Log("Now playing " + mainTheme.name);
             if (GameObject.FindGameObjectWithTag("Bear") != null)
             {
                 inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
@@ -146,6 +158,19 @@ public class GameManager : MonoBehaviour
             retryButton.SetActive(true);
             spawnAnimalButtons.SetActive(false);
             stop = true;
+        }
+    }
+
+    private void PlayMusic(AudioSource theme)
+    {
+        if (!theme.isPlaying)
+        {
+            theme.Play();
+            Debug.Log(theme.name + " was not playing so i started playing it");
+        }
+        else
+        {
+            Debug.Log(theme.name + " was already playing so i aint do none");
         }
     }
 
