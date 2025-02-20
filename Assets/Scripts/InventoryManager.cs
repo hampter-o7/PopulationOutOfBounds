@@ -34,9 +34,20 @@ public class InventoryManager : MonoBehaviour
         UpdateText();
     }
 
-    public void AddAnimalMeat(int meatNum)
+    public void ChangeSeedsValue(int numSeeds)
     {
-        meat += meatNum;
+        seeds += numSeeds;
+        UpdateText();
+    }
+    public void ChangeGrassValue(int numGrass)
+    {
+        grass += numGrass;
+        UpdateText();
+    }
+
+    public void ChangeMeatValue(int numMeat)
+    {
+        meat += numMeat;
         UpdateText();
     }
 }

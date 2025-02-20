@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI animalCountText;
@@ -21,9 +22,7 @@ public class GameManager : MonoBehaviour
 
     bool stop = false;
     private float time = 21 * 60;
-    private int maxTime = 60 * 24;
-
-    public int animalCount;
+    private readonly int maxTime = 60 * 24;
 
     private Dictionary<Vector3Int, TileBase> removedFences = new();
     private Dictionary<Vector3Int, TileBase> tempRemovedFences = new();
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         removedFences.AddRange(originalRemovedFences);
-        animalCountText.text = "Current animal count: " + animalCount;
+        UpdateAnimalCountText();
     }
 
     void Update()
@@ -122,29 +121,22 @@ public class GameManager : MonoBehaviour
         }
         fences.SetTile(location, removedFences[location]);
     }
-    public void IncreaseAnimalCount()
-    {
-        animalCount++;
-        animalCountText.text = "Current animal count: " + animalCount;
-        CheckGameConditions();
-    }
 
-    public void DecreaseAnimalCount()
+    public void UpdateAnimalCountText()
     {
-        animalCount--;
-        animalCountText.text = "Current animal count: " + animalCount;
+        animalCountText.text = "Current animal count: " + GameObject.FindGameObjectsWithTag("Animal").Count();
         CheckGameConditions();
     }
 
     private void CheckGameConditions()
     {
-        if (animalCount > maxAnimalCount)
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        if (animals.Count() > maxAnimalCount)
         {
             if (GameObject.FindGameObjectWithTag("Bear") != null)
             {
                 GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = true;
             }
-            GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
 
             foreach (GameObject animal in animals)
             {

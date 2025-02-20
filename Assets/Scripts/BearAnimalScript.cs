@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class BearAnimalScript : MonoBehaviour
 {
-    private Sprite image;
     public SpriteRenderer sr;
     private bool isFlipped = false;
     public Tilemap ground;
@@ -16,7 +15,7 @@ public class BearAnimalScript : MonoBehaviour
     public bool stop = false;
     private Vector3 lastPosition;
     private float stuckTimer = 0;
-    private float stuckTimerMax = 5;
+    private readonly float stuckTimerMax = 5;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
     private GameObject prey = null;
@@ -114,8 +113,8 @@ public class BearAnimalScript : MonoBehaviour
     {
         string spriteName = prey.GetComponent<SpriteRenderer>().sprite.name;
         int meatNum = spriteName.Equals("Cow") ? 5 : spriteName.Equals("Sheep") ? 4 : spriteName.Equals("Wolf") ? 3 : spriteName.Equals("Fox") ? 2 : 1;
-        inventoryManager.GetComponent<InventoryManager>().AddAnimalMeat(meatNum);
-        gameManager.GetComponent<GameManager>().DecreaseAnimalCount();
+        inventoryManager.GetComponent<InventoryManager>().ChangeMeatValue(meatNum);
+        gameManager.GetComponent<GameManager>().UpdateAnimalCountText();
         targetAnimals.Remove(prey);
         Destroy(prey);
         prey = null;

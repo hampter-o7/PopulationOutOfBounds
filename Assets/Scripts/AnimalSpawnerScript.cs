@@ -8,7 +8,7 @@ public class AnimalSpawnerScript : MonoBehaviour
 
     void Start()
     {
-
+        if (!animalSprite.name.Equals("Bear")) SpawnAnimal();
     }
 
     public void SpawnAnimal()
@@ -20,6 +20,5 @@ public class AnimalSpawnerScript : MonoBehaviour
         {
             spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
         }
-        // Debug.Log("Animal " + animalSprite.name + " spawned");
     }
 }
