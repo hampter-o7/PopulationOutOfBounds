@@ -81,7 +81,13 @@ public class GameManager : MonoBehaviour
                 }
                 removedFences.Clear();
                 removedFences.AddRange(originalRemovedFences);
+                GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+                foreach (GameObject animal in animals)
+                {
+                    animal.GetComponent<AnimalScript>().hasDestPoint = false;
+                }
             }
+
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

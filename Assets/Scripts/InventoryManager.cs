@@ -29,9 +29,14 @@ public class InventoryManager : MonoBehaviour
 
     public void AddDailyResources()
     {
-        seeds += 5;
-        grass += 5;
-        meat += 5;
+        seeds += 7;
+        grass += 9;
+        UpdateText();
+    }
+
+    public void AddAnimalMeat(int meatNum)
+    {
+        meat += meatNum;
         UpdateText();
     }
 }

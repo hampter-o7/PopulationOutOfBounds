@@ -119,7 +119,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AnimalsForPopulationOutOfBounds_0
+      name: Chicken
       rect:
         serializedVersion: 2
         x: 109
@@ -141,7 +141,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimalsForPopulationOutOfBounds_1
+      name: Chick
       rect:
         serializedVersion: 2
         x: 151
@@ -163,7 +163,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimalsForPopulationOutOfBounds_2
+      name: Cow
       rect:
         serializedVersion: 2
         x: 1
@@ -185,7 +185,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimalsForPopulationOutOfBounds_3
+      name: Fox
       rect:
         serializedVersion: 2
         x: 1
@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimalsForPopulationOutOfBounds_4
+      name: Wolf
       rect:
         serializedVersion: 2
         x: 1
@@ -229,7 +229,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimalsForPopulationOutOfBounds_5
+      name: Sheep
       rect:
         serializedVersion: 2
         x: 77
@@ -264,12 +264,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AnimalsForPopulationOutOfBounds_0: 8233521805015788675
-      AnimalsForPopulationOutOfBounds_1: 4148669247279383911
-      AnimalsForPopulationOutOfBounds_2: 4591469621628248817
-      AnimalsForPopulationOutOfBounds_3: -1183179499
-      AnimalsForPopulationOutOfBounds_4: 295433193
-      AnimalsForPopulationOutOfBounds_5: 1153976805
+      Chick: 4148669247279383911
+      Chicken: 8233521805015788675
+      Cow: 4591469621628248817
+      Fox: -1183179499
+      Sheep: 1153976805
+      Wolf: 295433193
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

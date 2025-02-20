@@ -10,7 +10,7 @@ public class AnimalScript : MonoBehaviour
     public Tilemap fence;
     public Vector3 spawnPoint;
     Vector3 destPoint;
-    bool hasDestPoint;
+    public bool hasDestPoint;
     private float waitTimeLeft = 0;
     [SerializeField] float range = 10;
     [SerializeField] float movementSpeed = 1;

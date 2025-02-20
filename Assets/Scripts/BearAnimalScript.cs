@@ -12,6 +12,7 @@ public class BearAnimalScript : MonoBehaviour
     Vector3 destPoint;
     [SerializeField] float movementSpeed = 1;
     public GameObject gameManager;
+    public GameObject inventoryManager;
     public bool stop = false;
     private Vector3 lastPosition;
     private float stuckTimer = 0;
@@ -27,6 +28,7 @@ public class BearAnimalScript : MonoBehaviour
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
         gameManager = GameObject.Find("GameManager");
+        inventoryManager = GameObject.Find("InventoryManager");
         lastPosition = transform.position;
     }
 
@@ -110,6 +112,9 @@ public class BearAnimalScript : MonoBehaviour
 
     private void KillAnimal(GameObject prey)
     {
+        string spriteName = prey.GetComponent<SpriteRenderer>().sprite.name;
+        int meatNum = spriteName.Equals("Cow") ? 5 : spriteName.Equals("Sheep") ? 4 : spriteName.Equals("Wolf") ? 3 : spriteName.Equals("Fox") ? 2 : 1;
+        inventoryManager.GetComponent<InventoryManager>().AddAnimalMeat(meatNum);
         gameManager.GetComponent<GameManager>().DecreaseAnimalCount();
         targetAnimals.Remove(prey);
         Destroy(prey);
