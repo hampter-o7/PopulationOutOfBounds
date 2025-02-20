@@ -8,6 +8,7 @@ public class AnimalScript : MonoBehaviour
     private bool isFlipped = false;
     public Tilemap ground;
     public Tilemap fence;
+    public Vector3 spawnPoint;
     Vector3 destPoint;
     bool hasDestPoint;
     private float waitTimeLeft = 0;
@@ -84,5 +85,11 @@ public class AnimalScript : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void SendIntoFence()
+    {
+        transform.position = spawnPoint;
+        hasDestPoint = false;
     }
 }

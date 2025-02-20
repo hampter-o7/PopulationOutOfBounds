@@ -16,6 +16,10 @@ public class AnimalSpawnerScript : MonoBehaviour
         GameObject spawnedAnimal = Instantiate(prefabAnimal, transform.position, transform.rotation);
         SpriteRenderer spriteRenderer = spawnedAnimal.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = animalSprite;
-        Debug.Log("Animal " + animalSprite.name + " spawned");
+        if (spawnedAnimal.GetComponent<AnimalScript>() != null)
+        {
+            spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
+        }
+        // Debug.Log("Animal " + animalSprite.name + " spawned");
     }
 }

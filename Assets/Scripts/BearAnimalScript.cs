@@ -11,6 +11,7 @@ public class BearAnimalScript : MonoBehaviour
     public Tilemap fence;
     Vector3 destPoint;
     [SerializeField] float movementSpeed = 1;
+    public GameObject gameManager;
     public bool stop = false;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
@@ -22,6 +23,8 @@ public class BearAnimalScript : MonoBehaviour
     {
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
+        gameManager = GameObject.Find("GameManager");
+
     }
 
     void Update()
@@ -50,7 +53,7 @@ public class BearAnimalScript : MonoBehaviour
     {
         if (prey == null)
         {
-            Debug.Log("There is no prey for the mighty bear");
+            // Debug.Log("There is no prey for the mighty bear");
             return;
         }
         SearchForDest();
@@ -91,13 +94,14 @@ public class BearAnimalScript : MonoBehaviour
             if (!targetAnimals.Contains(targetAnimal))
             {
                 targetAnimals.Add(targetAnimal);
-                Debug.Log("Animal " + targetAnimal.name + " added");
+                // Debug.Log("Animal " + targetAnimal.name + " added");
             }
         }
     }
 
     private void KillAnimal(GameObject prey)
     {
+        gameManager.GetComponent<GameManager>().DecreaseAnimalCount();
         targetAnimals.Remove(prey);
         Destroy(prey);
         prey = null;

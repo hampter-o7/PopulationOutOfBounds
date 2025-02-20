@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &139076888 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6824613801842334963, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
-  m_PrefabInstance: {fileID: 1453324056}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619498290
 GameObject:
   m_ObjectHideFlags: 0
@@ -10401,6 +10396,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6409668292056572748, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
   m_PrefabInstance: {fileID: 1453324056}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1453324058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+  m_PrefabInstance: {fileID: 1453324056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a6151f1b50bde4fb353e1fcb0b5d22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1589480006
 GameObject:
   m_ObjectHideFlags: 0
@@ -10624,7 +10630,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!1839735485 &1594487921
@@ -16159,9 +16165,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalCountText: {fileID: 7599183106327883969}
   timer: {fileID: 1589480008}
-  retryButton: {fileID: 8887782625543122934}
+  fences: {fileID: 1594487921}
+  replacementFence: {fileID: 11400000, guid: 03ea0cff4911fec45b26a9c52fbc4c8b, type: 2}
+  retryButton: {fileID: 2253646288808487138}
   spawnAnimalButtons: {fileID: 5478146653524176053}
-  bearSpawner: {fileID: 139076888}
+  bearSpawner: {fileID: 1453324058}
   maxAnimalCount: 20
   animalCount: 0
 --- !u!224 &9199196854310645837
