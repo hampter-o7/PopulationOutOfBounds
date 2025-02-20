@@ -2,10 +2,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _animalCountText;
-    [SerializeField] GameObject _canvas;
+    [SerializeField] GameObject retryButton;
+    [SerializeField] GameObject spawnAnimalButtons;
     [SerializeField] private int maxAnimalCount = 20;
 
     public int animalCount { get; private set; }
@@ -36,6 +38,10 @@ public class GameManager : MonoBehaviour
     {
         if (animalCount > maxAnimalCount)
         {
+            if (GameObject.FindGameObjectWithTag("Bear") != null)
+            {
+                GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = true;
+            }
             GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
 
             foreach (GameObject animal in animals)
@@ -43,13 +49,13 @@ public class GameManager : MonoBehaviour
                 animal.GetComponent<AnimalScript>().stop = true;
             }
             Debug.Log("AnimalCount exceeded " + maxAnimalCount + " --- GAME OVER");
-            _canvas.SetActive(true);
+            retryButton.SetActive(true);
+            spawnAnimalButtons.SetActive(false);
         }
     }
 
     public void ReloadScene()
     {
-        _canvas.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

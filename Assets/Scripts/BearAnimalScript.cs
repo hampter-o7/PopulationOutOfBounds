@@ -10,16 +10,13 @@ public class BearAnimalScript : MonoBehaviour
     public Tilemap ground;
     public Tilemap fence;
     Vector3 destPoint;
-    //bool hasDestPoint;
-    private float waitTimeLeft = 0;
     [SerializeField] float range = 10;
     [SerializeField] float movementSpeed = 1;
-    [SerializeField] float waitTime = 1;
     public bool stop = false;
     private float distanceToTargetAnimal;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
-    private GameObject prey;
+    private GameObject prey = null;
 
     [SerializeField] List<GameObject> targetAnimals = new List<GameObject>();
 
@@ -31,9 +28,13 @@ public class BearAnimalScript : MonoBehaviour
 
     void Update()
     {
+        if (stop)
+        {
+            return;
+        }
         AddTargetAnimalsToList();
 
-        foreach(GameObject targetAnimal in targetAnimals)
+        foreach (GameObject targetAnimal in targetAnimals)
         {
             tempDistanceToTargetAnimal = Vector2.Distance(transform.position, targetAnimal.transform.position);
             if (tempDistanceToTargetAnimal < minimalDistanceToTargetAnimal)
@@ -43,54 +44,40 @@ public class BearAnimalScript : MonoBehaviour
             }
         }
 
-        if (stop)
-        {
-            return;
-        }
-        if (waitTimeLeft <= 0)
-        {
-            AnimalMovement();
-        }
-        else
-        {
-            waitTimeLeft -= Time.deltaTime;
-        }
+
+        AnimalMovement();
     }
 
     public void AnimalMovement()
     {
+        if (prey == null)
+        {
+            Debug.Log("There is no prey for the mighty bear");
+            return;
+        }
         SearchForDest();
+
         transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
         if (Vector3.Distance(transform.position, destPoint) < 1)
         {
-            //hasDestPoint = false;
             KillAnimal(prey);
-            waitTimeLeft += waitTime;
         }
     }
 
     void SearchForDest()
     {
-        if (prey != null)
-        {
-            destPoint = prey.transform.position;
-            Vector3 startPoint = transform.position;
-            Vector3Int groundDest = ground.WorldToCell(destPoint);
+        destPoint = prey.transform.position;
+        Vector3 startPoint = transform.position;
+        Vector3Int groundDest = ground.WorldToCell(destPoint);
 
-            if (ground.HasTile(groundDest) && IsPathClear(startPoint, destPoint))
-            {
-                //hasDestPoint = true;
-                bool wasFlipped = isFlipped;
-                isFlipped = destPoint.x < startPoint.x;
-                if (wasFlipped != isFlipped)
-                {
-                    sr.flipX = !sr.flipX;
-                }
-            }
-        }
-        else
+        if (ground.HasTile(groundDest) && IsPathClear(startPoint, destPoint))
         {
-            Debug.Log("There is no prey for the mighty bear");
+            bool wasFlipped = isFlipped;
+            isFlipped = destPoint.x < startPoint.x;
+            if (wasFlipped != isFlipped)
+            {
+                sr.flipX = !sr.flipX;
+            }
         }
     }
 
@@ -126,6 +113,7 @@ public class BearAnimalScript : MonoBehaviour
     {
         targetAnimals.Remove(prey);
         Destroy(prey);
+        prey = null;
         minimalDistanceToTargetAnimal = float.MaxValue;
     }
 }
