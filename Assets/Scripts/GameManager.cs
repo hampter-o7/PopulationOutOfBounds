@@ -14,11 +14,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject retryButton;
     public GameObject spawnAnimalButtons;
+    public GameObject inventoryManager;
     public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxAnimalCount = 20;
 
     bool stop = false;
-    private float time = 21 * 60;
+    private float time = 5 * 60;
     private int maxTime = 60 * 24;
 
     public int animalCount;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("Bear") != null)
             {
+                inventoryManager.GetComponent<InventoryManager>().addDailyResources();
                 Destroy(GameObject.FindGameObjectWithTag("Bear"));
                 foreach (Vector3Int position in removeAddFences)
                 {

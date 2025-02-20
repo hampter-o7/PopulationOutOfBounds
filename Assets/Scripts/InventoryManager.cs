@@ -1,63 +1,42 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI numberOfSeeds;
-    [SerializeField] TextMeshProUGUI numberOfGrass;
-    [SerializeField] TextMeshProUGUI numberOfMeat;
+    public TextMeshProUGUI numberOfSeeds;
+    public TextMeshProUGUI numberOfGrass;
+    public TextMeshProUGUI numberOfMeat;
 
-    public static int seeds { get; private set; }
-    public static int grass { get; private set; }
-    public static int meat { get; private set; }
-    public enum Food
-    {
-        seeds,
-        grass,
-        meat,
-    }
+
+
+    [SerializeField] private int seeds;
+    [SerializeField] private int grass;
+    [SerializeField] private int meat;
 
 
     void Start()
     {
-
+        updateText();
     }
 
     void Update()
     {
+
     }
 
-    public void IncreaseFood(Food food)
+    private void updateText()
     {
-        switch (food)
-        {
-            case Food.seeds:
-                seeds++;
-                break;
-            case Food.grass:
-                grass++;
-                break;
-            case Food.meat:
-                meat++;
-                break;
-
-        }
+        numberOfSeeds.text = seeds.ToString();
+        numberOfGrass.text = grass.ToString();
+        numberOfMeat.text = meat.ToString();
     }
 
-    public void DecreaseFood(Food food)
+    public void addDailyResources()
     {
-        switch (food)
-        {
-            case Food.seeds:
-                seeds--;
-                break;
-            case Food.grass:
-                grass--;
-                break;
-            case Food.meat:
-                meat--;
-                break;
-
-        }
+        seeds += 5;
+        grass += 5;
+        meat += 5;
+        updateText();
     }
 }
