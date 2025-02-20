@@ -13,6 +13,9 @@ public class BearAnimalScript : MonoBehaviour
     [SerializeField] float movementSpeed = 1;
     public GameObject gameManager;
     public bool stop = false;
+    private Vector3 lastPosition;
+    private float stuckTimer = 0;
+    private float stuckTimerMax = 5;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
     private GameObject prey = null;
@@ -24,7 +27,7 @@ public class BearAnimalScript : MonoBehaviour
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
         gameManager = GameObject.Find("GameManager");
-
+        lastPosition = transform.position;
     }
 
     void Update()
@@ -34,7 +37,6 @@ public class BearAnimalScript : MonoBehaviour
             return;
         }
         AddTargetAnimalsToList();
-
         foreach (GameObject targetAnimal in targetAnimals)
         {
             tempDistanceToTargetAnimal = Vector2.Distance(transform.position, targetAnimal.transform.position);
@@ -44,8 +46,6 @@ public class BearAnimalScript : MonoBehaviour
                 minimalDistanceToTargetAnimal = tempDistanceToTargetAnimal;
             }
         }
-
-
         AnimalMovement();
     }
 
@@ -57,12 +57,21 @@ public class BearAnimalScript : MonoBehaviour
             return;
         }
         SearchForDest();
-        Vector3 prevPosition = transform.position;
+        lastPosition = transform.position;
         transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
         Vector3Int fenceCheck = fence.WorldToCell(transform.position);
         if (fence.HasTile(fenceCheck))
         {
-            transform.position = prevPosition;
+            transform.position = lastPosition;
+            stuckTimer += Time.deltaTime;
+            if (stuckTimer > stuckTimerMax)
+            {
+                gameManager.GetComponent<GameManager>().RemoveAddFence(true, fenceCheck, true);
+            }
+        }
+        else
+        {
+            stuckTimer = 0;
         }
         if (Vector3.Distance(transform.position, destPoint) < 0.5)
         {

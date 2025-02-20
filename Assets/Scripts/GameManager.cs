@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 using System;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI animalCountText;
@@ -19,23 +20,28 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxAnimalCount = 20;
 
     bool stop = false;
-    private float time = 5 * 60;
+    private float time = 21 * 60;
     private int maxTime = 60 * 24;
 
     public int animalCount;
 
-    private Vector3Int[] removeAddFences = {
-        new Vector3Int(-5, -1, 0),
-        new Vector3Int(-5, -2, 0),
-        new Vector3Int(-2, -11, 0),
-        new Vector3Int(-2, -12, 0),
-        new Vector3Int(8, 0, 0),
-        new Vector3Int(8, 1, 0),
-        new Vector3Int(3, 8, 0),
-        new Vector3Int(-3, 11, 0),
+    private Dictionary<Vector3Int, TileBase> removedFences = new();
+    private Dictionary<Vector3Int, TileBase> tempRemovedFences = new();
+
+    private readonly Dictionary<Vector3Int, TileBase> originalRemovedFences = new()
+    {
+        {new(-5, -1, 0), null},
+        {new(-5, -2, 0), null},
+        {new(-2, -11, 0), null},
+        {new(-2, -12, 0), null},
+        {new(8, 0, 0), null},
+        {new(8, 1, 0), null},
+        {new(3, 8, 0), null},
+        {new(-3, 11, 0), null},
     };
     void Start()
     {
+        removedFences.AddRange(originalRemovedFences);
         animalCountText.text = "Current animal count: " + animalCount;
     }
 
@@ -54,22 +60,27 @@ public class GameManager : MonoBehaviour
             if (GameObject.FindGameObjectWithTag("Bear") == null)
             {
                 bearSpawner.SpawnAnimal();
-                foreach (Vector3Int position in removeAddFences)
+                foreach (Vector3Int position in removedFences.Keys)
                 {
-                    fences.SetTile(position, null);
+                    RemoveAddFence(true, position, false);
                 }
+                removedFences.Clear();
+                removedFences.AddRange(tempRemovedFences);
+                tempRemovedFences.Clear();
             }
         }
         else
         {
             if (GameObject.FindGameObjectWithTag("Bear") != null)
             {
-                inventoryManager.GetComponent<InventoryManager>().addDailyResources();
+                inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
                 Destroy(GameObject.FindGameObjectWithTag("Bear"));
-                foreach (Vector3Int position in removeAddFences)
+                foreach (Vector3Int position in removedFences.Keys)
                 {
-                    fences.SetTile(position, replacementFence);
+                    RemoveAddFence(false, position, false);
                 }
+                removedFences.Clear();
+                removedFences.AddRange(originalRemovedFences);
             }
             if (Input.GetMouseButtonDown(0))
             {
@@ -85,6 +96,25 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void RemoveAddFence(bool isRemoveFence, Vector3Int location, bool isBearBraking)
+    {
+        if (isRemoveFence)
+        {
+            if (isBearBraking)
+            {
+                removedFences.Add(location, fences.GetTile(location));
+                fences.SetTile(location, null);
+                return;
+            }
+            else
+            {
+                tempRemovedFences[location] = fences.GetTile(location);
+
+            }
+        }
+        fences.SetTile(location, removedFences[location]);
     }
     public void IncreaseAnimalCount()
     {

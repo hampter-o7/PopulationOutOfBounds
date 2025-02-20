@@ -17,26 +17,21 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
-        updateText();
+        UpdateText();
     }
 
-    void Update()
-    {
-
-    }
-
-    private void updateText()
+    private void UpdateText()
     {
         numberOfSeeds.text = seeds.ToString();
         numberOfGrass.text = grass.ToString();
         numberOfMeat.text = meat.ToString();
     }
 
-    public void addDailyResources()
+    public void AddDailyResources()
     {
         seeds += 5;
         grass += 5;
         meat += 5;
-        updateText();
+        UpdateText();
     }
 }
