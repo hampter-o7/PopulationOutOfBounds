@@ -5,25 +5,11 @@ public class AnimalSpawnerScript : MonoBehaviour
 {
     public GameObject prefabAnimal;
     public Sprite animalSprite;
-    //public Sprite chickenSprite;
-    //public Sprite chicSprite;
-    //public Sprite foxSprite;
-    //public Sprite wolfSprite;
-    //public Sprite sheepSprite;
-
 
     void Start()
     {
 
     }
-
-    /*void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            SpawnAnimal(animalSprite);
-        }
-    }*/
 
     public void SpawnAnimal()
     {

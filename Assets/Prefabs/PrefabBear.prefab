@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8923762560632541158}
   m_Layer: 8
   m_Name: PrefabBear
-  m_TagString: Animal
+  m_TagString: Bear
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,6 +105,5 @@ MonoBehaviour:
   fence: {fileID: 0}
   range: 10
   movementSpeed: 1
-  waitTime: 1
   stop: 0
   targetAnimals: []

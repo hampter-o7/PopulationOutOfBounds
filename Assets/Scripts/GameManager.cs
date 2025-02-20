@@ -3,34 +3,63 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System;
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _animalCountText;
-    [SerializeField] GameObject retryButton;
-    [SerializeField] GameObject spawnAnimalButtons;
+    public TextMeshProUGUI animalCountText;
+    public TextMeshProUGUI timer;
+
+    public GameObject retryButton;
+    public GameObject spawnAnimalButtons;
+    public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxAnimalCount = 20;
 
-    public int animalCount { get; private set; }
+    private float time = 0;
+    private int maxTime = 60 * 24;
+
+    public int animalCount;
     void Start()
     {
-
+        animalCountText.text = "Current animal count: " + animalCount;
     }
 
     void Update()
     {
-        _animalCountText.text = "Current animal count: " + animalCount;
-        CheckGameConditions();
+        time = (time + Time.deltaTime * 10) % maxTime;
+        timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), time % 60);
+        CheckTime();
     }
 
-    public void increaseAnimalCount()
+    void CheckTime()
+    {
+        if (((int)time) / 60 < 6 || ((int)time) / 60 > 22)
+        {
+            if (GameObject.FindGameObjectWithTag("Bear") == null)
+            {
+                bearSpawner.SpawnAnimal();
+            }
+        }
+        else
+        {
+            if (GameObject.FindGameObjectWithTag("Bear") != null)
+            {
+                Destroy(GameObject.FindGameObjectWithTag("Bear"));
+            }
+        }
+    }
+    public void IncreaseAnimalCount()
     {
         animalCount++;
+        animalCountText.text = "Current animal count: " + animalCount;
+        CheckGameConditions();
         Debug.Log("Animal Count Increased");
     }
 
-    public void decreaseAnimalCount()
+    public void DecreaseAnimalCount()
     {
         animalCount--;
+        animalCountText.text = "Current animal count: " + animalCount;
+        CheckGameConditions();
         Debug.Log("Animal Count Increased");
     }
 

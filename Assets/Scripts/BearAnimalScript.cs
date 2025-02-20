@@ -10,10 +10,8 @@ public class BearAnimalScript : MonoBehaviour
     public Tilemap ground;
     public Tilemap fence;
     Vector3 destPoint;
-    [SerializeField] float range = 10;
     [SerializeField] float movementSpeed = 1;
     public bool stop = false;
-    private float distanceToTargetAnimal;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
     private GameObject prey = null;
@@ -56,9 +54,14 @@ public class BearAnimalScript : MonoBehaviour
             return;
         }
         SearchForDest();
-
+        Vector3 prevPosition = transform.position;
         transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, destPoint) < 1)
+        Vector3Int fenceCheck = fence.WorldToCell(transform.position);
+        if (fence.HasTile(fenceCheck))
+        {
+            transform.position = prevPosition;
+        }
+        if (Vector3.Distance(transform.position, destPoint) < 0.5)
         {
             KillAnimal(prey);
         }
@@ -70,7 +73,7 @@ public class BearAnimalScript : MonoBehaviour
         Vector3 startPoint = transform.position;
         Vector3Int groundDest = ground.WorldToCell(destPoint);
 
-        if (ground.HasTile(groundDest) && IsPathClear(startPoint, destPoint))
+        if (ground.HasTile(groundDest))
         {
             bool wasFlipped = isFlipped;
             isFlipped = destPoint.x < startPoint.x;
@@ -79,22 +82,6 @@ public class BearAnimalScript : MonoBehaviour
                 sr.flipX = !sr.flipX;
             }
         }
-    }
-
-    bool IsPathClear(Vector3 start, Vector3 end)
-    {
-        float steps = range * range;
-        for (int i = 0; i <= steps; i++)
-        {
-            Vector3 point = Vector3.Lerp(start, end, i / (float)steps);
-            Vector3Int fenceCheck = fence.WorldToCell(point);
-
-            if (fence.HasTile(fenceCheck))
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void AddTargetAnimalsToList()
