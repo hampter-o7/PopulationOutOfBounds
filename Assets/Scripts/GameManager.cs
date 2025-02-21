@@ -18,12 +18,14 @@ public class GameManager : MonoBehaviour
     public AudioSource bearTheme;
 
     public GameObject retryButton;
+    public GameObject escMenu;
     public GameObject spawnAnimalButtons;
     public GameObject inventoryManager;
     public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxAnimalCount = 20;
 
     bool stop = false;
+    bool end = false;
     private float time = 21 * 60;
     private readonly int maxTime = 60 * 24;
 
@@ -45,11 +47,13 @@ public class GameManager : MonoBehaviour
     {
         removedFences.AddRange(originalRemovedFences);
         UpdateAnimalCountText();
-        PlayMusic(mainTheme);
+        mainTheme.Play();
     }
 
     void Update()
     {
+        if (end) return;
+        if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
         if (stop) return;
         time = (time + Time.deltaTime * 10) % maxTime;
         timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), time % 60);
@@ -62,57 +66,74 @@ public class GameManager : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("Bear") == null)
             {
-                bearSpawner.SpawnAnimal();
-                foreach (Vector3Int position in removedFences.Keys)
-                {
-                    RemoveAddFence(true, position, false);
-                }
-                removedFences.Clear();
-                removedFences.AddRange(tempRemovedFences);
-                tempRemovedFences.Clear();
+                StartNight();
             }
-            mainTheme.Stop();
-            Debug.Log("Stopped playing " + mainTheme.name);
-            PlayMusic(bearTheme);
-            Debug.Log("Now playing " + bearTheme.name);
         }
         else
         {
-            bearTheme.Stop();
-            Debug.Log("Stopped playing " + bearTheme.name);
-            PlayMusic(mainTheme);
-            Debug.Log("Now playing " + mainTheme.name);
             if (GameObject.FindGameObjectWithTag("Bear") != null)
             {
-                inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
-                Destroy(GameObject.FindGameObjectWithTag("Bear"));
-                foreach (Vector3Int position in removedFences.Keys)
-                {
-                    RemoveAddFence(false, position, false);
-                }
-                removedFences.Clear();
-                removedFences.AddRange(originalRemovedFences);
-                GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-                foreach (GameObject animal in animals)
-                {
-                    animal.GetComponent<AnimalScript>().hasDestPoint = false;
-                }
+                StartDay();
             }
 
-            if (Input.GetMouseButtonDown(0))
+            CheckMouseClicks();
+        }
+    }
+
+    private void StartNight()
+    {
+        bearSpawner.SpawnAnimal();
+        foreach (Vector3Int position in removedFences.Keys)
+        {
+            RemoveAddFence(true, position, false);
+        }
+        removedFences.Clear();
+        removedFences.AddRange(tempRemovedFences);
+        tempRemovedFences.Clear();
+        mainTheme.Stop();
+        bearTheme.Play();
+    }
+
+    private void StartDay()
+    {
+        inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
+        Destroy(GameObject.FindGameObjectWithTag("Bear"));
+        foreach (Vector3Int position in removedFences.Keys)
+        {
+            RemoveAddFence(false, position, false);
+        }
+        removedFences.Clear();
+        removedFences.AddRange(originalRemovedFences);
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        foreach (GameObject animal in animals)
+        {
+            animal.GetComponent<AnimalScript>().hasDestPoint = false;
+        }
+        bearTheme.Stop();
+        mainTheme.Play();
+    }
+
+    private void CheckMouseClicks()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+            foreach (GameObject animal in animals)
             {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-                foreach (GameObject animal in animals)
+                SpriteRenderer spriteRenderer = animal.GetComponent<SpriteRenderer>();
+                if (spriteRenderer.bounds.Contains(mousePosition))
                 {
-                    SpriteRenderer spriteRenderer = animal.GetComponent<SpriteRenderer>();
-                    if (spriteRenderer.bounds.Contains(mousePosition))
-                    {
-                        animal.GetComponent<AnimalScript>().SendIntoFence();
-                    }
+                    animal.GetComponent<AnimalScript>().SendIntoFence();
                 }
             }
         }
+    }
+
+    public void ShowEscMenu()
+    {
+        escMenu.SetActive(!stop);
+        StopStartGame(!stop);
     }
 
     public void RemoveAddFence(bool isRemoveFence, Vector3Int location, bool isBearBraking)
@@ -142,40 +163,29 @@ public class GameManager : MonoBehaviour
 
     private void CheckGameConditions()
     {
-        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-        if (animals.Count() > maxAnimalCount)
+        if (GameObject.FindGameObjectsWithTag("Animal").Count() > maxAnimalCount)
         {
-            if (GameObject.FindGameObjectWithTag("Bear") != null)
-            {
-                GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = true;
-            }
-
-            foreach (GameObject animal in animals)
-            {
-                animal.GetComponent<AnimalScript>().stop = true;
-            }
+            StopStartGame(true);
+            end = true;
             // Debug.Log("AnimalCount exceeded " + maxAnimalCount + " --- GAME OVER");
             retryButton.SetActive(true);
-            spawnAnimalButtons.SetActive(false);
-            stop = true;
-        }
-    }
-
-    private void PlayMusic(AudioSource theme)
-    {
-        if (!theme.isPlaying)
-        {
-            theme.Play();
-            Debug.Log(theme.name + " was not playing so i started playing it");
-        }
-        else
-        {
-            Debug.Log(theme.name + " was already playing so i aint do none");
         }
     }
 
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void StopStartGame(bool isStop)
+    {
+        if (GameObject.FindGameObjectWithTag("Bear") != null) GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = isStop;
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        foreach (GameObject animal in animals)
+        {
+            animal.GetComponent<AnimalScript>().stop = isStop;
+            spawnAnimalButtons.SetActive(!isStop);
+            stop = isStop;
+        }
     }
 }

@@ -15,7 +15,7 @@ public class BearAnimalScript : MonoBehaviour
     public bool stop = false;
     private Vector3 lastPosition;
     private float stuckTimer = 0;
-    private readonly float stuckTimerMax = 5;
+    private readonly float stuckTimerMax = 3;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
     private GameObject prey = null;
