@@ -15,7 +15,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int meat;
 
 
-    void Start()
+    void Update()
     {
         UpdateText();
     }
@@ -49,5 +49,19 @@ public class InventoryManager : MonoBehaviour
     {
         meat += numMeat;
         UpdateText();
+    }
+
+    public void ConsumeSeeds(int amount)
+    {
+        seeds -= amount;
+    }
+    public void ConsumeGrass(int amount)
+    {
+        grass -= amount;
+    }
+    public void ConsumeMeat(int amount)
+    {
+        meat -= amount;
+        Debug.Log("Yup, consumer " + amount + " meat. " + meat + " meat remaining");
     }
 }

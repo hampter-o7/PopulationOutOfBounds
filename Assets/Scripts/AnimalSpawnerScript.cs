@@ -5,6 +5,8 @@ public class AnimalSpawnerScript : MonoBehaviour
 {
     public GameObject prefabAnimal;
     public Sprite animalSprite;
+    public InventoryManager inventoryManager;
+    [SerializeField] int animalCost;
 
     void Start()
     {
@@ -19,6 +21,26 @@ public class AnimalSpawnerScript : MonoBehaviour
         if (spawnedAnimal.GetComponent<AnimalScript>() != null)
         {
             spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
+        }
+
+        switch (animalSprite.name)
+        {
+            case "Chicken":
+                inventoryManager.ConsumeSeeds(3);
+                break;
+            case "Cow":
+                inventoryManager.ConsumeGrass(7);
+                break;
+            case "Sheep":
+                inventoryManager.ConsumeGrass(5);
+                break;
+            case "Fox":
+                inventoryManager.ConsumeMeat(2);
+                Debug.Log("Spawned Fox, consumed 2 meat");
+                break;
+            case "Wolf":
+                inventoryManager.ConsumeMeat(4);
+                break;
         }
     }
 }

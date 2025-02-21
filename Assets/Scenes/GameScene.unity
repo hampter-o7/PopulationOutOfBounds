@@ -10750,6 +10750,10 @@ PrefabInstance:
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 1153976805, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1753073613}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12672,6 +12676,10 @@ PrefabInstance:
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 295433193, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1753073613}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12852,6 +12860,10 @@ PrefabInstance:
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 4591469621628248817, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1753073613}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12926,9 +12938,17 @@ PrefabInstance:
       value: ChickenSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: animalCost
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 8233521805015788675, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1753073613}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13003,9 +13023,17 @@ PrefabInstance:
       value: FoxSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: animalCost
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: -1183179499, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1753073613}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
