@@ -34,34 +34,26 @@ public class InventoryManager : MonoBehaviour
         UpdateText();
     }
 
-    public void ChangeSeedsValue(int numSeeds)
+    public bool ChangeSeedsValue(int numSeeds)
     {
+        if (seeds + numSeeds < 0) return false;
         seeds += numSeeds;
         UpdateText();
+        return true;
     }
-    public void ChangeGrassValue(int numGrass)
+    public bool ChangeGrassValue(int numGrass)
     {
+        if (grass + numGrass < 0) return false;
         grass += numGrass;
         UpdateText();
+        return true;
     }
 
-    public void ChangeMeatValue(int numMeat)
+    public bool ChangeMeatValue(int numMeat)
     {
+        if (meat + numMeat < 0) return false;
         meat += numMeat;
         UpdateText();
-    }
-
-    public void ConsumeSeeds(int amount)
-    {
-        seeds -= amount;
-    }
-    public void ConsumeGrass(int amount)
-    {
-        grass -= amount;
-    }
-    public void ConsumeMeat(int amount)
-    {
-        meat -= amount;
-        Debug.Log("Yup, consumer " + amount + " meat. " + meat + " meat remaining");
+        return true;
     }
 }

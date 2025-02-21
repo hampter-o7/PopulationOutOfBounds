@@ -15,6 +15,26 @@ public class AnimalSpawnerScript : MonoBehaviour
 
     public void SpawnAnimal()
     {
+        bool doSpawn = true;
+        switch (animalSprite.name)
+        {
+            case "Chicken":
+                doSpawn = inventoryManager.ChangeSeedsValue(-3);
+                break;
+            case "Cow":
+                doSpawn = inventoryManager.ChangeGrassValue(-7);
+                break;
+            case "Sheep":
+                doSpawn = inventoryManager.ChangeGrassValue(-5);
+                break;
+            case "Fox":
+                doSpawn = inventoryManager.ChangeMeatValue(-2);
+                break;
+            case "Wolf":
+                doSpawn = inventoryManager.ChangeMeatValue(-4);
+                break;
+        }
+        if (!doSpawn) return;
         GameObject spawnedAnimal = Instantiate(prefabAnimal, transform.position, transform.rotation);
         SpriteRenderer spriteRenderer = spawnedAnimal.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = animalSprite;
@@ -23,24 +43,6 @@ public class AnimalSpawnerScript : MonoBehaviour
             spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
         }
 
-        switch (animalSprite.name)
-        {
-            case "Chicken":
-                inventoryManager.ConsumeSeeds(3);
-                break;
-            case "Cow":
-                inventoryManager.ConsumeGrass(7);
-                break;
-            case "Sheep":
-                inventoryManager.ConsumeGrass(5);
-                break;
-            case "Fox":
-                inventoryManager.ConsumeMeat(2);
-                Debug.Log("Spawned Fox, consumed 2 meat");
-                break;
-            case "Wolf":
-                inventoryManager.ConsumeMeat(4);
-                break;
-        }
+
     }
 }

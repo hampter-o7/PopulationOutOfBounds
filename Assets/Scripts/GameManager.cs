@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxAnimalCount = 20;
 
-    private SoundManager soundManager;
+    public SoundManager soundManager;
 
     bool stop = false;
     bool end = false;
@@ -47,21 +47,20 @@ public class GameManager : MonoBehaviour
     {
         removedFences.AddRange(originalRemovedFences);
         UpdateAnimalCountText();
-        soundManager = FindObjectOfType<SoundManager>();
     }
 
     void Update()
     {
-        if (end) return;
-        if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
-        if (stop) return;
-        time = (time + Time.deltaTime * 10) % maxTime;
-        timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), time % 60);
-        CheckTime();
         if (soundManager == null)
         {
             soundManager = FindObjectOfType<SoundManager>();
         }
+        if (end) return;
+        if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
+        if (stop) return;
+        time = (time + Time.deltaTime * 10) % maxTime;
+        timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
+        CheckTime();
     }
 
     void CheckTime()
@@ -99,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     private void StartDay()
     {
-        soundManager.PlayMainTheme();
+        soundManager.GetComponent<SoundManager>().PlayMainTheme();
         inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
         Destroy(GameObject.FindGameObjectWithTag("Bear"));
         foreach (Vector3Int position in removedFences.Keys)
@@ -194,11 +193,11 @@ public class GameManager : MonoBehaviour
 
     public void MuteSound()
     {
-        soundManager.MuteSound();
+        soundManager.GetComponent<SoundManager>().MuteSound();
     }
 
     public void EnableSound()
     {
-        soundManager.EnableSound();
+        soundManager.GetComponent<SoundManager>().EnableSound();
     }
 }

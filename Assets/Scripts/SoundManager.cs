@@ -8,8 +8,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource sFX;
 
     [Header("-------Audio Clip-------")]
-    [SerializeField] AudioClip MainThememusic;
-    [SerializeField] AudioClip BearThememusic;
+    [SerializeField] AudioClip MainThemeMusic;
+    [SerializeField] AudioClip BearThemeMusic;
 
     public static SoundManager instance;
 
@@ -17,8 +17,6 @@ public class SoundManager : MonoBehaviour
     private float audioTransitionTime = 2000f;
 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
     {
@@ -34,24 +32,22 @@ public class SoundManager : MonoBehaviour
     }
     void Start()
     {
-        music.clip = MainThememusic;
+        music.clip = MainThemeMusic;
         music.Play();
 
-        foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
-        {
-            audioSources.Add(audioSource);
-        }
+        audioSources.Add(music);
+        audioSources.Add(sFX);
     }
 
     public void PlayMainTheme()
     {
-        music.clip = MainThememusic;
+        music.clip = MainThemeMusic;
         music.Play();
     }
 
     public void PlayBearTheme()
     {
-        music.clip = BearThememusic;
+        music.clip = BearThemeMusic;
         music.Play();
     }
 

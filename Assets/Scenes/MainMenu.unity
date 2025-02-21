@@ -391,6 +391,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audiomanager
       objectReference: {fileID: 0}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: BearThemeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 25ddbc80f8a68d74d8fdea7913be3a8b, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: MainThemeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 0a2b522e216d37a4eb8f8c36cd42eb69, type: 3}
     - target: {fileID: 7663523232465482945, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1013.3722
