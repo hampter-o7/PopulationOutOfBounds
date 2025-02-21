@@ -12,11 +12,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip BearThemeMusic;
 
     public static SoundManager instance;
-
-    private List<AudioSource> audioSources = new List<AudioSource>();
-    private float audioTransitionTime = 2000f;
-
-    bool isMuted = false;
+    public bool isSFXMuted = false;
+    public bool isMusicMuted = false;
 
 
     private void Awake()
@@ -35,9 +32,6 @@ public class SoundManager : MonoBehaviour
     {
         music.clip = MainThemeMusic;
         music.Play();
-
-        audioSources.Add(music);
-        audioSources.Add(sFX);
     }
 
     public void PlayMainTheme()
@@ -52,24 +46,14 @@ public class SoundManager : MonoBehaviour
         music.Play();
     }
 
-
-    public void MuteSound()
+    public void MuteEnableMusic()
     {
-        isMuted = true;
-        foreach (AudioSource audioSource in audioSources)
-        {
-            audioSource.volume = Mathf.Lerp(1f, 0f, audioTransitionTime);
-            Debug.Log("Set audio of " + audioSource.name + " to 0");
-        }
+        isMusicMuted = !isMusicMuted;
+        music.volume = isMusicMuted ? 0 : 1;
     }
-
-    public void EnableSound()
+    public void MuteEnableSFX()
     {
-        isMuted = false;
-        foreach (AudioSource audioSource in audioSources)
-        {
-            audioSource.volume = Mathf.Lerp(0f, 1f, audioTransitionTime);
-            Debug.Log("Set audio of " + audioSource.name + " to 1");
-        }
+        isSFXMuted = !isSFXMuted;
+        sFX.volume = isSFXMuted ? 0 : 1;
     }
 }

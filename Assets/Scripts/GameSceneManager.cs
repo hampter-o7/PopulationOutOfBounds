@@ -21,4 +21,9 @@ public class GameSceneManager : MonoBehaviour
         soundManager.PlayMainTheme();
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

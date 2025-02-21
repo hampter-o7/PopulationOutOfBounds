@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Unity.VisualScripting;
 using System;
 using UnityEngine.Tilemaps;
@@ -19,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject spawnAnimalButtons;
     public GameObject inventoryManager;
+    public GameObject settingsManager;
     public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxAnimalCount = 20;
 
@@ -191,13 +191,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void MuteSound()
+    public void MuteEnableMusic()
     {
-        soundManager.GetComponent<SoundManager>().MuteSound();
+        soundManager.GetComponent<SoundManager>().MuteEnableMusic();
+        settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
     }
 
-    public void EnableSound()
+    public void MuteEnableSFX()
     {
-        soundManager.GetComponent<SoundManager>().EnableSound();
+        soundManager.GetComponent<SoundManager>().MuteEnableSFX();
+        settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
     }
 }
