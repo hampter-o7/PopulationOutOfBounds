@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         if (soundManager == null)
         {
-            soundManager = FindObjectOfType<SoundManager>();
+            soundManager = FindFirstObjectByType<SoundManager>();
         }
         if (end) return;
         if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();

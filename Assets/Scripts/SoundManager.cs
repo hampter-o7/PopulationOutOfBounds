@@ -16,6 +16,7 @@ public class SoundManager : MonoBehaviour
     private List<AudioSource> audioSources = new List<AudioSource>();
     private float audioTransitionTime = 2000f;
 
+    bool isMuted = false;
 
 
     private void Awake()
@@ -54,6 +55,7 @@ public class SoundManager : MonoBehaviour
 
     public void MuteSound()
     {
+        isMuted = true;
         foreach (AudioSource audioSource in audioSources)
         {
             audioSource.volume = Mathf.Lerp(1f, 0f, audioTransitionTime);
@@ -63,6 +65,7 @@ public class SoundManager : MonoBehaviour
 
     public void EnableSound()
     {
+        isMuted = false;
         foreach (AudioSource audioSource in audioSources)
         {
             audioSource.volume = Mathf.Lerp(0f, 1f, audioTransitionTime);
