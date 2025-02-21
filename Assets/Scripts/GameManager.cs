@@ -5,7 +5,9 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
+using UnityEngine.Rendering.Universal;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI animalCountText;
@@ -23,6 +25,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxAnimalCount = 20;
 
     public SoundManager soundManager;
+
+    private bool isLightActive = true;
+    private List<Light2D> lights = new List<Light2D>();
+    [SerializeField] private float lightTransitionTime = 180f;
+
 
     bool stop = false;
     bool end = false;
@@ -47,6 +54,20 @@ public class GameManager : MonoBehaviour
     {
         removedFences.AddRange(originalRemovedFences);
         UpdateAnimalCountText();
+
+        foreach (Light2D light in FindObjectsByType<Light2D>(FindObjectsSortMode.None))
+        {
+            if (light != null)
+            {
+                lights.Add(light);
+                Debug.Log("Light " + light.name + " added");
+            }
+            else
+            {
+                Debug.Log("Light was supposedly null");
+            }
+            light.intensity = light.lightType == Light2D.LightType.Global ? 1 : 0;
+        }
     }
 
     void Update()
@@ -85,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     private void StartNight()
     {
+        ToggleLights();
         soundManager.PlayBearTheme();
         bearSpawner.SpawnAnimal();
         foreach (Vector3Int position in removedFences.Keys)
@@ -98,6 +120,7 @@ public class GameManager : MonoBehaviour
 
     private void StartDay()
     {
+        ToggleLights();
         soundManager.GetComponent<SoundManager>().PlayMainTheme();
         inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
         Destroy(GameObject.FindGameObjectWithTag("Bear"));
@@ -128,6 +151,36 @@ public class GameManager : MonoBehaviour
                     animal.GetComponent<AnimalScript>().SendIntoFence();
                 }
             }
+        }
+    }
+
+    private void ToggleLights()
+    {
+        isLightActive = !isLightActive;
+        StartCoroutine(FadeLights());
+    }
+
+    private IEnumerator FadeLights()
+    {
+        float startTime = 0f;
+        while (startTime < lightTransitionTime)
+        {
+
+            foreach (Light2D light in lights)
+            {
+                if (light.lightType != Light2D.LightType.Global)
+                {
+                    light.intensity = isLightActive ? Mathf.Lerp(1, 0, startTime / lightTransitionTime) : Mathf.Lerp(0, 1, startTime / lightTransitionTime);
+                    //Debug.Log("Light aint global, so Im turning it on");
+                }
+                else
+                {
+                    light.intensity = isLightActive ? Mathf.Lerp(0, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0, startTime / lightTransitionTime);
+                    //Debug.Log("Light is global, so Im turning it off"); ;
+                }
+            }
+            startTime += Time.deltaTime;
+            yield return null;
         }
     }
 
