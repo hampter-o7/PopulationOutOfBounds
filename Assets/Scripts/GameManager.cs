@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject retryButton;
     public GameObject escMenu;
+    public GameObject settingsMenu;
     public GameObject spawnAnimalButtons;
     public GameObject inventoryManager;
     public AnimalSpawnerScript bearSpawner;
@@ -134,6 +135,7 @@ public class GameManager : MonoBehaviour
     {
         escMenu.SetActive(!stop);
         StopStartGame(!stop);
+        settingsMenu.SetActive(false);
     }
 
     public void RemoveAddFence(bool isRemoveFence, Vector3Int location, bool isBearBraking)
