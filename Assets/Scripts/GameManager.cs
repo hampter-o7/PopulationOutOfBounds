@@ -14,9 +14,6 @@ public class GameManager : MonoBehaviour
     public Tilemap fences;
     public Tile replacementFence;
 
-    public AudioSource mainTheme;
-    public AudioSource bearTheme;
-
     public GameObject retryButton;
     public GameObject escMenu;
     public GameObject settingsMenu;
@@ -24,6 +21,8 @@ public class GameManager : MonoBehaviour
     public GameObject inventoryManager;
     public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxAnimalCount = 20;
+
+    private SoundManager soundManager;
 
     bool stop = false;
     bool end = false;
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
     {
         removedFences.AddRange(originalRemovedFences);
         UpdateAnimalCountText();
-        mainTheme.Play();
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     void Update()
@@ -59,6 +58,10 @@ public class GameManager : MonoBehaviour
         time = (time + Time.deltaTime * 10) % maxTime;
         timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), time % 60);
         CheckTime();
+        if (soundManager == null)
+        {
+            soundManager = FindObjectOfType<SoundManager>();
+        }
     }
 
     void CheckTime()
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     private void StartNight()
     {
+        soundManager.PlayBearTheme();
         bearSpawner.SpawnAnimal();
         foreach (Vector3Int position in removedFences.Keys)
         {
@@ -91,12 +95,11 @@ public class GameManager : MonoBehaviour
         removedFences.Clear();
         removedFences.AddRange(tempRemovedFences);
         tempRemovedFences.Clear();
-        mainTheme.Stop();
-        bearTheme.Play();
     }
 
     private void StartDay()
     {
+        soundManager.PlayMainTheme();
         inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
         Destroy(GameObject.FindGameObjectWithTag("Bear"));
         foreach (Vector3Int position in removedFences.Keys)
@@ -110,8 +113,6 @@ public class GameManager : MonoBehaviour
         {
             animal.GetComponent<AnimalScript>().hasDestPoint = false;
         }
-        bearTheme.Stop();
-        mainTheme.Play();
     }
 
     private void CheckMouseClicks()
@@ -189,5 +190,15 @@ public class GameManager : MonoBehaviour
             spawnAnimalButtons.SetActive(!isStop);
             stop = isStop;
         }
+    }
+
+    public void MuteSound()
+    {
+        soundManager.MuteSound();
+    }
+
+    public void EnableSound()
+    {
+        soundManager.EnableSound();
     }
 }
