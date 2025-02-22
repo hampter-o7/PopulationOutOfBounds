@@ -47,9 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 1492205942866155423}
-  sFX: {fileID: 6791458122022359702}
-  MainThememusic: {fileID: 8300000, guid: 0a2b522e216d37a4eb8f8c36cd42eb69, type: 3}
-  BearThememusic: {fileID: 8300000, guid: 25ddbc80f8a68d74d8fdea7913be3a8b, type: 3}
+  SFX: {fileID: 6791458122022359702}
+  MainThemeMusic: {fileID: 8300000, guid: 0a2b522e216d37a4eb8f8c36cd42eb69, type: 3}
+  BearThemeMusic: {fileID: 8300000, guid: 25ddbc80f8a68d74d8fdea7913be3a8b, type: 3}
+  bearEating: {fileID: 8300000, guid: daeab8ebcba65a744823e28faf33fc85, type: 3}
+  isSFXMuted: 0
+  isMusicMuted: 0
 --- !u!1 &3412690905333075740
 GameObject:
   m_ObjectHideFlags: 0

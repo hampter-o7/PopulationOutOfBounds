@@ -171,7 +171,6 @@ public class GameManager : MonoBehaviour
             }
             foreach (GameObject poop in poops)
             {
-                Debug.Log("I found poop");
                 SpriteRenderer spriteRenderer = poop.GetComponent<SpriteRenderer>();
                 if (spriteRenderer.bounds.Contains(mousePosition))
                 {
@@ -302,7 +301,6 @@ public class GameManager : MonoBehaviour
             StopStartGame(true);
             end = true;
             retryButton.SetActive(true);
-            ReloadScene();
         }
     }
 

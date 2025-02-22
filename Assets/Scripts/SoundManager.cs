@@ -5,11 +5,13 @@ public class SoundManager : MonoBehaviour
 {
     [Header("-------Audio Source-------")]
     public AudioSource music;
-    public AudioSource sFX;
+    public AudioSource SFX;
 
     [Header("-------Audio Clip-------")]
     [SerializeField] AudioClip MainThemeMusic;
     [SerializeField] AudioClip BearThemeMusic;
+
+    [SerializeField] AudioClip bearEating;
 
     public static SoundManager instance;
     public bool isSFXMuted = false;
@@ -47,6 +49,12 @@ public class SoundManager : MonoBehaviour
         music.Play();
     }
 
+    public void PlaySFX(int clipNum)
+    {
+        SFX.clip = bearEating;
+        SFX.Play();
+    }
+
     public void MuteEnableMusic()
     {
         isMusicMuted = !isMusicMuted;
@@ -55,6 +63,6 @@ public class SoundManager : MonoBehaviour
     public void MuteEnableSFX()
     {
         isSFXMuted = !isSFXMuted;
-        sFX.volume = isSFXMuted ? 0 : 1;
+        SFX.volume = isSFXMuted ? 0 : 1;
     }
 }
