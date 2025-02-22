@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     bool stop = false;
     bool escMenuActive = false;
     bool end = false;
-    public float time = 21 * 60;
+    public float time = 6 * 60;
     private readonly int maxTime = 24 * 60;
 
     private Dictionary<Vector3Int, TileBase> removedFences = new();
@@ -56,14 +56,7 @@ public class GameManager : MonoBehaviour
 
     private readonly Dictionary<Vector3Int, TileBase> originalRemovedFences = new()
     {
-        {new(-5, -1, 0), null},
-        {new(-5, -2, 0), null},
-        {new(-2, -11, 0), null},
-        {new(-2, -12, 0), null},
-        {new(8, 0, 0), null},
-        {new(8, 1, 0), null},
-        {new(3, 8, 0), null},
-        {new(-3, 11, 0), null},
+        {new(-1, -1, 0), null},
     };
     void Start()
     {
@@ -231,11 +224,11 @@ public class GameManager : MonoBehaviour
             {
                 if (light.lightType != Light2D.LightType.Global)
                 {
-                    light.intensity = isLightActive ? Mathf.Lerp(1, 0.2f, startTime / lightTransitionTime) : Mathf.Lerp(0.2f, 1, startTime / lightTransitionTime);
+                    light.intensity = isLightActive ? Mathf.Lerp(1, 0, startTime / lightTransitionTime) : Mathf.Lerp(0, 1, startTime / lightTransitionTime);
                 }
                 else
                 {
-                    light.intensity = isLightActive ? Mathf.Lerp(0.2f, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0.2f, startTime / lightTransitionTime);
+                    light.intensity = isLightActive ? Mathf.Lerp(0, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0, startTime / lightTransitionTime);
                 }
             }
             startTime += Time.deltaTime;

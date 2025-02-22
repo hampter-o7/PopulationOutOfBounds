@@ -248,7 +248,7 @@ TextureImporter:
       name: Tiles_6
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 0
         width: 32
         height: 32
@@ -262,6 +262,50 @@ TextureImporter:
       bones: []
       spriteID: 426099234e76669419f1ee2f6dac1d65
       internalID: -1444073157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 245924bebf21c0f4d87d9d9faea45201
+      internalID: -563097526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a512e94f18497bb45a7a7264d94615ff
+      internalID: -292204745
       vertices: []
       indices: 
       edges: []
@@ -287,6 +331,8 @@ TextureImporter:
       Tiles_4: -2096005257
       Tiles_5: 1519340546
       Tiles_6: -1444073157
+      Tiles_7: -563097526
+      Tiles_8: -292204745
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

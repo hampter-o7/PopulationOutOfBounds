@@ -51,8 +51,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(int clipNum)
     {
-        SFX.clip = bearEating;
-        SFX.Play();
+        SFX.PlayOneShot(bearEating);
     }
 
     public void MuteEnableMusic()
