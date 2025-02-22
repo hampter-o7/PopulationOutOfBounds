@@ -57,6 +57,19 @@ public class GameManager : MonoBehaviour
     private readonly Dictionary<Vector3Int, TileBase> originalRemovedFences = new()
     {
         {new(-1, -1, 0), null},
+        {new(-6, 2, 0), null},
+        {new(-3, 8, 0), null},
+        {new(4, 11, 0), null},
+        {new(13, 3, 0), null},
+        {new(13, 4, 0), null},
+        {new(17, 0, 0), null},
+        {new(18, 0, 0), null},
+        {new(10, -8, 0), null},
+        {new(6, -13, 0), null},
+        {new(-4, -16, 0), null},
+        {new(-5, -13, 0), null},
+        {new(-10, -13, 0), null},
+
     };
     void Start()
     {
@@ -285,13 +298,13 @@ public class GameManager : MonoBehaviour
         wolfCountText.text = wolfs.ToString();
 
         int[] allAnimals = { chickens, cows, sheep, foxes, wolfs };
-        if (CheckAllAnimalsCount(allAnimals, 0, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 0, 10));
-        if (CheckAllAnimalsCount(allAnimals, 1, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 1, 10));
-        if (CheckAllAnimalsCount(allAnimals, 2, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 2, 10));
-        if (CheckAllAnimalsCount(allAnimals, 3, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 3, 10));
-        if (CheckAllAnimalsCount(allAnimals, 4, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 4, 10));
-        if (chickens != 0 && chickens * 3 <= foxes) KillAllAnimalsWithName(0);
-        if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(2);
+        if (CheckAllAnimalsCount(allAnimals, 0, 10) != -1) KillAllAnimalsWithName(0, CheckAllAnimalsCount(allAnimals, 0, 10));
+        if (CheckAllAnimalsCount(allAnimals, 1, 10) != -1) KillAllAnimalsWithName(1, CheckAllAnimalsCount(allAnimals, 1, 10));
+        if (CheckAllAnimalsCount(allAnimals, 2, 10) != -1) KillAllAnimalsWithName(2, CheckAllAnimalsCount(allAnimals, 2, 10));
+        if (CheckAllAnimalsCount(allAnimals, 3, 10) != -1) KillAllAnimalsWithName(3, CheckAllAnimalsCount(allAnimals, 3, 10));
+        if (CheckAllAnimalsCount(allAnimals, 4, 10) != -1) KillAllAnimalsWithName(4, CheckAllAnimalsCount(allAnimals, 4, 10));
+        if (chickens != 0 && chickens * 3 <= foxes) KillAllAnimalsWithName(3, 0);
+        if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(4, 2);
         if (allAnimals.Count(animal => animal == 0) > 3)
         {
             stop = true;
@@ -311,13 +324,15 @@ public class GameManager : MonoBehaviour
         return -1;
     }
 
-    private void KillAllAnimalsWithName(int name)
+    private void KillAllAnimalsWithName(int killer, int killed)
     {
-        string stringName = name == 0 ? "Chicken" : name == 1 ? "Cow" : name == 2 ? "Sheep" : name == 3 ? "Fox" : "Wolf";
+        string killedName = killed == 0 ? "Chicken" : killed == 1 ? "Cow" : killed == 2 ? "Sheep" : killed == 3 ? "Fox" : "Wolf";
+        string killerName = killer == 0 ? "Chicken" : killer == 1 ? "Cow" : killer == 2 ? "Sheep" : killer == 3 ? "Fox" : "Wolf";
+
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         animals.ToList().ForEach(animal =>
         {
-            if (animal.GetComponent<SpriteRenderer>().sprite.name.Equals(stringName))
+            if (animal.GetComponent<SpriteRenderer>().sprite.name.Equals(killedName))
             {
                 animal.SetActive(false);
                 Destroy(animal);

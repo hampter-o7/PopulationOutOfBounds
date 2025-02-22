@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimalSpawnerScript : MonoBehaviour
@@ -8,6 +9,13 @@ public class AnimalSpawnerScript : MonoBehaviour
     public InventoryManager inventoryManager;
     public GameManager gameManager;
     [SerializeField] int animalCost;
+
+    private Vector3[] bearSpawningPositions =  {
+        new(-0.442f, 8.703f, 0),
+        new(-15.28f, -1.31f, 0),
+        new(3.56f, -11.45f, 0),
+        new(17.56f, -0.17f, 0),
+    };
 
     void Start()
     {
@@ -39,7 +47,7 @@ public class AnimalSpawnerScript : MonoBehaviour
             }
         }
         if (!doSpawn) return;
-        GameObject spawnedAnimal = Instantiate(prefabAnimal, transform.position, transform.rotation);
+        GameObject spawnedAnimal = Instantiate(prefabAnimal, animalSprite.name.Equals("Bear") ? bearSpawningPositions[UnityEngine.Random.Range(0, 4)] : transform.position, transform.rotation);
         SpriteRenderer spriteRenderer = spawnedAnimal.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = animalSprite;
         if (spawnedAnimal.GetComponent<AnimalScript>() != null)
@@ -47,6 +55,5 @@ public class AnimalSpawnerScript : MonoBehaviour
             spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
         }
         if (!isStart) gameManager.GetComponent<GameManager>().CheckGameConditions();
-
     }
 }

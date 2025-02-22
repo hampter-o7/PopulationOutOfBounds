@@ -21,6 +21,7 @@ public class BearAnimalScript : MonoBehaviour
     private float tempDistanceToTargetAnimal;
     private GameObject prey = null;
 
+
     [SerializeField] List<GameObject> targetAnimals = new List<GameObject>();
 
     void Start()
