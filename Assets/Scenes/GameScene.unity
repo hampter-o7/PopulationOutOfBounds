@@ -16090,7 +16090,7 @@ MonoBehaviour:
   settingsManager: {fileID: 1737933676}
   gameSceneManager: {fileID: 2004451995}
   bearSpawner: {fileID: 1453324058}
-  maxWinAnimalCount: 7
+  maxWinAnimalCount: 20
   soundManager: {fileID: 1210054038}
   lightTransitionTime: 2
 --- !u!1660057539 &9223372036854775807

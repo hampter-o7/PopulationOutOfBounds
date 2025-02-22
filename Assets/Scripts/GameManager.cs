@@ -219,16 +219,47 @@ public class GameManager : MonoBehaviour
 
     private void CheckGameConditions()
     {
-        if (GameObject.FindGameObjectsWithTag("Animal").Count() >= maxWinAnimalCount)
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        if (animals.Count() >= maxWinAnimalCount)
         {
             StopStartGame(true);
             end = true;
             gameSceneManager.GetComponent<GameSceneManager>().LoadCreditsScene();
         }
+        int chickens = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Chicken"));
+        int cows = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Cow"));
+        int wolfs = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Wolf"));
+        int foxes = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Fox"));
+        int sheep = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Sheep"));
+        int[] allAnimals = { chickens, cows, wolfs, foxes, sheep };
+        if (CheckAllAnimalsCount(allAnimals, 0, 10) ||
+            CheckAllAnimalsCount(allAnimals, 1, 10) ||
+            CheckAllAnimalsCount(allAnimals, 2, 10) ||
+            CheckAllAnimalsCount(allAnimals, 3, 10) ||
+            CheckAllAnimalsCount(allAnimals, 4, 10) ||
+            chickens != 0 && chickens * 3 <= foxes ||
+            sheep != 0 && sheep * 5 <= wolfs ||
+            allAnimals.Count(animal => animal == 0) > 3)
+        {
+            StopStartGame(true);
+            end = true;
+            retryButton.SetActive(true);
+        }
+    }
+
+    private bool CheckAllAnimalsCount(int[] allAnimals, int animal, int maxCount)
+    {
+        for (int i = 0; i < allAnimals.Length; i++)
+        {
+            if (i == animal || allAnimals[i] == 0) continue;
+            if (allAnimals[animal] >= allAnimals[i] * maxCount) return true;
+        }
+        return false;
     }
 
     public void ReloadScene()
     {
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
