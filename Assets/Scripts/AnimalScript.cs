@@ -3,11 +3,12 @@ using UnityEngine.Tilemaps;
 
 public class AnimalScript : MonoBehaviour
 {
-    private Sprite image;
     public SpriteRenderer sr;
     private bool isFlipped = false;
     public Tilemap ground;
     public Tilemap fence;
+    public GameManager gameManager;
+    public GameObject poopPrefab;
     public Vector3 spawnPoint;
     Vector3 destPoint;
     public bool hasDestPoint;
@@ -16,37 +17,53 @@ public class AnimalScript : MonoBehaviour
     [SerializeField] float movementSpeed = 1;
     [SerializeField] float waitTime = 1;
     public bool stop = false;
+    private bool didPoopThisNight = false;
+    private float poopTime = 1;
 
     void Start()
     {
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        poopPrefab = Resources.Load<GameObject>("Poop");
     }
 
     void Update()
     {
-        if (stop)
-        {
-            return;
-        }
-        if (waitTimeLeft <= 0)
-        {
-            AnimalMovement();
-        }
-        else
-        {
-            waitTimeLeft -= Time.deltaTime;
-        }
+        if (stop) return;
+        CheckIfCanPoop();
+        if (waitTimeLeft <= 0) AnimalMovement();
+        else waitTimeLeft -= Time.deltaTime;
     }
 
     public void AnimalMovement()
     {
         if (!hasDestPoint) SearchForDest();
-        if (hasDestPoint) transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
+        if (hasDestPoint)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
+        }
         if (Vector3.Distance(transform.position, destPoint) < 1)
         {
             hasDestPoint = false;
             waitTimeLeft += waitTime;
+        }
+    }
+
+    private void CheckIfCanPoop()
+    {
+        poopTime -= Time.deltaTime;
+        if (poopTime > 0) return;
+        poopTime = 1;
+        if (!didPoopThisNight && (gameManager.time < 6 * 60))
+        {
+            int max = (int)(6 * 60 / gameManager.time);
+            int rand = Random.Range(0, max);
+            if (rand + 1 == max)
+            {
+                didPoopThisNight = true;
+                GameObject spawnedAnimal = Instantiate(poopPrefab, transform.position, transform.rotation);
+            }
         }
     }
 

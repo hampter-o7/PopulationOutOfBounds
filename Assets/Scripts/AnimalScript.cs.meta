@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: d26d3088e71e15c4ab96c30d09ecfec4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - sr: {instanceID: 0}
+  - ground: {instanceID: 0}
+  - fence: {instanceID: 0}
+  - gameManager: {instanceID: 0}
+  - poopPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

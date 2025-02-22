@@ -45,8 +45,8 @@ public class GameManager : MonoBehaviour
 
     bool stop = false;
     bool end = false;
-    private float time = 6 * 60;
-    private readonly int maxTime = 60 * 24;
+    public float time = 21 * 60;
+    private readonly int maxTime = 24 * 60;
 
     private Dictionary<Vector3Int, TileBase> removedFences = new();
     private Dictionary<Vector3Int, TileBase> tempRemovedFences = new();
@@ -160,12 +160,24 @@ public class GameManager : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+            GameObject[] poops = GameObject.FindGameObjectsWithTag("Poop");
             foreach (GameObject animal in animals)
             {
                 SpriteRenderer spriteRenderer = animal.GetComponent<SpriteRenderer>();
                 if (spriteRenderer.bounds.Contains(mousePosition))
                 {
                     animal.GetComponent<AnimalScript>().SendIntoFence();
+                }
+            }
+            foreach (GameObject poop in poops)
+            {
+                Debug.Log("I found poop");
+                SpriteRenderer spriteRenderer = poop.GetComponent<SpriteRenderer>();
+                if (spriteRenderer.bounds.Contains(mousePosition))
+                {
+                    poop.SetActive(false);
+                    Destroy(poop);
+                    inventoryManager.GetComponent<InventoryManager>().ChangeManureValue(1);
                 }
             }
         }
@@ -290,6 +302,7 @@ public class GameManager : MonoBehaviour
             StopStartGame(true);
             end = true;
             retryButton.SetActive(true);
+            ReloadScene();
         }
     }
 
@@ -322,6 +335,7 @@ public class GameManager : MonoBehaviour
     {
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        soundManager.GetComponent<SoundManager>().PlayMainTheme();
     }
 
     private void StopStartGame(bool isStop)
