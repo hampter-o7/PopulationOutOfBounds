@@ -46,7 +46,7 @@ public class AnimalSpawnerScript : MonoBehaviour
         {
             spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
         }
-        if (!isStart) gameManager.GetComponent<GameManager>().UpdateAnimalCountText();
+        if (!isStart) gameManager.GetComponent<GameManager>().CheckGameConditions();
 
     }
 }

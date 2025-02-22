@@ -122,7 +122,7 @@ public class BearAnimalScript : MonoBehaviour
         Destroy(prey);
         prey = null;
         minimalDistanceToTargetAnimal = float.MaxValue;
-        gameManager.UpdateAnimalCountText();
+        gameManager.CheckGameConditions();
         eatAnimalTimer = 3;
     }
 }

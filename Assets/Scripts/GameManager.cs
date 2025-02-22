@@ -10,7 +10,12 @@ using System.Linq;
 using UnityEngine.Rendering.Universal;
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI animalCountText;
+    public TextMeshProUGUI chickenCountText;
+    public TextMeshProUGUI cowCountText;
+    public TextMeshProUGUI sheepCountText;
+    public TextMeshProUGUI foxCountText;
+    public TextMeshProUGUI wolfCountText;
+
     public TextMeshProUGUI timer;
     public Tilemap fences;
     public Tilemap ground;
@@ -62,7 +67,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         removedFences.AddRange(originalRemovedFences);
-        UpdateAnimalCountText();
+        CheckGameConditions();
 
         foreach (Light2D light in FindObjectsByType<Light2D>(FindObjectsSortMode.None))
         {
@@ -117,6 +122,7 @@ public class GameManager : MonoBehaviour
     private void StartNight()
     {
         ToggleLights();
+        spawnAnimalButtons.SetActive(false);
         soundManager.PlayBearTheme();
         bearSpawner.SpawnAnimal(false);
         foreach (Vector3Int position in removedFences.Keys)
@@ -131,6 +137,7 @@ public class GameManager : MonoBehaviour
     private void StartDay()
     {
         ToggleLights();
+        spawnAnimalButtons.SetActive(true);
         soundManager.GetComponent<SoundManager>().PlayMainTheme();
         Destroy(GameObject.FindGameObjectWithTag("Bear"));
         foreach (Vector3Int position in removedFences.Keys)
@@ -212,13 +219,11 @@ public class GameManager : MonoBehaviour
             {
                 if (light.lightType != Light2D.LightType.Global)
                 {
-                    light.intensity = isLightActive ? Mathf.Lerp(1, 0, startTime / lightTransitionTime) : Mathf.Lerp(0, 1, startTime / lightTransitionTime);
-                    //Debug.Log("Light aint global, so Im turning it on");
+                    light.intensity = isLightActive ? Mathf.Lerp(1, 0.2f, startTime / lightTransitionTime) : Mathf.Lerp(0.2f, 1, startTime / lightTransitionTime);
                 }
                 else
                 {
-                    light.intensity = isLightActive ? Mathf.Lerp(0, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0, startTime / lightTransitionTime);
-                    //Debug.Log("Light is global, so Im turning it off"); ;
+                    light.intensity = isLightActive ? Mathf.Lerp(0.2f, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0.2f, startTime / lightTransitionTime);
                 }
             }
             startTime += Time.deltaTime;
@@ -252,13 +257,7 @@ public class GameManager : MonoBehaviour
         fences.SetTile(location, removedFences[location]);
     }
 
-    public void UpdateAnimalCountText()
-    {
-        animalCountText.text = "Current animal count: " + GameObject.FindGameObjectsWithTag("Animal").Count();
-        CheckGameConditions();
-    }
-
-    private void CheckGameConditions()
+    public void CheckGameConditions()
     {
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         if (animals.Count() >= maxWinAnimalCount)
@@ -269,17 +268,23 @@ public class GameManager : MonoBehaviour
         }
         int chickens = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Chicken"));
         int cows = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Cow"));
-        int wolfs = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Wolf"));
-        int foxes = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Fox"));
         int sheep = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Sheep"));
-        int[] allAnimals = { chickens, cows, wolfs, foxes, sheep };
+        int foxes = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Fox"));
+        int wolfs = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Wolf"));
+        chickenCountText.text = chickens.ToString();
+        cowCountText.text = cows.ToString();
+        sheepCountText.text = sheep.ToString();
+        foxCountText.text = foxes.ToString();
+        wolfCountText.text = wolfs.ToString();
+
+        int[] allAnimals = { chickens, cows, sheep, foxes, wolfs };
         if (CheckAllAnimalsCount(allAnimals, 0, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 0, 10));
         if (CheckAllAnimalsCount(allAnimals, 1, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 1, 10));
         if (CheckAllAnimalsCount(allAnimals, 2, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 2, 10));
         if (CheckAllAnimalsCount(allAnimals, 3, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 3, 10));
         if (CheckAllAnimalsCount(allAnimals, 4, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 4, 10));
         if (chickens != 0 && chickens * 3 <= foxes) KillAllAnimalsWithName(0);
-        if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(4);
+        if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(2);
         if (allAnimals.Count(animal => animal == 0) > 3)
         {
             StopStartGame(true);
@@ -300,7 +305,7 @@ public class GameManager : MonoBehaviour
 
     private void KillAllAnimalsWithName(int name)
     {
-        string stringName = name == 0 ? "Chicken" : name == 1 ? "Cow" : name == 2 ? "Wolf" : name == 3 ? "Fox" : "Sheep";
+        string stringName = name == 0 ? "Chicken" : name == 1 ? "Cow" : name == 2 ? "Sheep" : name == 3 ? "Fox" : "Wolf";
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         animals.ToList().ForEach(animal =>
         {

@@ -30,6 +30,7 @@ public class SoundManager : MonoBehaviour
     }
     void Start()
     {
+        music.loop = true;
         music.clip = MainThemeMusic;
         music.Play();
     }
