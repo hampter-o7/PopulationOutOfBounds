@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
 
     bool stop = false;
+    bool escMenuActive = false;
     bool end = false;
     public float time = 21 * 60;
     private readonly int maxTime = 24 * 60;
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
         }
         if (end) return;
         if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
-        if (stop) return;
+        if (stop || escMenuActive) return;
         UpdateGrowingSeeds();
         time = (time + Time.deltaTime * 10) % maxTime;
         timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
@@ -244,8 +245,9 @@ public class GameManager : MonoBehaviour
 
     public void ShowEscMenu()
     {
-        escMenu.SetActive(!stop);
-        StopStartGame(!stop);
+        escMenuActive = !escMenuActive;
+        escMenu.SetActive(escMenuActive);
+        StopStartGame();
         settingsMenu.SetActive(false);
     }
 
@@ -273,7 +275,8 @@ public class GameManager : MonoBehaviour
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         if (animals.Count() >= maxWinAnimalCount)
         {
-            StopStartGame(true);
+            stop = true;
+            StopStartGame();
             end = true;
             gameSceneManager.GetComponent<GameSceneManager>().LoadCreditsScene();
         }
@@ -298,7 +301,8 @@ public class GameManager : MonoBehaviour
         if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(2);
         if (allAnimals.Count(animal => animal == 0) > 3)
         {
-            StopStartGame(true);
+            stop = true;
+            StopStartGame();
             end = true;
             retryButton.SetActive(true);
         }
@@ -336,15 +340,15 @@ public class GameManager : MonoBehaviour
         soundManager.GetComponent<SoundManager>().PlayMainTheme();
     }
 
-    private void StopStartGame(bool isStop)
+    private void StopStartGame()
     {
+        bool isStop = stop || escMenuActive;
         if (GameObject.FindGameObjectWithTag("Bear") != null) GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = isStop;
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject animal in animals)
         {
             animal.GetComponent<AnimalScript>().stop = isStop;
             spawnAnimalButtons.SetActive(!isStop);
-            stop = isStop;
         }
     }
 
