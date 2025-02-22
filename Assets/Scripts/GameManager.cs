@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI wolfCountText;
 
     public TextMeshProUGUI timer;
+    public TextMeshProUGUI animalDeathText;
+    public GameObject animalDeathCanvas;
     public Tilemap fences;
     public Tilemap ground;
     public Tile farmland;
@@ -329,6 +331,12 @@ public class GameManager : MonoBehaviour
         string killedName = killed == 0 ? "Chicken" : killed == 1 ? "Cow" : killed == 2 ? "Sheep" : killed == 3 ? "Fox" : "Wolf";
         string killerName = killer == 0 ? "Chicken" : killer == 1 ? "Cow" : killer == 2 ? "Sheep" : killer == 3 ? "Fox" : "Wolf";
 
+        string animalDeathString = "The " + killerName + " grew strong and the " + killedName + " was devoured!";
+        Debug.Log("The " + killerName + " grew strong and the " + killedName + " was devoured! THIS WAS LOGGED BY KILLALLANIMALSWITHNAMEFUNCTION");
+        animalDeathCanvas.SetActive(true);
+        Debug.Log("AnimalDeathCanvas WAS SET TO TRUE");
+        StartCoroutine(UpdateAnimalDeathText(animalDeathString));
+
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         animals.ToList().ForEach(animal =>
         {
@@ -339,6 +347,20 @@ public class GameManager : MonoBehaviour
             }
         });
         CheckGameConditions();
+    }
+
+    private IEnumerator UpdateAnimalDeathText(string text)
+    {
+        Debug.Log("Started updateAnimalDeathText Coroutine");
+        float currentTime = 0f;
+        float timeBeforeTextDissapears = 5f;
+        animalDeathText.text = text;
+        while (currentTime < timeBeforeTextDissapears)
+        {
+            currentTime += Time.deltaTime;
+        }
+        animalDeathCanvas.SetActive(false);
+        yield return null;    
     }
 
     public void ReloadScene()
