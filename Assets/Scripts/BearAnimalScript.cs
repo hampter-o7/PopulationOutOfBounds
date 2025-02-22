@@ -16,6 +16,7 @@ public class BearAnimalScript : MonoBehaviour
     private Vector3 lastPosition;
     private float stuckTimer = 0;
     private readonly float stuckTimerMax = 3;
+    public float eatAnimalTimer = 0;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
     private GameObject prey = null;
@@ -33,8 +34,10 @@ public class BearAnimalScript : MonoBehaviour
 
     void Update()
     {
-        if (stop)
+        if (stop) return;
+        if (eatAnimalTimer > 0)
         {
+            eatAnimalTimer -= Time.deltaTime;
             return;
         }
         AddTargetAnimalsToList();
@@ -120,5 +123,6 @@ public class BearAnimalScript : MonoBehaviour
         prey = null;
         minimalDistanceToTargetAnimal = float.MaxValue;
         gameManager.UpdateAnimalCountText();
+        eatAnimalTimer = 3;
     }
 }

@@ -22,6 +22,11 @@ public class GameSceneManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void LoadCreditsScene()
+    {
+        SceneManager.LoadScene("WinCreditsScene");
+    }
+
     public void QuitGame()
     {
         Application.Quit();

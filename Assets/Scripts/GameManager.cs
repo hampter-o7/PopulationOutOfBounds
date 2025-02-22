@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject inventoryManager;
     public GameObject settingsManager;
     public AnimalSpawnerScript bearSpawner;
-    [SerializeField] private int maxAnimalCount = 20;
+    [SerializeField] private int maxWinAnimalCount = 20;
 
     public SoundManager soundManager;
 
@@ -218,12 +218,13 @@ public class GameManager : MonoBehaviour
 
     private void CheckGameConditions()
     {
-        if (GameObject.FindGameObjectsWithTag("Animal").Count() > maxAnimalCount)
+        if (GameObject.FindGameObjectsWithTag("Animal").Count() > maxWinAnimalCount)
         {
             StopStartGame(true);
             end = true;
-            // Debug.Log("AnimalCount exceeded " + maxAnimalCount + " --- GAME OVER");
+
             retryButton.SetActive(true);
+
         }
     }
 
