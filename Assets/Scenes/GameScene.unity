@@ -70785,9 +70785,8 @@ MonoBehaviour:
   fences: {fileID: 1594487921}
   ground: {fileID: 917677354}
   farmland: {fileID: 11400000, guid: 9311d116cfbf50a4483f330c27ba8701, type: 2}
-  grass: {fileID: 11400000, guid: e16db6908fce9244a80de6fba4761afc, type: 2}
+  grass: {fileID: 11400000, guid: bbfe9bdb55de02947949c0596dc3a42a, type: 2}
   seedsPlanted: {fileID: 11400000, guid: f46a806670ed2db4ba19fb8292230ce0, type: 2}
-  replacementFence: {fileID: 11400000, guid: 03ea0cff4911fec45b26a9c52fbc4c8b, type: 2}
   retryButton: {fileID: 2253646288808487138}
   escMenu: {fileID: 6134139}
   settingsMenu: {fileID: 862940368107309749}
