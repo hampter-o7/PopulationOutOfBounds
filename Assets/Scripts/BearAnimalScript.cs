@@ -9,13 +9,13 @@ public class BearAnimalScript : MonoBehaviour
     public Tilemap ground;
     public Tilemap fence;
     Vector3 destPoint;
-    [SerializeField] float movementSpeed = 1;
+    [SerializeField] float movementSpeed = 2;
     public GameManager gameManager;
     public InventoryManager inventoryManager;
     public bool stop = false;
     private Vector3 lastPosition;
     private float stuckTimer = 0;
-    private readonly float stuckTimerMax = 3;
+    private readonly float stuckTimerMax = 1;
     public float eatAnimalTimer = 0;
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;

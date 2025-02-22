@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour
     public Tile farmland;
     public Tile grass;
     public Tile seedsPlanted;
-    public Tile replacementFence;
-
     public GameObject retryButton;
     public GameObject escMenu;
     public GameObject settingsMenu;
@@ -36,12 +34,12 @@ public class GameManager : MonoBehaviour
     public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxWinAnimalCount = 7;
 
-    private int timeToGrow = 60;
+    private readonly int timeToGrow = 60;
 
     public SoundManager soundManager;
 
     private bool isLightActive = true;
-    private List<Light2D> lights = new List<Light2D>();
+    private List<Light2D> lights = new();
     [SerializeField] private float lightTransitionTime = 180f;
 
 
@@ -160,7 +158,7 @@ public class GameManager : MonoBehaviour
         {
             animal.GetComponent<AnimalScript>().hasDestPoint = false;
         }
-        inventoryManager.GetComponent<InventoryManager>().AddDailyResources(animals.Count());
+        inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
     }
 
     private void CheckMouseClicks()

@@ -30,11 +30,10 @@ public class InventoryManager : MonoBehaviour
         numberOfManure.text = manure.ToString();
     }
 
-    public void AddDailyResources(int numManure)
+    public void AddDailyResources()
     {
         seeds += 7;
         grass += 9;
-        manure += numManure;
         UpdateText();
     }
 
