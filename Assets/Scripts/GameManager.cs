@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI animalCountText;
     public TextMeshProUGUI timer;
     public Tilemap fences;
+    public Tilemap ground;
+    public Tile farmland;
+    public Tile grass;
+    public Tile seedsPlanted;
     public Tile replacementFence;
 
     public GameObject retryButton;
@@ -25,6 +29,8 @@ public class GameManager : MonoBehaviour
     public AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxWinAnimalCount = 7;
 
+    private int timeToGrow = 60;
+
     public SoundManager soundManager;
 
     private bool isLightActive = true;
@@ -34,11 +40,13 @@ public class GameManager : MonoBehaviour
 
     bool stop = false;
     bool end = false;
-    private float time = 21 * 60;
+    private float time = 6 * 60;
     private readonly int maxTime = 60 * 24;
 
     private Dictionary<Vector3Int, TileBase> removedFences = new();
     private Dictionary<Vector3Int, TileBase> tempRemovedFences = new();
+    private Dictionary<Vector3Int, float> seedsPlantedTiles = new();
+
 
     private readonly Dictionary<Vector3Int, TileBase> originalRemovedFences = new()
     {
@@ -61,11 +69,11 @@ public class GameManager : MonoBehaviour
             if (light != null)
             {
                 lights.Add(light);
-                Debug.Log("Light " + light.name + " added");
+                // Debug.Log("Light " + light.name + " added");
             }
             else
             {
-                Debug.Log("Light was supposedly null");
+                // Debug.Log("Light was supposedly null");
             }
             light.intensity = light.lightType == Light2D.LightType.Global ? 1 : 0;
         }
@@ -80,6 +88,7 @@ public class GameManager : MonoBehaviour
         if (end) return;
         if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
         if (stop) return;
+        UpdateGrowingSeeds();
         time = (time + Time.deltaTime * 10) % maxTime;
         timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
         CheckTime();
@@ -109,7 +118,7 @@ public class GameManager : MonoBehaviour
     {
         ToggleLights();
         soundManager.PlayBearTheme();
-        bearSpawner.SpawnAnimal();
+        bearSpawner.SpawnAnimal(false);
         foreach (Vector3Int position in removedFences.Keys)
         {
             RemoveAddFence(true, position, false);
@@ -123,7 +132,6 @@ public class GameManager : MonoBehaviour
     {
         ToggleLights();
         soundManager.GetComponent<SoundManager>().PlayMainTheme();
-        inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
         Destroy(GameObject.FindGameObjectWithTag("Bear"));
         foreach (Vector3Int position in removedFences.Keys)
         {
@@ -136,6 +144,7 @@ public class GameManager : MonoBehaviour
         {
             animal.GetComponent<AnimalScript>().hasDestPoint = false;
         }
+        inventoryManager.GetComponent<InventoryManager>().AddDailyResources(animals.Count());
     }
 
     private void CheckMouseClicks()
@@ -151,6 +160,38 @@ public class GameManager : MonoBehaviour
                 {
                     animal.GetComponent<AnimalScript>().SendIntoFence();
                 }
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = ground.WorldToCell(mousePosition);
+            InventoryManager inventoryManagerSc = inventoryManager.GetComponent<InventoryManager>();
+            string clickedTile = ground.GetTile(cellPosition).name;
+            if (clickedTile.Equals("Farmable") && inventoryManagerSc.ChangeManureValue(-1)) ground.SetTile(cellPosition, farmland);
+            if (clickedTile.Equals("Farmland") && inventoryManagerSc.ChangeSeedsValue(-1))
+            {
+                ground.SetTile(cellPosition, seedsPlanted);
+                seedsPlantedTiles.Add(cellPosition, timeToGrow);
+            }
+            if (clickedTile.Equals("Grass"))
+            {
+                inventoryManagerSc.ChangeGrassValue(3);
+                inventoryManagerSc.ChangeSeedsValue(3);
+                ground.SetTile(cellPosition, farmland);
+            }
+        }
+    }
+
+    private void UpdateGrowingSeeds()
+    {
+        foreach (Vector3Int tile in seedsPlantedTiles.Keys.ToList())
+        {
+            seedsPlantedTiles[tile] -= Time.deltaTime;
+            if (seedsPlantedTiles[tile] <= 0)
+            {
+                seedsPlantedTiles.Remove(tile);
+                ground.SetTile(tile, grass);
             }
         }
     }
@@ -232,14 +273,14 @@ public class GameManager : MonoBehaviour
         int foxes = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Fox"));
         int sheep = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Sheep"));
         int[] allAnimals = { chickens, cows, wolfs, foxes, sheep };
-        if (CheckAllAnimalsCount(allAnimals, 0, 10) ||
-            CheckAllAnimalsCount(allAnimals, 1, 10) ||
-            CheckAllAnimalsCount(allAnimals, 2, 10) ||
-            CheckAllAnimalsCount(allAnimals, 3, 10) ||
-            CheckAllAnimalsCount(allAnimals, 4, 10) ||
-            chickens != 0 && chickens * 3 <= foxes ||
-            sheep != 0 && sheep * 5 <= wolfs ||
-            allAnimals.Count(animal => animal == 0) > 3)
+        if (CheckAllAnimalsCount(allAnimals, 0, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 0, 10));
+        if (CheckAllAnimalsCount(allAnimals, 1, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 1, 10));
+        if (CheckAllAnimalsCount(allAnimals, 2, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 2, 10));
+        if (CheckAllAnimalsCount(allAnimals, 3, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 3, 10));
+        if (CheckAllAnimalsCount(allAnimals, 4, 10) != -1) KillAllAnimalsWithName(CheckAllAnimalsCount(allAnimals, 4, 10));
+        if (chickens != 0 && chickens * 3 <= foxes) KillAllAnimalsWithName(0);
+        if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(4);
+        if (allAnimals.Count(animal => animal == 0) > 3)
         {
             StopStartGame(true);
             end = true;
@@ -247,14 +288,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool CheckAllAnimalsCount(int[] allAnimals, int animal, int maxCount)
+    private int CheckAllAnimalsCount(int[] allAnimals, int animal, int maxCount)
     {
         for (int i = 0; i < allAnimals.Length; i++)
         {
             if (i == animal || allAnimals[i] == 0) continue;
-            if (allAnimals[animal] >= allAnimals[i] * maxCount) return true;
+            if (allAnimals[animal] >= allAnimals[i] * maxCount) return i;
         }
-        return false;
+        return -1;
+    }
+
+    private void KillAllAnimalsWithName(int name)
+    {
+        string stringName = name == 0 ? "Chicken" : name == 1 ? "Cow" : name == 2 ? "Wolf" : name == 3 ? "Fox" : "Sheep";
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        animals.ToList().ForEach(animal =>
+        {
+            if (animal.GetComponent<SpriteRenderer>().sprite.name.Equals(stringName))
+            {
+                animal.SetActive(false);
+                Destroy(animal);
+            }
+        });
+        CheckGameConditions();
     }
 
     public void ReloadScene()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AnimalSpawnerScript : MonoBehaviour
@@ -10,29 +11,32 @@ public class AnimalSpawnerScript : MonoBehaviour
 
     void Start()
     {
-        if (!animalSprite.name.Equals("Bear")) SpawnAnimal();
+        if (!animalSprite.name.Equals("Bear")) SpawnAnimal(true);
     }
 
-    public void SpawnAnimal()
+    public void SpawnAnimal(bool isStart)
     {
         bool doSpawn = true;
-        switch (animalSprite.name)
+        if (!isStart)
         {
-            case "Chicken":
-                doSpawn = inventoryManager.ChangeSeedsValue(-3);
-                break;
-            case "Cow":
-                doSpawn = inventoryManager.ChangeGrassValue(-7);
-                break;
-            case "Sheep":
-                doSpawn = inventoryManager.ChangeGrassValue(-5);
-                break;
-            case "Fox":
-                doSpawn = inventoryManager.ChangeMeatValue(-2);
-                break;
-            case "Wolf":
-                doSpawn = inventoryManager.ChangeMeatValue(-4);
-                break;
+            switch (animalSprite.name)
+            {
+                case "Chicken":
+                    doSpawn = inventoryManager.ChangeSeedsValue(-3);
+                    break;
+                case "Cow":
+                    doSpawn = inventoryManager.ChangeGrassValue(-7);
+                    break;
+                case "Sheep":
+                    doSpawn = inventoryManager.ChangeGrassValue(-5);
+                    break;
+                case "Fox":
+                    doSpawn = inventoryManager.ChangeMeatValue(-2);
+                    break;
+                case "Wolf":
+                    doSpawn = inventoryManager.ChangeMeatValue(-4);
+                    break;
+            }
         }
         if (!doSpawn) return;
         GameObject spawnedAnimal = Instantiate(prefabAnimal, transform.position, transform.rotation);
@@ -42,7 +46,7 @@ public class AnimalSpawnerScript : MonoBehaviour
         {
             spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
         }
-        gameManager.GetComponent<GameManager>().UpdateAnimalCountText();
+        if (!isStart) gameManager.GetComponent<GameManager>().UpdateAnimalCountText();
 
     }
 }
