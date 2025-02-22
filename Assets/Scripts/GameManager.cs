@@ -351,14 +351,14 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Started updateAnimalDeathText Coroutine");
         float currentTime = 0f;
-        float timeBeforeTextDissapears = 5f;
+        float timeBeforeTextDisappears = 5f;
         animalDeathText.text = text;
-        while (currentTime < timeBeforeTextDissapears)
+        while (currentTime < timeBeforeTextDisappears)
         {
             currentTime += Time.deltaTime;
         }
         animalDeathCanvas.SetActive(false);
-        yield return null;    
+        yield return null;
     }
 
     public void ReloadScene()
