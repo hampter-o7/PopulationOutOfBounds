@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI chickenCountText;
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     bool stop = false;
     bool escMenuActive = false;
+    bool isNight = false;
     bool end = false;
     public float time = 6 * 60;
     private readonly int maxTime = 24 * 60;
@@ -78,15 +80,8 @@ public class GameManager : MonoBehaviour
 
         foreach (Light2D light in FindObjectsByType<Light2D>(FindObjectsSortMode.None))
         {
-            if (light != null)
-            {
-                lights.Add(light);
-                // Debug.Log("Light " + light.name + " added");
-            }
-            else
-            {
-                // Debug.Log("Light was supposedly null");
-            }
+            if (light != null) lights.Add(light);
+
             light.intensity = light.lightType == Light2D.LightType.Global ? 1 : 0;
         }
     }
@@ -128,8 +123,9 @@ public class GameManager : MonoBehaviour
 
     private void StartNight()
     {
+        isNight = true;
         ToggleLights();
-        spawnAnimalButtons.SetActive(false);
+        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = false);
         soundManager.PlayBearTheme();
         bearSpawner.SpawnAnimal(false);
         foreach (Vector3Int position in removedFences.Keys)
@@ -143,8 +139,9 @@ public class GameManager : MonoBehaviour
 
     private void StartDay()
     {
+        isNight = false;
         ToggleLights();
-        spawnAnimalButtons.SetActive(true);
+        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = true);
         soundManager.GetComponent<SoundManager>().PlayMainTheme();
         Destroy(GameObject.FindGameObjectWithTag("Bear"));
         foreach (Vector3Int position in removedFences.Keys)
@@ -370,14 +367,14 @@ public class GameManager : MonoBehaviour
 
     private void StopStartGame()
     {
-        bool isStop = stop || escMenuActive;
+        bool isStop = stop || escMenuActive || isNight;
         if (GameObject.FindGameObjectWithTag("Bear") != null) GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = isStop;
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject animal in animals)
         {
             animal.GetComponent<AnimalScript>().stop = isStop;
-            spawnAnimalButtons.SetActive(!isStop);
         }
+        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = !isStop);
     }
 
     public void MuteEnableMusic()
