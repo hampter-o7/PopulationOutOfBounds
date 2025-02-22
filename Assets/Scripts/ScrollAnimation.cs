@@ -7,7 +7,7 @@ public class ScrollAnimation : MonoBehaviour
     private float scrollSpeed = 100;
     public GameObject sceneManager;
 
-    private float goToMainMenu = 30;
+    private float goToMainMenu = 20;
     void Update()
     {
         goToMainMenu -= Time.deltaTime;

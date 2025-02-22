@@ -5,6 +5,7 @@ public class AnimalSpawnerScript : MonoBehaviour
     public GameObject prefabAnimal;
     public Sprite animalSprite;
     public InventoryManager inventoryManager;
+    public GameManager gameManager;
     [SerializeField] int animalCost;
 
     void Start()
@@ -41,7 +42,7 @@ public class AnimalSpawnerScript : MonoBehaviour
         {
             spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
         }
-
+        gameManager.GetComponent<GameManager>().UpdateAnimalCountText();
 
     }
 }

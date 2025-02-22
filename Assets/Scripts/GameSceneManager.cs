@@ -24,6 +24,12 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadCreditsScene()
     {
+        SoundManager soundManager = FindFirstObjectByType<SoundManager>();
+        Debug.Log(soundManager.music.clip.name);
+        if (soundManager.music.clip.name.Equals("PopulationOutOfBounds - Bear Theme"))
+        {
+            soundManager.PlayMainTheme();
+        }
         SceneManager.LoadScene("WinCreditsScene");
     }
 

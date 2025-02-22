@@ -11317,6 +11317,10 @@ PrefabInstance:
       value: SheepSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 8994638090709802535}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 1153976805, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
@@ -11758,6 +11762,10 @@ PrefabInstance:
       value: BearSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 8994638090709802535}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 4693792977596894205, guid: 88c8c69eb8ed5454a9a7a8b7792da23f, type: 3}
@@ -11765,6 +11773,10 @@ PrefabInstance:
       propertyPath: prefabAnimal
       value: 
       objectReference: {fileID: 5576568100904819441, guid: cccf477a86608ac468dd7233f71188ab, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1753073613}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14025,6 +14037,10 @@ PrefabInstance:
       value: WolfSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 8994638090709802535}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 295433193, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
@@ -14214,6 +14230,10 @@ PrefabInstance:
       value: CowSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 8994638090709802535}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 4591469621628248817, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
@@ -14298,6 +14318,10 @@ PrefabInstance:
       propertyPath: animalCost
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 8994638090709802535}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
@@ -14725,6 +14749,10 @@ PrefabInstance:
       propertyPath: animalCost
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 8994638090709802535}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: animalSprite
       value: 
@@ -16060,8 +16088,9 @@ MonoBehaviour:
   spawnAnimalButtons: {fileID: 5478146653524176053}
   inventoryManager: {fileID: 1753073612}
   settingsManager: {fileID: 1737933676}
+  gameSceneManager: {fileID: 2004451995}
   bearSpawner: {fileID: 1453324058}
-  maxWinAnimalCount: 20
+  maxWinAnimalCount: 7
   soundManager: {fileID: 1210054038}
   lightTransitionTime: 2
 --- !u!1660057539 &9223372036854775807

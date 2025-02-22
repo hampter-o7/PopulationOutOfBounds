@@ -21,8 +21,9 @@ public class GameManager : MonoBehaviour
     public GameObject spawnAnimalButtons;
     public GameObject inventoryManager;
     public GameObject settingsManager;
+    public GameSceneManager gameSceneManager;
     public AnimalSpawnerScript bearSpawner;
-    [SerializeField] private int maxWinAnimalCount = 20;
+    [SerializeField] private int maxWinAnimalCount = 7;
 
     public SoundManager soundManager;
 
@@ -218,13 +219,11 @@ public class GameManager : MonoBehaviour
 
     private void CheckGameConditions()
     {
-        if (GameObject.FindGameObjectsWithTag("Animal").Count() > maxWinAnimalCount)
+        if (GameObject.FindGameObjectsWithTag("Animal").Count() >= maxWinAnimalCount)
         {
             StopStartGame(true);
             end = true;
-
-            retryButton.SetActive(true);
-
+            gameSceneManager.GetComponent<GameSceneManager>().LoadCreditsScene();
         }
     }
 
