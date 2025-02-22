@@ -358,9 +358,9 @@ public class GameManager : MonoBehaviour
         while (currentTime < timeBeforeTextDissapears)
         {
             currentTime += Time.deltaTime;
+            yield return null;
         }
         animalDeathCanvas.SetActive(false);
-        yield return null;    
     }
 
     public void ReloadScene()
