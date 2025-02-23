@@ -33,4 +33,10 @@ public class SettingsManager : MonoBehaviour
         FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().ChangeSFXVolume(SFXSlider.value);
         UpdateSettingsText();
     }
+
+    public void PlayButtonClick()
+    {
+        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(1);
+        UpdateSettingsText();
+    }
 }

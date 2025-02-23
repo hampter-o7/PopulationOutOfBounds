@@ -491,18 +491,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1972602913}
     - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1737933677}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1737933677}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
@@ -510,11 +534,35 @@ PrefabInstance:
       value: SpawnAnimal
       objectReference: {fileID: 0}
     - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: PlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: AnimalSpawnerScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SettingsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: SettingsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324581187828895984, guid: ddb4f299edf1a894582356377de98d09, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -104107,6 +104155,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: fartNoise1
+      value: 
+      objectReference: {fileID: 8300000, guid: 89998cdf79bc46a4eb40415f4eac174c, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: fartNoise2
+      value: 
+      objectReference: {fileID: 8300000, guid: 8c761b7b3caab334eb21721ccc42416f, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: bearEating1
+      value: 
+      objectReference: {fileID: 8300000, guid: daeab8ebcba65a744823e28faf33fc85, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: mouseClick1
+      value: 
+      objectReference: {fileID: 8300000, guid: d58ab19ed142ca34e922596a19666269, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: mouseClick2
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e1af40868295104c86fdf5ae1716547, type: 3}
     - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
       propertyPath: BearThemeMusic
       value: 

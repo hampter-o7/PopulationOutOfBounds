@@ -63,6 +63,7 @@ public class AnimalScript : MonoBehaviour
             {
                 didPoopThisNight = true;
                 GameObject spawnedAnimal = Instantiate(poopPrefab, transform.position, transform.rotation);
+                FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(2);
             }
         }
     }
