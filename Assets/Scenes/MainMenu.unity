@@ -1752,6 +1752,30 @@ PrefabInstance:
       value: Audiomanager
       objectReference: {fileID: 0}
     - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: fartNoise1
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f53acc6ad907fe4ba5d29e4627cd39a, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: fartNoise2
+      value: 
+      objectReference: {fileID: 8300000, guid: 89998cdf79bc46a4eb40415f4eac174c, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: bearEating1
+      value: 
+      objectReference: {fileID: 8300000, guid: daeab8ebcba65a744823e28faf33fc85, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: fenceNoise1
+      value: 
+      objectReference: {fileID: 8300000, guid: 8c761b7b3caab334eb21721ccc42416f, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: mouseClick1
+      value: 
+      objectReference: {fileID: 8300000, guid: d58ab19ed142ca34e922596a19666269, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: mouseClick2
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e1af40868295104c86fdf5ae1716547, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
       propertyPath: BearThemeMusic
       value: 
       objectReference: {fileID: 8300000, guid: 25ddbc80f8a68d74d8fdea7913be3a8b, type: 3}
