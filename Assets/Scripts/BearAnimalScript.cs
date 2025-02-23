@@ -115,7 +115,7 @@ public class BearAnimalScript : MonoBehaviour
 
     private void KillAnimal(GameObject prey)
     {
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(1);
+        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(0);
         string spriteName = prey.GetComponent<SpriteRenderer>().sprite.name;
         int meatNum = spriteName.Equals("Cow") ? 5 : spriteName.Equals("Sheep") ? 4 : spriteName.Equals("Wolf") ? 3 : spriteName.Equals("Fox") ? 2 : 1;
         inventoryManager.ChangeMeatValue(meatNum);

@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    public TextMeshProUGUI musicButton;
-    public TextMeshProUGUI SFXButton;
+    public Slider musicSlider;
+    public Slider SFXSlider;
     public GameObject settings;
     public GameObject escMenu;
 
@@ -18,20 +19,19 @@ public class SettingsManager : MonoBehaviour
     public void UpdateSettingsText()
     {
         SoundManager soundManager = FindFirstObjectByType<SoundManager>();
-        bool muteSFX = soundManager.isSFXMuted;
-        musicButton.text = soundManager.isMusicMuted ? "MUSIC   OFF" : "MUSIC   ON";
-        SFXButton.text = soundManager.isSFXMuted ? "SFX     OFF" : "SFX     ON";
+        musicSlider.value = soundManager.currentMusicVolume;
+        SFXSlider.value = soundManager.currentSFXVolume;
     }
 
-    public void MuteEnableMusic()
+    public void ChangeMusicVolume()
     {
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().MuteEnableMusic();
+        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().ChangeMusicVolume(musicSlider.value);
         UpdateSettingsText();
     }
 
-    public void MuteEnableSFX()
+    public void ChangeSFXVolume()
     {
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().MuteEnableSFX();
+        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().ChangeSFXVolume(SFXSlider.value);
         UpdateSettingsText();
     }
 }

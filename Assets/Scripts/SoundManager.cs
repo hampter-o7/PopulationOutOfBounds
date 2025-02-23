@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -12,11 +12,14 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip BearThemeMusic;
 
     [SerializeField] AudioClip bearEating;
+    [SerializeField] AudioClip mouseClick;
+    [SerializeField] AudioClip fartNoise;
+    AudioClip[] SFXSounds = new AudioClip[3];
 
     public static SoundManager instance;
-    public bool isSFXMuted = false;
-    public bool isMusicMuted = false;
-
+    private float fadeDuration = 0.5f;
+    public float currentMusicVolume = 1;
+    public float currentSFXVolume = 1;
 
     private void Awake()
     {
@@ -24,6 +27,9 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SFXSounds[0] = bearEating;
+            SFXSounds[1] = mouseClick;
+            SFXSounds[2] = fartNoise;
         }
         else
         {
@@ -51,17 +57,33 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(int clipNum)
     {
-        SFX.PlayOneShot(bearEating);
+        SFX.PlayOneShot(SFXSounds[clipNum]);
     }
 
-    public void MuteEnableMusic()
+    public void ChangeMusicVolume(float value)
     {
-        isMusicMuted = !isMusicMuted;
-        music.volume = isMusicMuted ? 0 : 1;
+        StartCoroutine(FadeAudio(music, value, fadeDuration));
+        currentMusicVolume = value;
     }
-    public void MuteEnableSFX()
+
+    public void ChangeSFXVolume(float value)
     {
-        isSFXMuted = !isSFXMuted;
-        SFX.volume = isSFXMuted ? 0 : 1;
+        StartCoroutine(FadeAudio(SFX, value, fadeDuration));
+        currentSFXVolume = value;
+    }
+
+    private IEnumerator FadeAudio(AudioSource audioSource, float targetVolume, float duration)
+    {
+        float startVolume = audioSource.volume;
+        float elapsedTime = 0;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / duration);
+            yield return null;
+        }
+
+        audioSource.volume = targetVolume;
     }
 }

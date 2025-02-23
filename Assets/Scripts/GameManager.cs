@@ -377,15 +377,15 @@ public class GameManager : MonoBehaviour
         spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = !isStop);
     }
 
-    public void MuteEnableMusic()
+    public void ChangeMusicVolume()
     {
-        soundManager.GetComponent<SoundManager>().MuteEnableMusic();
+        soundManager.GetComponent<SoundManager>().ChangeMusicVolume(1);
         settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
     }
 
-    public void MuteEnableSFX()
+    public void ChangeSFXVolume()
     {
-        soundManager.GetComponent<SoundManager>().MuteEnableSFX();
+        soundManager.GetComponent<SoundManager>().ChangeSFXVolume(1);
         settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
     }
 }
