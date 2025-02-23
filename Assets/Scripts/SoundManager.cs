@@ -21,7 +21,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip fartNoise1;
     [SerializeField] AudioClip fartNoise2;
 
-    AudioClip[][] SFXSounds = new AudioClip[3][];
+    AudioClip[] fenceNoise;
+    [SerializeField] AudioClip fenceNoise1;
+
+    AudioClip[][] SFXSounds = new AudioClip[4][];
 
     public static SoundManager instance;
     private float fadeDuration = 0.5f;
@@ -44,7 +47,8 @@ public class SoundManager : MonoBehaviour
     {
         currentSFXVolume = PlayerPrefs.GetFloat("SFXVolume");
         currentMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        ChangeMusicVolume(currentMusicVolume);
+        music.volume = currentMusicVolume;
+        SFX.volume = currentMusicVolume;
         ChangeSFXVolume(currentSFXVolume);
         Debug.Log("Set MusicVolume from playerPrefs to: " + currentMusicVolume);
         Debug.Log("Set SFXVolume from playerPrefs to: " + currentSFXVolume);
@@ -54,9 +58,11 @@ public class SoundManager : MonoBehaviour
         bearEating = new AudioClip[] { bearEating1 };
         mouseClick = new AudioClip[] { mouseClick1, mouseClick2 };
         fartNoise = new AudioClip[] { fartNoise1, fartNoise2 };
+        fenceNoise = new AudioClip[] { fenceNoise1 };
         SFXSounds[0] = bearEating;
         SFXSounds[1] = mouseClick;
         SFXSounds[2] = fartNoise;
+        SFXSounds[3] = fenceNoise;
     }
 
     public void PlayMainTheme()

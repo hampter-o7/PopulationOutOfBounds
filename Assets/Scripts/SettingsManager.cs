@@ -37,6 +37,5 @@ public class SettingsManager : MonoBehaviour
     public void PlayButtonClick()
     {
         FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(1);
-        UpdateSettingsText();
     }
 }

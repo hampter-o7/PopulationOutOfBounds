@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
         }
         removedFences.Clear();
         removedFences.AddRange(tempRemovedFences);
+        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
         tempRemovedFences.Clear();
     }
 
@@ -152,6 +153,7 @@ public class GameManager : MonoBehaviour
         }
         removedFences.Clear();
         removedFences.AddRange(originalRemovedFences);
+        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject animal in animals)
         {
