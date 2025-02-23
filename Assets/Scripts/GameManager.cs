@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject settingsManager;
     public GameSceneManager gameSceneManager;
     public AnimalSpawnerScript bearSpawner;
-    [SerializeField] private int maxWinAnimalCount = 7;
+    [SerializeField] private int maxWinAnimalCount = 100;
 
     private readonly int timeToGrow = 60;
 
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     bool escMenuActive = false;
     bool isNight = false;
     bool end = false;
-    public float time = 6 * 60;
+    public float time = 12 * 60;
     private readonly int maxTime = 24 * 60;
 
     private Dictionary<Vector3Int, TileBase> removedFences = new();
@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
     {
         settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
         removedFences.AddRange(originalRemovedFences);
-        CheckGameConditions();
 
         foreach (Light2D light in FindObjectsByType<Light2D>(FindObjectsSortMode.None))
         {
@@ -307,7 +306,7 @@ public class GameManager : MonoBehaviour
         if (CheckAllAnimalsCount(allAnimals, 4, 10) != -1) KillAllAnimalsWithName(4, CheckAllAnimalsCount(allAnimals, 4, 10));
         if (chickens != 0 && chickens * 3 <= foxes) KillAllAnimalsWithName(3, 0);
         if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(4, 2);
-        if (allAnimals.Count(animal => animal == 0) > 3)
+        if (allAnimals.Count(animal => animal == 0) > 2)
         {
             stop = true;
             StopStartGame();

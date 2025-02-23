@@ -45,8 +45,16 @@ public class SoundManager : MonoBehaviour
     }
     void Start()
     {
-        currentSFXVolume = PlayerPrefs.GetFloat("SFXVolume");
-        currentMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        if (!PlayerPrefs.HasKey("SFXVolume"))
+        {
+            currentSFXVolume = 0.5f;
+            currentMusicVolume = 0.5f;
+        }
+        else
+        {
+            currentSFXVolume = PlayerPrefs.GetFloat("SFXVolume");
+            currentMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        }
         music.volume = currentMusicVolume;
         SFX.volume = currentMusicVolume;
         ChangeSFXVolume(currentSFXVolume);

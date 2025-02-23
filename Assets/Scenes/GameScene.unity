@@ -395,7 +395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 31.26
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1090,7 +1090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 31.26
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.y
@@ -103371,7 +103371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 32.82
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.y
@@ -110238,7 +110238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 34.38
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.y
@@ -110523,7 +110523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 31.26
       objectReference: {fileID: 0}
     - target: {fileID: 8082057691808025498, guid: ddb4f299edf1a894582356377de98d09, type: 3}
       propertyPath: m_SizeDelta.y
@@ -112048,7 +112048,7 @@ MonoBehaviour:
   maxWinAnimalCount: 100
   soundManager: {fileID: 1210054038}
   lightTransitionTime: 2
-  time: 1200
+  time: 720
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -112056,8 +112056,8 @@ SceneRoots:
   - {fileID: 619498293}
   - {fileID: 824314940}
   - {fileID: 1687042742}
-  - {fileID: 3639755158862818465}
   - {fileID: 1304427742}
+  - {fileID: 3639755158862818465}
   - {fileID: 1753073614}
   - {fileID: 1210054037}
   - {fileID: 1737933678}
