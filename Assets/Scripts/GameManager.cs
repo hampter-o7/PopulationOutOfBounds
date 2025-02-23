@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject retryButton;
     public GameObject escMenu;
     public GameObject settingsMenu;
+    public GameObject keybindingsMenu;
     public GameObject spawnAnimalButtons;
     public GameObject inventoryManager;
     public GameObject settingsManager;
@@ -242,7 +243,7 @@ public class GameManager : MonoBehaviour
         }
         foreach (Light2D light in lights)
         {
-            if (light.lightType != Light2D.LightType.Global) light.intensity = isLightActive ? 0 : 1;
+            if (light.lightType == Light2D.LightType.Global) light.intensity = isLightActive ? 1 : 0;
         }
     }
 
@@ -252,6 +253,7 @@ public class GameManager : MonoBehaviour
         escMenu.SetActive(escMenuActive);
         StopStartGame();
         settingsMenu.SetActive(false);
+        keybindingsMenu.SetActive(false);
     }
 
     public void RemoveAddFence(bool isRemoveFence, Vector3Int location, bool isBearBraking)

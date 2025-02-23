@@ -9,7 +9,7 @@ public class BearAnimalScript : MonoBehaviour
     public Tilemap ground;
     public Tilemap fence;
     Vector3 destPoint;
-    [SerializeField] float movementSpeed = 2;
+    float movementSpeed = 2;
     public GameManager gameManager;
     public InventoryManager inventoryManager;
     public bool stop = false;
