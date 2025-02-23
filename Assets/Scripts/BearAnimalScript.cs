@@ -72,6 +72,7 @@ public class BearAnimalScript : MonoBehaviour
             if (stuckTimer > stuckTimerMax)
             {
                 gameManager.RemoveAddFence(true, fenceCheck, true);
+                FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
             }
         }
         else
