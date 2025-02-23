@@ -565,7 +565,9 @@ MonoBehaviour:
     hampter-07
 
 
-    PrehtGames'
+    PrehtGames
+
+    hampter-07'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c47868a4ead257944b335030d4490fc2, type: 2}
   m_sharedMaterial: {fileID: -209798299898876099, guid: c47868a4ead257944b335030d4490fc2, type: 2}
@@ -1002,7 +1004,7 @@ MonoBehaviour:
 
 
 
-    Music design:'
+    Sound design:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c47868a4ead257944b335030d4490fc2, type: 2}
   m_sharedMaterial: {fileID: -209798299898876099, guid: c47868a4ead257944b335030d4490fc2, type: 2}

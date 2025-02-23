@@ -11,15 +11,22 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip MainThemeMusic;
     [SerializeField] AudioClip BearThemeMusic;
 
-    [SerializeField] AudioClip bearEating;
-    [SerializeField] AudioClip mouseClick;
-    [SerializeField] AudioClip fartNoise;
-    AudioClip[] SFXSounds = new AudioClip[3];
+    AudioClip[] bearEating;
+    [SerializeField] AudioClip bearEating1;
+    AudioClip[] mouseClick;
+    [SerializeField] AudioClip mouseClick1;
+    [SerializeField] AudioClip mouseClick2;
+
+    AudioClip[] fartNoise;
+    [SerializeField] AudioClip fartNoise1;
+    [SerializeField] AudioClip fartNoise2;
+
+    AudioClip[][] SFXSounds = new AudioClip[3][];
 
     public static SoundManager instance;
     private float fadeDuration = 0.5f;
-    public float currentMusicVolume = 1;
-    public float currentSFXVolume = 1;
+    public float currentMusicVolume = 0.5f;
+    public float currentSFXVolume = 0.5f;
 
     private void Awake()
     {
@@ -27,9 +34,6 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            SFXSounds[0] = bearEating;
-            SFXSounds[1] = mouseClick;
-            SFXSounds[2] = fartNoise;
         }
         else
         {
@@ -41,6 +45,12 @@ public class SoundManager : MonoBehaviour
         music.loop = true;
         music.clip = MainThemeMusic;
         music.Play();
+        bearEating = new AudioClip[] { bearEating1 };
+        mouseClick = new AudioClip[] { mouseClick1, mouseClick2 };
+        fartNoise = new AudioClip[] { fartNoise1, fartNoise2 };
+        SFXSounds[0] = bearEating;
+        SFXSounds[1] = mouseClick;
+        SFXSounds[2] = fartNoise;
     }
 
     public void PlayMainTheme()
@@ -57,7 +67,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(int clipNum)
     {
-        SFX.PlayOneShot(SFXSounds[clipNum]);
+        SFX.PlayOneShot(SFXSounds[clipNum][Random.Range(0, SFXSounds[clipNum].Length)]);
     }
 
     public void ChangeMusicVolume(float value)

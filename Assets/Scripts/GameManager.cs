@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     };
     void Start()
     {
+        settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
         removedFences.AddRange(originalRemovedFences);
         CheckGameConditions();
 
