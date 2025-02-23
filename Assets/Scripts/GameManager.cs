@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     private List<Light2D> lights = new();
     [SerializeField] private float lightTransitionTime = 180f;
 
+    public int night = 0;
+
 
     bool stop = false;
     bool escMenuActive = false;
@@ -124,6 +126,7 @@ public class GameManager : MonoBehaviour
 
     private void StartNight()
     {
+        night++;
         isNight = true;
         ToggleLights();
         spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = false);

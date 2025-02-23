@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using UnityEngine.Android;
 
 public class BearAnimalScript : MonoBehaviour
 {
@@ -20,7 +21,6 @@ public class BearAnimalScript : MonoBehaviour
     private float minimalDistanceToTargetAnimal = float.MaxValue;
     private float tempDistanceToTargetAnimal;
     private GameObject prey = null;
-
 
     [SerializeField] List<GameObject> targetAnimals = new List<GameObject>();
 
@@ -63,7 +63,7 @@ public class BearAnimalScript : MonoBehaviour
         }
         SearchForDest();
         lastPosition = transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, destPoint, gameManager.night * movementSpeed * Time.deltaTime / 2);
         Vector3Int fenceCheck = fence.WorldToCell(transform.position);
         if (fence.HasTile(fenceCheck))
         {
@@ -126,6 +126,6 @@ public class BearAnimalScript : MonoBehaviour
         prey = null;
         minimalDistanceToTargetAnimal = float.MaxValue;
         gameManager.CheckGameConditions();
-        eatAnimalTimer = 3;
+        eatAnimalTimer = 2 - (gameManager.night / 5);
     }
 }
