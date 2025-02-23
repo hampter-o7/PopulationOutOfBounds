@@ -109069,10 +109069,10 @@ MonoBehaviour:
   numberOfGrass: {fileID: 1634845303}
   numberOfMeat: {fileID: 2124802245}
   numberOfManure: {fileID: 1507770990}
-  seeds: 20
-  grass: 20
-  meat: 20
-  manure: 20
+  seeds: 100
+  grass: 100
+  meat: 100
+  manure: 100
 --- !u!4 &1753073614
 Transform:
   m_ObjectHideFlags: 0
@@ -112048,6 +112048,7 @@ MonoBehaviour:
   maxWinAnimalCount: 100
   soundManager: {fileID: 1210054038}
   lightTransitionTime: 2
+  night: 0
   time: 720
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

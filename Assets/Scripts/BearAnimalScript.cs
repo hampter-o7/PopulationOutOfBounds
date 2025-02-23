@@ -44,6 +44,10 @@ public class BearAnimalScript : MonoBehaviour
         AddTargetAnimalsToList();
         foreach (GameObject targetAnimal in targetAnimals)
         {
+            if (targetAnimal == null)
+            {
+                continue;
+            }
             tempDistanceToTargetAnimal = Vector2.Distance(transform.position, targetAnimal.transform.position);
             if (tempDistanceToTargetAnimal < minimalDistanceToTargetAnimal)
             {
