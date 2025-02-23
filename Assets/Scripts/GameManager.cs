@@ -232,17 +232,17 @@ public class GameManager : MonoBehaviour
 
             foreach (Light2D light in lights)
             {
-                if (light.lightType != Light2D.LightType.Global)
-                {
-                    light.intensity = isLightActive ? Mathf.Lerp(1, 0, startTime / lightTransitionTime) : Mathf.Lerp(0, 1, startTime / lightTransitionTime);
-                }
-                else
-                {
-                    light.intensity = isLightActive ? Mathf.Lerp(0, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0, startTime / lightTransitionTime);
-                }
+                if (light.lightType != Light2D.LightType.Global) light.intensity = isLightActive ? Mathf.Lerp(1, 0, startTime / lightTransitionTime) : Mathf.Lerp(0, 1, startTime / lightTransitionTime);
+
+                else light.intensity = isLightActive ? Mathf.Lerp(0, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0, startTime / lightTransitionTime);
+
             }
             startTime += Time.deltaTime;
             yield return null;
+        }
+        foreach (Light2D light in lights)
+        {
+            if (light.lightType != Light2D.LightType.Global) light.intensity = isLightActive ? 0 : 1;
         }
     }
 
@@ -367,14 +367,14 @@ public class GameManager : MonoBehaviour
 
     private void StopStartGame()
     {
-        bool isStop = stop || escMenuActive || isNight;
+        bool isStop = stop || escMenuActive;
         if (GameObject.FindGameObjectWithTag("Bear") != null) GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = isStop;
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject animal in animals)
         {
             animal.GetComponent<AnimalScript>().stop = isStop;
         }
-        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = !isStop);
+        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = !(isStop || isNight));
     }
 
     public void ChangeMusicVolume()
