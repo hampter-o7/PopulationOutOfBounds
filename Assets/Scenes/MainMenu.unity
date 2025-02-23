@@ -137,27 +137,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 535.9
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 354.47
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_LocalScale.x
@@ -201,11 +201,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -325.235
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -220,24 +220,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2107151605387312180, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107151605387312180, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107151605387312180, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107151605387312180, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107151605387312180, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -39.5514
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107151605387312180, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 2107151605387312180, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -19.775717
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4321426232607416724, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_text
-      value: "In day time you can grow your animal population and plant some grass,
-        by first using poop to fertilize the land (Right Click) and seeds to plant
-        some grass (Right Click on Fertalized land). Make sure you dont breed your
-        animals too hastly, as having bad ratios between them can cause some bad
-        issues:\n\n1X FOX > 3X Chicken => Foxes kill the chickens\n1X WOLF > 1X Sheep=>
-        Wolves kill the sheep\n\n1X ANY ANIMAL > 10X Other animal=> \nOther animal
-        gets killed by ANY animal \n\nWin Condition:\nYou win by growing your population
-        to 100. If you lose more than half of your species, you lose!\n\nAlso...
-        Bear...\n"
+      value: "Instructions:\r\n\r\nIn day time you can grow your animal population
+        and plant some grass, by first using poop to fertilize the land (Right Click)
+        and seeds to plant some grass (Right Click on Fertilized land). Make sure
+        you don't breed your animals too hastily, as having bad ratios between them
+        can cause some bad issues:\r\n\r\n1X FOX > 3X Chicken => Foxes kill the chickens\r\n\r\n1X
+        WOLF > 1X Sheep=> Wolves kill the sheep\r\n\r\n1X ANY ANIMAL > 10X Other
+        animal=> \r\n\r\nOther animal gets killed by ANY animal \r\n\r\nWin Condition:\r\n\r\nYou
+        win by growing your population to 100. If you lose more than half of your
+        species, you lose!\r\n\r\nAlso... Bear..."
       objectReference: {fileID: 0}
     - target: {fileID: 4321426232607416724, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_fontSize
@@ -365,7 +385,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 834273150}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
 --- !u!224 &43374821 stripped
@@ -1056,11 +1079,11 @@ RectTransform:
   m_Children:
   - {fileID: 1664878803}
   - {fileID: 2036933476}
-  m_Father: {fileID: 985544688}
+  m_Father: {fileID: 43374821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 473.1, y: -164}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &834273151
@@ -1132,7 +1155,6 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 43374821}
-  - {fileID: 834273150}
   m_Father: {fileID: 4309345375446913361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

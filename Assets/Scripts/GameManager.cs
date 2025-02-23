@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour
             Vector3Int cellPosition = ground.WorldToCell(mousePosition);
             InventoryManager inventoryManagerSc = inventoryManager.GetComponent<InventoryManager>();
             string clickedTile = ground.GetTile(cellPosition).name;
-            if (clickedTile.Equals("Farmable") && inventoryManagerSc.ChangeManureValue(-1)) ground.SetTile(cellPosition, farmland);
+            if ((clickedTile.Equals("Flower1") || clickedTile.Equals("Flower2") || clickedTile.Equals("Farmable")) && inventoryManagerSc.ChangeManureValue(-1)) ground.SetTile(cellPosition, farmland);
             if (clickedTile.Equals("Farmland") && inventoryManagerSc.ChangeSeedsValue(-1))
             {
                 ground.SetTile(cellPosition, seedsPlanted);

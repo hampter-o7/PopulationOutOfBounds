@@ -555,19 +555,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PrehtGames
-
-    hampter-07
-
+  m_text: 'hampter-07
 
     PrehtGames
 
-    hampter-07
 
+    hampter-07
 
     PrehtGames
 
-    hampter-07'
+
+    hampter-07
+
+    PrehtGames'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c47868a4ead257944b335030d4490fc2, type: 2}
   m_sharedMaterial: {fileID: -209798299898876099, guid: c47868a4ead257944b335030d4490fc2, type: 2}
