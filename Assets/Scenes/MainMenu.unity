@@ -645,6 +645,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.775
       objectReference: {fileID: 0}
+    - target: {fileID: 4380907243978341909, guid: 289863c6574363842989099c8300c9b4, type: 3}
+      propertyPath: m_fontStyle
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4616179745017172556, guid: 289863c6574363842989099c8300c9b4, type: 3}
       propertyPath: m_Value
       value: 0.7
