@@ -38,6 +38,12 @@ public class SoundManager : MonoBehaviour
     }
     void Start()
     {
+        currentSFXVolume = PlayerPrefs.GetFloat("SFXVolume");
+        currentMusicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        ChangeMusicVolume(currentMusicVolume);
+        ChangeSFXVolume(currentSFXVolume);
+        Debug.Log("Set MusicVolume from playerPrefs to: " + currentMusicVolume);
+        Debug.Log("Set SFXVolume from playerPrefs to: " + currentSFXVolume);
         music.loop = true;
         music.clip = MainThemeMusic;
         music.Play();
@@ -64,12 +70,14 @@ public class SoundManager : MonoBehaviour
     {
         StartCoroutine(FadeAudio(music, value, fadeDuration));
         currentMusicVolume = value;
+        PlayerPrefs.SetFloat("MusicVolume", value);
     }
 
     public void ChangeSFXVolume(float value)
     {
         StartCoroutine(FadeAudio(SFX, value, fadeDuration));
         currentSFXVolume = value;
+        PlayerPrefs.SetFloat("SFXVolume", value);
     }
 
     private IEnumerator FadeAudio(AudioSource audioSource, float targetVolume, float duration)

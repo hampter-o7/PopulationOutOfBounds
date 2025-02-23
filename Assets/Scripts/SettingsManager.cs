@@ -8,7 +8,6 @@ public class SettingsManager : MonoBehaviour
     public Slider SFXSlider;
     public GameObject settings;
     public GameObject escMenu;
-
     public void ShowSettings()
     {
         UpdateSettingsText();
