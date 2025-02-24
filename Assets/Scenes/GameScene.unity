@@ -109069,10 +109069,10 @@ MonoBehaviour:
   numberOfGrass: {fileID: 1634845303}
   numberOfMeat: {fileID: 2124802245}
   numberOfManure: {fileID: 1507770990}
-  seeds: 100
-  grass: 100
-  meat: 100
-  manure: 100
+  seeds: 20
+  grass: 20
+  meat: 20
+  manure: 10
 --- !u!4 &1753073614
 Transform:
   m_ObjectHideFlags: 0
