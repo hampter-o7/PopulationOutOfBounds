@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class ScrollAnimation : MonoBehaviour
 {
-    private float waitTime = 2;
-    private float scrollSpeed = 100;
-    public GameObject sceneManager;
+    [SerializeField] private GameObject sceneManager;
+    [SerializeField] private float waitTime = 2;
+    [SerializeField] private float scrollSpeed = 100;
 
     private float goToMainMenu = 25;
-    void Update()
+    private void Update()
     {
         goToMainMenu -= Time.deltaTime;
         if (goToMainMenu < 0)

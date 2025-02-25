@@ -59,7 +59,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -115,17 +115,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Items_0
+      name: meat
       rect:
         serializedVersion: 2
-        x: 1
-        y: 65
-        width: 30
-        height: 29
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,12 +154,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Items_1
+      name: grass
       rect:
         serializedVersion: 2
-        x: 33
-        y: 63
-        width: 31
+        x: 32
+        y: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -163,13 +176,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Items_2
+      name: seeds
       rect:
         serializedVersion: 2
-        x: 67
-        y: 64
-        width: 24
-        height: 26
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,13 +198,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Items_3
+      name: manure
       rect:
         serializedVersion: 2
-        x: 3
-        y: 34
-        width: 28
-        height: 28
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,6 +215,138 @@ TextureImporter:
       bones: []
       spriteID: 0b54b467ac753ef4ebfac9d275fc6986
       internalID: 1042207371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hoe
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47a939be287fba149b90ebdafd3995ed
+      internalID: -541932300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f8c500329b13d24e9f20a6a2305d46b
+      internalID: -1666911386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: axe
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d521ac51822dc0c4493f20914208e3a5
+      internalID: 1971606673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shovel
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab24851027b0862458fa2aeac104d40c
+      internalID: -1533642659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logs
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba3161c37eb024b42aa3051ee5bc56f3
+      internalID: 1598521948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: scythe
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e20422f215938d94ba43b991e6dca3c6
+      internalID: 1474538718
       vertices: []
       indices: 
       edges: []
@@ -220,10 +365,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Items_0: 8033092973025764044
-      Items_1: 4337684191699249041
-      Items_2: -488721925442295091
-      Items_3: 1042207371
+      axe: 1971606673
+      grass: 4337684191699249041
+      hammer: -1666911386
+      hoe: -541932300
+      logs: 1598521948
+      manure: 1042207371
+      meat: 8033092973025764044
+      scythe: 1474538718
+      seeds: -488721925442295091
+      shovel: -1533642659
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

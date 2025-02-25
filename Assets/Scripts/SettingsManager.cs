@@ -4,10 +4,13 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    public Slider musicSlider;
-    public Slider SFXSlider;
-    public GameObject settings;
-    public GameObject escMenu;
+    [Header("----------Sliders----------")]
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider SFXSlider;
+    [Header("----------Objects----------")]
+    [SerializeField] private GameObject settings;
+    [SerializeField] private GameObject escMenu;
+
     public void ShowSettings()
     {
         UpdateSettingsText();
@@ -18,8 +21,8 @@ public class SettingsManager : MonoBehaviour
     public void UpdateSettingsText()
     {
         SoundManager soundManager = FindFirstObjectByType<SoundManager>();
-        musicSlider.value = soundManager.currentMusicVolume;
-        SFXSlider.value = soundManager.currentSFXVolume;
+        musicSlider.value = soundManager.getMusicVolume();
+        SFXSlider.value = soundManager.getSFXVolume();
     }
 
     public void ChangeMusicVolume()

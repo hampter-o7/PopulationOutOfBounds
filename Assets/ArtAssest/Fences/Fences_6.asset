@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: InFence
+  m_Name: Fences_6
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1385418356, guid: fd251e9360848994a8ccf61906bc2349, type: 3}
+  m_Sprite: {fileID: 1019694295, guid: f515163e1cc21c247935660d0cc5cc26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

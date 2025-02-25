@@ -9,44 +9,32 @@ using System.Collections;
 using System.Linq;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using UnityEditor.Tilemaps;
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI chickenCountText;
-    public TextMeshProUGUI cowCountText;
-    public TextMeshProUGUI sheepCountText;
-    public TextMeshProUGUI foxCountText;
-    public TextMeshProUGUI wolfCountText;
-
-    public TextMeshProUGUI timer;
-    public TextMeshProUGUI animalDeathText;
-    public GameObject animalDeathCanvas;
-    public Tilemap fences;
-    public Tilemap ground;
-    public Tile farmland;
-    public Tile grass;
-    public Tile seedsPlanted;
-    public GameObject retryButton;
-    public GameObject escMenu;
-    public GameObject settingsMenu;
-    public GameObject keybindingsMenu;
-    public GameObject spawnAnimalButtons;
-    public GameObject inventoryManager;
-    public GameObject settingsManager;
-    public GameSceneManager gameSceneManager;
-    public AnimalSpawnerScript bearSpawner;
+    [SerializeField] private TextMeshProUGUI chickenCountText;
+    [SerializeField] private TextMeshProUGUI cowCountText;
+    [SerializeField] private TextMeshProUGUI sheepCountText;
+    [SerializeField] private TextMeshProUGUI foxCountText;
+    [SerializeField] private TextMeshProUGUI wolfCountText;
+    [SerializeField] private TextMeshProUGUI timer;
+    [SerializeField] private TextMeshProUGUI animalDeathText;
+    [SerializeField] private GameObject animalDeathCanvas;
+    [SerializeField] private GameObject retryButton;
+    [SerializeField] private GameObject escMenu;
+    [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject keybindingsMenu;
+    [SerializeField] private GameObject spawnAnimalButtons;
+    [SerializeField] private GameObject inventoryManager;
+    [SerializeField] private GameObject settingsManager;
+    [SerializeField] private GameSceneManager gameSceneManager;
+    [SerializeField] private AnimalSpawnerScript bearSpawner;
     [SerializeField] private int maxWinAnimalCount = 100;
-
-    private readonly int timeToGrow = 60;
-
-    public SoundManager soundManager;
-
+    [SerializeField] private SoundManager soundManager;
     private bool isLightActive = true;
-    private List<Light2D> lights = new();
+    private readonly List<Light2D> lights = new();
     [SerializeField] private float lightTransitionTime = 180f;
-
     public int night = 0;
-
-
     bool stop = false;
     bool escMenuActive = false;
     bool isNight = false;
@@ -54,32 +42,9 @@ public class GameManager : MonoBehaviour
     public float time = 12 * 60;
     private readonly int maxTime = 24 * 60;
 
-    private Dictionary<Vector3Int, TileBase> removedFences = new();
-    private Dictionary<Vector3Int, TileBase> tempRemovedFences = new();
-    private Dictionary<Vector3Int, float> seedsPlantedTiles = new();
-
-
-    private readonly Dictionary<Vector3Int, TileBase> originalRemovedFences = new()
-    {
-        {new(-1, -1, 0), null},
-        {new(-6, 2, 0), null},
-        {new(-3, 8, 0), null},
-        {new(4, 11, 0), null},
-        {new(13, 3, 0), null},
-        {new(13, 4, 0), null},
-        {new(17, 0, 0), null},
-        {new(18, 0, 0), null},
-        {new(10, -8, 0), null},
-        {new(6, -13, 0), null},
-        {new(-4, -16, 0), null},
-        {new(-5, -13, 0), null},
-        {new(-10, -13, 0), null},
-
-    };
     void Start()
     {
         settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
-        removedFences.AddRange(originalRemovedFences);
 
         foreach (Light2D light in FindObjectsByType<Light2D>(FindObjectsSortMode.None))
         {
@@ -98,7 +63,6 @@ public class GameManager : MonoBehaviour
         if (end) return;
         if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
         if (stop || escMenuActive) return;
-        UpdateGrowingSeeds();
         time = (time + Time.deltaTime * 10) % maxTime;
         timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
         CheckTime();
@@ -132,14 +96,8 @@ public class GameManager : MonoBehaviour
         spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = false);
         soundManager.PlayBearTheme();
         bearSpawner.SpawnAnimal(false);
-        foreach (Vector3Int position in removedFences.Keys)
-        {
-            RemoveAddFence(true, position, false);
-        }
-        removedFences.Clear();
-        removedFences.AddRange(tempRemovedFences);
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
-        tempRemovedFences.Clear();
+
+
     }
 
     private void StartDay()
@@ -149,19 +107,12 @@ public class GameManager : MonoBehaviour
         spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = true);
         soundManager.GetComponent<SoundManager>().PlayMainTheme();
         Destroy(GameObject.FindGameObjectWithTag("Bear"));
-        foreach (Vector3Int position in removedFences.Keys)
-        {
-            RemoveAddFence(false, position, false);
-        }
-        removedFences.Clear();
-        removedFences.AddRange(originalRemovedFences);
         FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject animal in animals)
         {
             animal.GetComponent<AnimalScript>().hasDestPoint = false;
         }
-        inventoryManager.GetComponent<InventoryManager>().AddDailyResources();
     }
 
     private void CheckMouseClicks()
@@ -190,38 +141,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int cellPosition = ground.WorldToCell(mousePosition);
-            InventoryManager inventoryManagerSc = inventoryManager.GetComponent<InventoryManager>();
-            string clickedTile = ground.GetTile(cellPosition).name;
-            if ((clickedTile.Equals("Flower1") || clickedTile.Equals("Flower2") || clickedTile.Equals("Farmable")) && inventoryManagerSc.ChangeManureValue(-1)) ground.SetTile(cellPosition, farmland);
-            if (clickedTile.Equals("Farmland") && inventoryManagerSc.ChangeSeedsValue(-1))
-            {
-                ground.SetTile(cellPosition, seedsPlanted);
-                seedsPlantedTiles.Add(cellPosition, timeToGrow);
-            }
-            if (clickedTile.Equals("Grass"))
-            {
-                inventoryManagerSc.ChangeGrassValue(3);
-                inventoryManagerSc.ChangeSeedsValue(3);
-                ground.SetTile(cellPosition, farmland);
-            }
-        }
-    }
 
-    private void UpdateGrowingSeeds()
-    {
-        foreach (Vector3Int tile in seedsPlantedTiles.Keys.ToList())
-        {
-            seedsPlantedTiles[tile] -= Time.deltaTime;
-            if (seedsPlantedTiles[tile] <= 0)
-            {
-                seedsPlantedTiles.Remove(tile);
-                ground.SetTile(tile, grass);
-            }
-        }
     }
 
     private void ToggleLights()
@@ -259,25 +179,6 @@ public class GameManager : MonoBehaviour
         StopStartGame();
         settingsMenu.SetActive(false);
         keybindingsMenu.SetActive(false);
-    }
-
-    public void RemoveAddFence(bool isRemoveFence, Vector3Int location, bool isBearBraking)
-    {
-        if (isRemoveFence)
-        {
-            if (isBearBraking)
-            {
-                removedFences.Add(location, fences.GetTile(location));
-                fences.SetTile(location, null);
-                return;
-            }
-            else
-            {
-                tempRemovedFences[location] = fences.GetTile(location);
-
-            }
-        }
-        fences.SetTile(location, removedFences[location]);
     }
 
     public void CheckGameConditions()

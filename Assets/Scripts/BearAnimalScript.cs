@@ -12,6 +12,7 @@ public class BearAnimalScript : MonoBehaviour
     Vector3 destPoint;
     float movementSpeed = 2;
     public GameManager gameManager;
+    private TileManager tileManager;
     public InventoryManager inventoryManager;
     public bool stop = false;
     private Vector3 lastPosition;
@@ -29,6 +30,7 @@ public class BearAnimalScript : MonoBehaviour
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        tileManager = GameObject.Find("Grid").GetComponent<TileManager>();
         inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         lastPosition = transform.position;
     }
@@ -75,7 +77,7 @@ public class BearAnimalScript : MonoBehaviour
             stuckTimer += Time.deltaTime;
             if (stuckTimer > stuckTimerMax)
             {
-                gameManager.RemoveAddFence(true, fenceCheck, true);
+                tileManager.AddOrRemoveFence(fenceCheck, false);
                 FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
             }
         }

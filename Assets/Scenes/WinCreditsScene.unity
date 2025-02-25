@@ -700,6 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneManager: {fileID: 2092432548}
+  waitTime: 2
 --- !u!95 &1212621250
 Animator:
   serializedVersion: 7

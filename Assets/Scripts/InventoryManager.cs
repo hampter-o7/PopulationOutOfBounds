@@ -4,38 +4,19 @@ using Unity.VisualScripting;
 
 public class InventoryManager : MonoBehaviour
 {
-    public TextMeshProUGUI numberOfSeeds;
-    public TextMeshProUGUI numberOfGrass;
-    public TextMeshProUGUI numberOfMeat;
-    public TextMeshProUGUI numberOfManure;
-
-
-
+    [Header("----------Texts----------")]
+    [SerializeField] private TextMeshProUGUI numberOfSeeds;
+    [SerializeField] private TextMeshProUGUI numberOfGrass;
+    [SerializeField] private TextMeshProUGUI numberOfMeat;
+    [SerializeField] private TextMeshProUGUI numberOfManure;
+    [Header("----------Resources----------")]
     [SerializeField] private int seeds;
     [SerializeField] private int grass;
     [SerializeField] private int meat;
     [SerializeField] private int manure;
-
-
-    void Update()
-    {
-        UpdateText();
-    }
-
-    private void UpdateText()
-    {
-        numberOfSeeds.text = seeds.ToString();
-        numberOfGrass.text = grass.ToString();
-        numberOfMeat.text = meat.ToString();
-        numberOfManure.text = manure.ToString();
-    }
-
-    public void AddDailyResources()
-    {
-        seeds += 7;
-        grass += 9;
-        UpdateText();
-    }
+    [SerializeField] private int logs;
+    [Header("----------Tools----------")]
+    [SerializeField] private string selectedTool;
 
     public bool ChangeSeedsValue(int numSeeds)
     {
@@ -66,5 +47,31 @@ public class InventoryManager : MonoBehaviour
         manure += numManure;
         UpdateText();
         return true;
+    }
+    public bool ChangeLogValue(int numLogs)
+    {
+        if (logs + numLogs < 0) return false;
+        logs += numLogs;
+        UpdateText();
+        return true;
+    }
+
+    public string GetToolSelected()
+    {
+        return selectedTool;
+    }
+
+    void Start()
+    {
+        UpdateText();
+    }
+
+    private void UpdateText()
+    {
+        numberOfSeeds.text = seeds.ToString();
+        numberOfGrass.text = grass.ToString();
+        numberOfMeat.text = meat.ToString();
+        numberOfManure.text = manure.ToString();
+        // TODO display logs
     }
 }
