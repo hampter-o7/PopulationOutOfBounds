@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    [Header("----------Managers----------")]
+    [SerializeField] private GameManager gameManager;
     [Header("----------Texts----------")]
     [SerializeField] private TextMeshProUGUI numberOfSeeds;
     [SerializeField] private TextMeshProUGUI numberOfGrass;
@@ -67,6 +69,7 @@ public class InventoryManager : MonoBehaviour
     {
         tool.image.sprite = clickedButton.image.sprite;
         selectedTool = tool.image.sprite.name;
+        if (Tutorial.isTutorial) gameManager.GetComponent<GameManager>().AdvanceTutorial(!selectedTool.Equals("hammer") ? 2 : 1);
     }
 
     private void Start()

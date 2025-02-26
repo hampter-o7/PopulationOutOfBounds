@@ -21,7 +21,13 @@ public class AnimalSpawnerScript : MonoBehaviour
     public void SpawnAnimal(bool isStart)
     {
         bool doSpawn = true;
-        if (!isStart)
+        if (Tutorial.isTutorial)
+        {
+            if (isStart) return;
+            gameManager.AdvanceTutorial(animalSprite.name.Equals("Chicken") ? 1 : 0);
+            doSpawn = animalSprite.name.Equals("Chicken");
+        }
+        if (!isStart && doSpawn)
         {
             switch (animalSprite.name)
             {
@@ -47,6 +53,7 @@ public class AnimalSpawnerScript : MonoBehaviour
         SpriteRenderer spriteRenderer = spawnedAnimal.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = animalSprite;
         if (spawnedAnimal.GetComponent<AnimalScript>() != null) spawnedAnimal.GetComponent<AnimalScript>().SetSpawnPoint(transform.position);
+        if (Tutorial.isTutorial) return;
         if (!isStart) gameManager.GetComponent<GameManager>().CheckGameConditions();
     }
 

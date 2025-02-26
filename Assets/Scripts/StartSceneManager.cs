@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +8,13 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadGame()
     {
+        Tutorial.isTutorial = false;
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void LoadTutorial()
+    {
+        Tutorial.isTutorial = true;
         SceneManager.LoadScene("GameScene");
     }
 

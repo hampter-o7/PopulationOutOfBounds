@@ -6,6 +6,7 @@ public class TileManager : MonoBehaviour
 {
     [Header("----------Managers----------")]
     [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private GameManager gameManager;
     [Header("----------Tilemaps----------")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap fences;
@@ -21,12 +22,14 @@ public class TileManager : MonoBehaviour
     [SerializeField] private int seedsGainedFromHarvesting = 3;
     [SerializeField] private int GrassGainedFromHarvesting = 3;
     [Header("----------Time to grow----------")]
-    [SerializeField] private int seedsGrowthTimeInSeconds = 15;
+    [SerializeField] private int seedsGrowthTimeInSeconds = 60;
+    [SerializeField] private int seedsGrowthTimeInSecondsForTutorial = 5;
     private bool[,] isFence;
     private readonly int[] tileWeights = { 100, 20, 5, 5 };
 
     public void AddOrRemoveFence(Vector3Int position, bool isAdd)
     {
+        if (Tutorial.isTutorial) gameManager.AdvanceTutorial(11);
         int x = position.x + isFence.GetLength(0) / 2;
         int y = position.y + isFence.GetLength(1) / 2;
         isFence[x, y] = isAdd;
@@ -37,6 +40,7 @@ public class TileManager : MonoBehaviour
     private void Start()
     {
         inventoryManager = inventoryManager.GetComponent<InventoryManager>();
+        gameManager = gameManager.GetComponent<GameManager>();
         isFence = new bool[ground.cellBounds.size.x, ground.cellBounds.size.y];
         CheckAllFences();
         SetTilesToRandom();
@@ -49,6 +53,11 @@ public class TileManager : MonoBehaviour
 
     private void MouseClicks()
     {
+        if (!Tutorial.isTutorial)
+        {
+            int currentTime = gameManager.GetTime();
+            if (currentTime < 6 * 60 || currentTime > 22 * 60 || gameManager.GetStop() || gameManager.GetEnd()) return;
+        }
         if (Input.GetMouseButton(1))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -79,6 +88,7 @@ public class TileManager : MonoBehaviour
         TileBase groundTile = ground.GetTile(position);
         if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || fences.GetTile(position) != null) return;
         if (inventoryManager.ChangeLogValue(-fenceCost)) AddOrRemoveFence(position, true);
+
     }
 
     private void UseAxe(Vector3Int position)
@@ -106,7 +116,7 @@ public class TileManager : MonoBehaviour
 
     private IEnumerator SetToGrass(Vector3Int position)
     {
-        yield return new WaitForSeconds(seedsGrowthTimeInSeconds);
+        yield return new WaitForSeconds(Tutorial.isTutorial ? seedsGrowthTimeInSecondsForTutorial : seedsGrowthTimeInSeconds);
         ground.SetTile(position, groundTiles[6]);
     }
 
@@ -116,6 +126,10 @@ public class TileManager : MonoBehaviour
         inventoryManager.ChangeSeedsValue(seedsGainedFromHarvesting);
         inventoryManager.ChangeGrassValue(GrassGainedFromHarvesting);
         ground.SetTile(position, groundTiles[4]);
+        if (Tutorial.isTutorial)
+        {
+            gameManager.AdvanceTutorial(5);
+        }
     }
 
     private void CheckAllFences()

@@ -30,6 +30,7 @@ public class AnimalScript : MonoBehaviour
     {
         transform.position = spawnPoint;
         hasDestPoint = false;
+        if (Tutorial.isTutorial) gameManager.AdvanceTutorial(7);
     }
 
     public void SetSpawnPoint(Vector3 spawn)

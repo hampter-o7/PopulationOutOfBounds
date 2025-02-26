@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI wolfCountText;
     [SerializeField] private TextMeshProUGUI timer;
     [SerializeField] private TextMeshProUGUI animalDeathText;
+    [SerializeField] private TextMeshProUGUI tutorialText;
     [Header("----------Objects----------")]
     [SerializeField] private GameObject animalDeathCanvas;
     [SerializeField] private GameObject retryButton;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject keybindingsMenu;
     [SerializeField] private GameObject spawnAnimalButtons;
+    [SerializeField] private GameObject tutorialCanvas;
+    [SerializeField] private GameObject tutorialButton;
     [Header("----------Managers----------")]
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private SettingsManager settingsManager;
@@ -35,10 +38,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float deathTextFadeDuration = 5;
     [SerializeField] private float time = 12 * 60;
     private readonly int maxTime = 24 * 60;
+    private int doneWithYouClicks = 0;
+    private int tutorialClicks = 0;
     private int night = 0;
     private bool end = false;
     private bool stop = false;
     private bool isNight = false;
+    private bool isTutorial = false;
     private bool escMenuActive = false;
 
     public int GetNightNumber()
@@ -49,6 +55,16 @@ public class GameManager : MonoBehaviour
     public int GetTime()
     {
         return (int)time;
+    }
+
+    public bool GetStop()
+    {
+        return stop;
+    }
+
+    public bool GetEnd()
+    {
+        return end;
     }
 
     public void CheckGameConditions()
@@ -90,9 +106,196 @@ public class GameManager : MonoBehaviour
 
     public void ReloadScene()
     {
-        SoundManager soundManager = FindFirstObjectByType<SoundManager>();
         soundManager.PlayMainTheme();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void AdvanceTutorial(int click)
+    {
+        tutorialClicks++;
+        if (tutorialClicks == 1)
+        {
+            if (click != -1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "On the top left of your screen there is a tool selector.\n\n The top tool in the circle is the selected one.\n\n Try selecting a different tool.";
+            tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = false;
+            tutorialButton.SetActive(false);
+        }
+        else if (tutorialClicks == 2)
+        {
+            if (click == 1)
+            {
+                if (doneWithYouClicks > 10)
+                {
+                    tutorialText.text = "I've had enough. I you are so smart and don't need me... go play on your own. (•̀ ᴖ •́ )";
+                    tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = true;
+                    tutorialButton.SetActive(false);
+                    StartCoroutine(StartGameFromTutorial(5));
+                    return;
+                }
+                tutorialText.text = "I said a different tool... (•`_´•)";
+                doneWithYouClicks++;
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "With certain tools you can do different actions. You can build fences with a hammer, break fences and chop trees with an axe, make a planting bed with a hoe, plant seeds, harvest grown seeds with a scythe and shovel the stumps out with a shovel.";
+            tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = true;
+            tutorialButton.SetActive(true);
+            doneWithYouClicks = 0;
+        }
+        else if (tutorialClicks == 3)
+        {
+            if (click != -1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "Try hoeing the ground and growing some seeds. I will speed up growth of your seeds.\n\n To use a tool just right click with your mouse on a tile (can also hold and drag).";
+        }
+        else if (tutorialClicks == 4)
+        {
+            tutorialCanvas.SetActive(false);
+        }
+        else if (tutorialClicks == 5)
+        {
+            if (click != 5)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "You should say thanks next time for speeding things up (•̀ - •́ ). In the real game you'll have to wait 60 seconds of your time to grow them.\n Anyway on the bottom left there are buttons for spawning animals. Try spawning a chicken.";
+            tutorialCanvas.SetActive(true);
+            tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = false;
+            tutorialButton.SetActive(false);
+            spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = true);
+        }
+        else if (tutorialClicks == 6)
+        {
+            if (click == 5)
+            {
+                tutorialClicks--;
+                return;
+            }
+            if (click != 1)
+            {
+                if (doneWithYouClicks > 10)
+                {
+                    tutorialText.text = "I've had enough. I you are so smart and don't need me... go play on your own. (•̀ ᴖ •́ )";
+                    tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = true;
+                    tutorialButton.SetActive(false);
+                    StartCoroutine(StartGameFromTutorial(5));
+                    return;
+                }
+                tutorialClicks--;
+                tutorialText.text = "I sad \"try spawning a chicken\". Don't get funny with me! (¬_¬)";
+                doneWithYouClicks++;
+                return;
+            }
+            spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = false);
+            tutorialText.text = "Ok so I don't know if you can see the chicken you just spawned in. Try moving around with middle mouse button and zooming out with the scroll wheel. Once you find a chicken just click it so I can check that you learned something.";
+            tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = true;
+            tutorialButton.SetActive(true);
+            doneWithYouClicks = 0;
+        }
+        else if (tutorialClicks == 7)
+        {
+            if (click != -1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialCanvas.SetActive(false);
+        }
+        else if (tutorialClicks == 8)
+        {
+            if (click != 7)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "Good job! I'm proud of you. (.•ᵕ•.)\n\n So if you didn't notice, clicking on the animal brings it back to its spawn point. During the scarry night... animals can escape from their pen! ( ˶°□°)";
+            tutorialCanvas.SetActive(true);
+        }
+        else if (tutorialClicks == 9)
+        {
+            if (click != -1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "When we are at the topic of the night already... Let me tell you that it's not pretty. A horrible monster spawns at night and tries to kill all your animals. You can try to build some fences with the hammer now. Give it a try!";
+            tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = false;
+            tutorialButton.SetActive(false);
+        }
+        else if (tutorialClicks == 10)
+        {
+            if (click == 2)
+            {
+                if (doneWithYouClicks > 10)
+                {
+                    tutorialText.text = "I've had enough. I you are so smart and don't need me... go play on your own. (•̀ ᴖ •́ )";
+                    tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = true;
+                    tutorialButton.SetActive(false);
+                    StartCoroutine(StartGameFromTutorial(5));
+                    return;
+                }
+                tutorialText.text = "I said \"THE HAMMER\"! \\(`0´)/\n\nNow when I want you to pick the hammer now you don't want to do it huh. How dare you?";
+                tutorialClicks--;
+                doneWithYouClicks++;
+                return;
+            }
+            if (click != 1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialCanvas.SetActive(false);
+        }
+        else if (tutorialClicks == 11)
+        {
+            if (click != 11)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialCanvas.GetComponent<GraphicRaycaster>().enabled = true;
+            tutorialCanvas.SetActive(true);
+            tutorialButton.SetActive(true);
+            tutorialText.text = "One or two more things. The monster is faster every night so you really want to get to a 100 animals (win condition) FAST. You start with one each. Be careful about the ratio of the animals though so they dont kill each other. You can check the ratios later in the settings.";
+        }
+        else if (tutorialClicks == 12)
+        {
+            if (click != -1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "Oh and I totally forgot to mention this... On the top right you can see your resources. Seeds, grass and meat for spawning new animals, manure for making new planting beds and logs for building fences. You start with 20 of each so be careful how you spend 'em.";
+        }
+        else if (tutorialClicks == 13)
+        {
+            if (click != -1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialText.text = "You can figure out everything else on your own... It should be pretty straight forward.\n\n And by the way, no problem for the info (¬ ͜  ͡¬). Now you can go play your little game. Bye! (>v<)/";
+        }
+        else if (tutorialClicks == 14)
+        {
+            if (click != -1)
+            {
+                tutorialClicks--;
+                return;
+            }
+            tutorialClicks++;
+            tutorialCanvas.SetActive(false);
+            tutorialButton.SetActive(false);
+            StartCoroutine(StartGameFromTutorial(0));
+        }
     }
 
     private void Start()
@@ -103,22 +306,59 @@ public class GameManager : MonoBehaviour
         gameSceneManager = gameSceneManager.GetComponent<GameSceneManager>();
         soundManager = FindFirstObjectByType<SoundManager>();
         StartCoroutine(SetAllButtonClicks());
-    }
-
-    private IEnumerator SetAllButtonClicks()
-    {
-        yield return new WaitForSeconds(0.2f);
-        soundManager = FindFirstObjectByType<SoundManager>();
+        isTutorial = Tutorial.isTutorial;
+        if (isTutorial) TutorialGame();
     }
 
     private void Update()
     {
+        if (isTutorial)
+        {
+            CheckMouseClicks();
+            return;
+        }
         if (end) return;
         if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
         if (stop || escMenuActive) return;
         time = (time + Time.deltaTime * 10) % maxTime;
         timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
         CheckTime();
+    }
+
+    private void TutorialGame()
+    {
+        stop = true;
+        StopStartGame();
+        tutorialCanvas.SetActive(true);
+    }
+
+    private IEnumerator StartGameFromTutorial(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Tutorial.isTutorial = false;
+        ReloadScene();
+    }
+
+    private IEnumerator SetAllButtonClicks()
+    {
+        yield return new WaitForSeconds(0.2f);
+        soundManager = FindFirstObjectByType<SoundManager>();
+        SetAllAnimalButtonsText();
+    }
+
+    private void SetAllAnimalButtonsText()
+    {
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        int chickens = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Chicken"));
+        int cows = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Cow"));
+        int sheep = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Sheep"));
+        int foxes = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Fox"));
+        int wolfs = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Wolf"));
+        chickenCountText.text = chickens.ToString();
+        cowCountText.text = cows.ToString();
+        sheepCountText.text = sheep.ToString();
+        foxCountText.text = foxes.ToString();
+        wolfCountText.text = wolfs.ToString();
     }
 
     private void CheckTime()
