@@ -107,8 +107,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SetAllButtonClicks()
     {
-        yield return new WaitForSeconds(1);
-        foreach (Button button in FindObjectsByType<Button>(FindObjectsSortMode.None)) button.onClick.AddListener(() => soundManager.PlaySFX(1));
+        yield return new WaitForSeconds(0.2f);
+        Debug.Log(FindObjectsByType<Button>(FindObjectsSortMode.None).Count());
+        foreach (Button button in Resources.FindObjectsOfTypeAll<Button>()) button.onClick.AddListener(() => soundManager.PlaySFX(1));
     }
 
     private void Update()

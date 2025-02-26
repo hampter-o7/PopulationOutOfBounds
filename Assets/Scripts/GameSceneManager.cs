@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
@@ -26,5 +28,16 @@ public class GameSceneManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(SetAllButtonClicks());
+    }
+
+    private IEnumerator SetAllButtonClicks()
+    {
+        yield return new WaitForSeconds(1);
+        foreach (Button button in Resources.FindObjectsOfTypeAll<Button>()) button.onClick.AddListener(() => FindFirstObjectByType<SoundManager>().PlaySFX(1));
     }
 }
