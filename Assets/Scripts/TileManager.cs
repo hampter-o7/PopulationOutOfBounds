@@ -92,7 +92,6 @@ public class TileManager : MonoBehaviour
     private void UseHoe(Vector3Int position)
     {
         TileBase groundTile = ground.GetTile(position);
-        Debug.Log(groundTile.name);
         if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || fences.GetTile(position) != null) return;
         if (inventoryManager.ChangeManureValue(-fertilizationCost)) ground.SetTile(position, groundTiles[4]);
     }

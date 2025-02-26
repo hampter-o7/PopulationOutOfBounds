@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -65,10 +66,7 @@ public class AnimalScript : MonoBehaviour
     private void AnimalMovement()
     {
         if (!hasDestPoint) SearchForDest();
-        if (hasDestPoint)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
-        }
+        if (hasDestPoint) transform.position = Vector3.MoveTowards(transform.position, destPoint, movementSpeed * Time.deltaTime);
         if (Vector3.Distance(transform.position, destPoint) < 1)
         {
             hasDestPoint = false;
@@ -83,8 +81,8 @@ public class AnimalScript : MonoBehaviour
         poopTime = 1;
         if (!didPoopThisNight && (gameManager.GetTime() < 6 * 60))
         {
-            int max = (int)(6 * 60 / gameManager.GetTime());
-            int rand = Random.Range(0, max);
+            int max = (int)(200 - Math.Pow(gameManager.GetTime(), 0.9));
+            int rand = UnityEngine.Random.Range(0, max);
             if (rand + 1 == max)
             {
                 didPoopThisNight = true;
@@ -108,10 +106,7 @@ public class AnimalScript : MonoBehaviour
             hasDestPoint = true;
             bool wasFlipped = isFlipped;
             isFlipped = destPoint.x < startPoint.x;
-            if (wasFlipped != isFlipped)
-            {
-                sr.flipX = !sr.flipX;
-            }
+            if (wasFlipped != isFlipped) sr.flipX = !sr.flipX;
         }
     }
 
@@ -122,11 +117,7 @@ public class AnimalScript : MonoBehaviour
         {
             Vector3 point = Vector3.Lerp(start, end, i / (float)steps);
             Vector3Int fenceCheck = fence.WorldToCell(point);
-
-            if (fence.HasTile(fenceCheck))
-            {
-                return false;
-            }
+            if (fence.HasTile(fenceCheck)) return false;
         }
         return true;
     }
