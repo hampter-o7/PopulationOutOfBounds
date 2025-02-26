@@ -6,7 +6,6 @@ public class TileManager : MonoBehaviour
 {
     [Header("----------Managers----------")]
     [SerializeField] private InventoryManager inventoryManager;
-    private SoundManager soundManager;
     [Header("----------Tilemaps----------")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap fences;
@@ -32,13 +31,12 @@ public class TileManager : MonoBehaviour
         int y = position.y + isFence.GetLength(1) / 2;
         isFence[x, y] = isAdd;
         SetCorrectFenceAndFencesAround(x, y);
-        soundManager.PlaySFX(3);
+        FindFirstObjectByType<SoundManager>().PlaySFX(3);
     }
 
     private void Start()
     {
         inventoryManager = inventoryManager.GetComponent<InventoryManager>();
-        soundManager = FindFirstObjectByType<SoundManager>();
         isFence = new bool[ground.cellBounds.size.x, ground.cellBounds.size.y];
         CheckAllFences();
         SetTilesToRandom();

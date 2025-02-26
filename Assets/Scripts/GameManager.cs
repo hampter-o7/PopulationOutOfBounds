@@ -102,6 +102,13 @@ public class GameManager : MonoBehaviour
         lightManager = lightManager.GetComponent<LightManager>();
         gameSceneManager = gameSceneManager.GetComponent<GameSceneManager>();
         soundManager = FindFirstObjectByType<SoundManager>();
+        StartCoroutine(SetAllButtonClicks());
+    }
+
+    private IEnumerator SetAllButtonClicks()
+    {
+        yield return new WaitForSeconds(0.2f);
+        soundManager = FindFirstObjectByType<SoundManager>();
     }
 
     private void Update()
