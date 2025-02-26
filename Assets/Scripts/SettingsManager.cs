@@ -21,6 +21,7 @@ public class SettingsManager : MonoBehaviour
 
     public void UpdateSettingsText()
     {
+        if (soundManager == null) soundManager = FindFirstObjectByType<SoundManager>();
         musicSlider.value = soundManager.GetMusicVolume();
         SFXSlider.value = soundManager.GetSFXVolume();
     }
@@ -35,15 +36,5 @@ public class SettingsManager : MonoBehaviour
     {
         soundManager.ChangeSFXVolume(SFXSlider.value);
         UpdateSettingsText();
-    }
-
-    public void PlayButtonClick()
-    {
-        soundManager.PlaySFX(1);
-    }
-
-    private void Start()
-    {
-        soundManager = FindFirstObjectByType<SoundManager>();
     }
 }

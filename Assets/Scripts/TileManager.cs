@@ -24,7 +24,7 @@ public class TileManager : MonoBehaviour
     [Header("----------Time to grow----------")]
     [SerializeField] private int seedsGrowthTimeInSeconds = 15;
     private bool[,] isFence;
-    private readonly int[] tileChances = { 100, 20, 5, 5 };
+    private readonly int[] tileWeights = { 100, 20, 5, 5 };
 
     public void AddOrRemoveFence(Vector3Int position, bool isAdd)
     {
@@ -184,12 +184,12 @@ public class TileManager : MonoBehaviour
     private TileBase GetRandomTile()
     {
         int totalChance = 0;
-        foreach (int chance in tileChances) totalChance += chance;
+        foreach (int chance in tileWeights) totalChance += chance;
         int randomValue = Random.Range(0, totalChance);
         int chanceUsed = 0;
         for (int i = 0; i < groundTiles.Length; i++)
         {
-            chanceUsed += tileChances[i];
+            chanceUsed += tileWeights[i];
             if (randomValue < chanceUsed) return groundTiles[i];
         }
         return null;

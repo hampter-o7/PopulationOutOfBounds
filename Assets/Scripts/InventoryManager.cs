@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -8,14 +9,16 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI numberOfGrass;
     [SerializeField] private TextMeshProUGUI numberOfMeat;
     [SerializeField] private TextMeshProUGUI numberOfManure;
+    [SerializeField] private TextMeshProUGUI numberOfLogs;
     [Header("----------Resources----------")]
     [SerializeField] private int seeds;
     [SerializeField] private int grass;
     [SerializeField] private int meat;
     [SerializeField] private int manure;
     [SerializeField] private int logs;
-    [Header("----------Tools----------")]
-    [SerializeField] private string selectedTool;
+    [Header("----------Tool----------")]
+    [SerializeField] private Button tool;
+    private string selectedTool;
 
     public bool ChangeSeedsValue(int numSeeds)
     {
@@ -60,6 +63,12 @@ public class InventoryManager : MonoBehaviour
         return selectedTool;
     }
 
+    public void SelectATool(Button clickedButton)
+    {
+        tool.image.sprite = clickedButton.image.sprite;
+        selectedTool = tool.image.sprite.name;
+    }
+
     private void Start()
     {
         UpdateText();
@@ -71,6 +80,6 @@ public class InventoryManager : MonoBehaviour
         numberOfGrass.text = grass.ToString();
         numberOfMeat.text = meat.ToString();
         numberOfManure.text = manure.ToString();
-        // TODO display logs
+        numberOfLogs.text = logs.ToString();
     }
 }

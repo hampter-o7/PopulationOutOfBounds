@@ -16,13 +16,6 @@ public class GameSceneManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void ReloadScene()
-    {
-        SoundManager soundManager = FindFirstObjectByType<SoundManager>();
-        soundManager.PlayMainTheme();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
     public void LoadCreditsScene()
     {
         SoundManager soundManager = FindFirstObjectByType<SoundManager>();

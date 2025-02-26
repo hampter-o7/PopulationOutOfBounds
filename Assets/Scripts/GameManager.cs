@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -87,6 +88,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ReloadScene()
+    {
+        SoundManager soundManager = FindFirstObjectByType<SoundManager>();
+        soundManager.PlayMainTheme();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     private void Start()
     {
         inventoryManager = inventoryManager.GetComponent<InventoryManager>();
@@ -94,6 +102,13 @@ public class GameManager : MonoBehaviour
         lightManager = lightManager.GetComponent<LightManager>();
         gameSceneManager = gameSceneManager.GetComponent<GameSceneManager>();
         soundManager = FindFirstObjectByType<SoundManager>();
+        StartCoroutine(SetAllButtonClicks());
+    }
+
+    private IEnumerator SetAllButtonClicks()
+    {
+        yield return new WaitForSeconds(1);
+        foreach (Button button in FindObjectsByType<Button>(FindObjectsSortMode.None)) button.onClick.AddListener(() => soundManager.PlaySFX(1));
     }
 
     private void Update()
