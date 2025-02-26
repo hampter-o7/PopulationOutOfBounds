@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -37,7 +38,8 @@ public class GameSceneManager : MonoBehaviour
 
     private IEnumerator SetAllButtonClicks()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
+        Debug.Log(Resources.FindObjectsOfTypeAll<Button>().Count());
         foreach (Button button in Resources.FindObjectsOfTypeAll<Button>()) button.onClick.AddListener(() => FindFirstObjectByType<SoundManager>().PlaySFX(1));
     }
 }
