@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class AnimalSpawnerScript : MonoBehaviour
 {
-    public GameObject prefabAnimal;
-    public Sprite animalSprite;
-    public InventoryManager inventoryManager;
-    public GameManager gameManager;
-    [SerializeField] int animalCost;
-
-    private Vector3[] bearSpawningPositions =  {
+    [Header("----------Game Objects----------")]
+    [SerializeField] private GameObject prefabAnimal;
+    [Header("----------Sprite----------")]
+    [SerializeField] private Sprite animalSprite;
+    [Header("----------Managers----------")]
+    [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private GameManager gameManager;
+    private readonly Vector3[] bearSpawningPositions =  {
         new(-0.442f, 8.703f, 0),
         new(-15.28f, -1.31f, 0),
         new(3.56f, -11.45f, 0),
         new(17.56f, -0.17f, 0),
     };
-
-    void Start()
-    {
-        if (!animalSprite.name.Equals("Bear")) SpawnAnimal(true);
-    }
 
     public void SpawnAnimal(bool isStart)
     {
@@ -50,10 +46,12 @@ public class AnimalSpawnerScript : MonoBehaviour
         GameObject spawnedAnimal = Instantiate(prefabAnimal, animalSprite.name.Equals("Bear") ? bearSpawningPositions[UnityEngine.Random.Range(0, 4)] : transform.position, transform.rotation);
         SpriteRenderer spriteRenderer = spawnedAnimal.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = animalSprite;
-        if (spawnedAnimal.GetComponent<AnimalScript>() != null)
-        {
-            spawnedAnimal.GetComponent<AnimalScript>().spawnPoint = transform.position;
-        }
+        if (spawnedAnimal.GetComponent<AnimalScript>() != null) spawnedAnimal.GetComponent<AnimalScript>().SetSpawnPoint(transform.position);
         if (!isStart) gameManager.GetComponent<GameManager>().CheckGameConditions();
+    }
+
+    private void Start()
+    {
+        if (!animalSprite.name.Equals("Bear")) SpawnAnimal(true);
     }
 }

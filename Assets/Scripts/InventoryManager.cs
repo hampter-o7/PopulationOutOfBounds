@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -61,7 +60,7 @@ public class InventoryManager : MonoBehaviour
         return selectedTool;
     }
 
-    void Start()
+    private void Start()
     {
         UpdateText();
     }

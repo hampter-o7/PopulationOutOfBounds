@@ -2,25 +2,23 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public float zoomSpeed = 5f;
-    public float minZoom = 5f;
-    public float maxZoom = 20f;
-    public float panSpeed = 0.5f;
-
+    private readonly float zoomSpeed = 5f;
+    private readonly float minZoom = 5f;
+    private readonly float maxZoom = 20f;
+    private readonly float panSpeed = 0.5f;
     private Vector3 lastMousePosition;
 
-    void Update()
+    private void Update()
     {
         HandleZoom();
         if (Time.deltaTime > 0.1f) return;
         HandlePan();
     }
 
-    void HandleZoom()
+    private void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         Camera cam = Camera.main;
-
         if (cam.orthographic)
         {
             cam.orthographicSize -= scroll * zoomSpeed;
@@ -33,16 +31,13 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    void HandlePan()
+    private void HandlePan()
     {
-        if (Input.GetMouseButtonDown(2))
-        {
-            lastMousePosition = Input.mousePosition;
-        }
+        if (Input.GetMouseButtonDown(2)) lastMousePosition = Input.mousePosition;
         else if (Input.GetMouseButton(2))
         {
             Vector3 delta = Input.mousePosition - lastMousePosition;
-            Vector3 move = new Vector3(-delta.x * panSpeed * Time.deltaTime, -delta.y * panSpeed * Time.deltaTime, 0);
+            Vector3 move = new(-delta.x * panSpeed * Time.deltaTime, -delta.y * panSpeed * Time.deltaTime, 0);
             transform.Translate(move, Space.World);
             lastMousePosition = Input.mousePosition;
         }

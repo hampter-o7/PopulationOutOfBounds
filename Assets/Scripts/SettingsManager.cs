@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +9,8 @@ public class SettingsManager : MonoBehaviour
     [Header("----------Objects----------")]
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject escMenu;
+    private SoundManager soundManager;
+
 
     public void ShowSettings()
     {
@@ -20,25 +21,29 @@ public class SettingsManager : MonoBehaviour
 
     public void UpdateSettingsText()
     {
-        SoundManager soundManager = FindFirstObjectByType<SoundManager>();
-        musicSlider.value = soundManager.getMusicVolume();
-        SFXSlider.value = soundManager.getSFXVolume();
+        musicSlider.value = soundManager.GetMusicVolume();
+        SFXSlider.value = soundManager.GetSFXVolume();
     }
 
     public void ChangeMusicVolume()
     {
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().ChangeMusicVolume(musicSlider.value);
+        soundManager.ChangeMusicVolume(musicSlider.value);
         UpdateSettingsText();
     }
 
     public void ChangeSFXVolume()
     {
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().ChangeSFXVolume(SFXSlider.value);
+        soundManager.ChangeSFXVolume(SFXSlider.value);
         UpdateSettingsText();
     }
 
     public void PlayButtonClick()
     {
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(1);
+        soundManager.PlaySFX(1);
+    }
+
+    private void Start()
+    {
+        soundManager = FindFirstObjectByType<SoundManager>();
     }
 }

@@ -1,17 +1,13 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 using System;
-using UnityEngine.Tilemaps;
-using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-using UnityEditor.Tilemaps;
+
 public class GameManager : MonoBehaviour
 {
+    [Header("----------Texts----------")]
     [SerializeField] private TextMeshProUGUI chickenCountText;
     [SerializeField] private TextMeshProUGUI cowCountText;
     [SerializeField] private TextMeshProUGUI sheepCountText;
@@ -19,166 +15,39 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI wolfCountText;
     [SerializeField] private TextMeshProUGUI timer;
     [SerializeField] private TextMeshProUGUI animalDeathText;
+    [Header("----------Objects----------")]
     [SerializeField] private GameObject animalDeathCanvas;
     [SerializeField] private GameObject retryButton;
     [SerializeField] private GameObject escMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject keybindingsMenu;
     [SerializeField] private GameObject spawnAnimalButtons;
-    [SerializeField] private GameObject inventoryManager;
-    [SerializeField] private GameObject settingsManager;
+    [Header("----------Managers----------")]
+    [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private SettingsManager settingsManager;
+    [SerializeField] private LightManager lightManager;
     [SerializeField] private GameSceneManager gameSceneManager;
     [SerializeField] private AnimalSpawnerScript bearSpawner;
+    private SoundManager soundManager;
+    [Header("----------Values----------")]
     [SerializeField] private int maxWinAnimalCount = 100;
-    [SerializeField] private SoundManager soundManager;
-    private bool isLightActive = true;
-    private readonly List<Light2D> lights = new();
-    [SerializeField] private float lightTransitionTime = 180f;
-    public int night = 0;
-    bool stop = false;
-    bool escMenuActive = false;
-    bool isNight = false;
-    bool end = false;
-    public float time = 12 * 60;
+    [SerializeField] private float deathTextFadeDuration = 5;
+    [SerializeField] private float time = 12 * 60;
     private readonly int maxTime = 24 * 60;
+    private int night = 0;
+    private bool end = false;
+    private bool stop = false;
+    private bool isNight = false;
+    private bool escMenuActive = false;
 
-    void Start()
+    public int GetNightNumber()
     {
-        settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
-
-        foreach (Light2D light in FindObjectsByType<Light2D>(FindObjectsSortMode.None))
-        {
-            if (light != null) lights.Add(light);
-
-            light.intensity = light.lightType == Light2D.LightType.Global ? 1 : 0;
-        }
+        return night;
     }
 
-    void Update()
+    public int GetTime()
     {
-        if (soundManager == null)
-        {
-            soundManager = FindFirstObjectByType<SoundManager>();
-        }
-        if (end) return;
-        if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
-        if (stop || escMenuActive) return;
-        time = (time + Time.deltaTime * 10) % maxTime;
-        timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
-        CheckTime();
-    }
-
-    void CheckTime()
-    {
-        if (time < 6 * 60 || time > 22 * 60)
-        {
-            if (GameObject.FindGameObjectWithTag("Bear") == null)
-            {
-                StartNight();
-            }
-        }
-        else
-        {
-            if (GameObject.FindGameObjectWithTag("Bear") != null)
-            {
-                StartDay();
-            }
-
-            CheckMouseClicks();
-        }
-    }
-
-    private void StartNight()
-    {
-        night++;
-        isNight = true;
-        ToggleLights();
-        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = false);
-        soundManager.PlayBearTheme();
-        bearSpawner.SpawnAnimal(false);
-
-
-    }
-
-    private void StartDay()
-    {
-        isNight = false;
-        ToggleLights();
-        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = true);
-        soundManager.GetComponent<SoundManager>().PlayMainTheme();
-        Destroy(GameObject.FindGameObjectWithTag("Bear"));
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
-        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-        foreach (GameObject animal in animals)
-        {
-            animal.GetComponent<AnimalScript>().hasDestPoint = false;
-        }
-    }
-
-    private void CheckMouseClicks()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-            GameObject[] poops = GameObject.FindGameObjectsWithTag("Poop");
-            foreach (GameObject animal in animals)
-            {
-                SpriteRenderer spriteRenderer = animal.GetComponent<SpriteRenderer>();
-                if (spriteRenderer.bounds.Contains(mousePosition))
-                {
-                    animal.GetComponent<AnimalScript>().SendIntoFence();
-                }
-            }
-            foreach (GameObject poop in poops)
-            {
-                SpriteRenderer spriteRenderer = poop.GetComponent<SpriteRenderer>();
-                if (spriteRenderer.bounds.Contains(mousePosition))
-                {
-                    poop.SetActive(false);
-                    Destroy(poop);
-                    inventoryManager.GetComponent<InventoryManager>().ChangeManureValue(1);
-                }
-            }
-        }
-
-    }
-
-    private void ToggleLights()
-    {
-        isLightActive = !isLightActive;
-        StartCoroutine(FadeLights());
-    }
-
-    private IEnumerator FadeLights()
-    {
-        float startTime = 0f;
-        while (startTime < lightTransitionTime)
-        {
-
-            foreach (Light2D light in lights)
-            {
-                if (light.lightType != Light2D.LightType.Global) light.intensity = isLightActive ? Mathf.Lerp(1, 0, startTime / lightTransitionTime) : Mathf.Lerp(0, 1, startTime / lightTransitionTime);
-
-                else light.intensity = isLightActive ? Mathf.Lerp(0, 1, startTime / lightTransitionTime) : Mathf.Lerp(1, 0, startTime / lightTransitionTime);
-
-            }
-            startTime += Time.deltaTime;
-            yield return null;
-        }
-        foreach (Light2D light in lights)
-        {
-            if (light.lightType == Light2D.LightType.Global) light.intensity = isLightActive ? 1 : 0;
-        }
-    }
-
-    public void ShowEscMenu()
-    {
-        escMenuActive = !escMenuActive;
-        escMenu.SetActive(escMenuActive);
-        StopStartGame();
-        settingsMenu.SetActive(false);
-        keybindingsMenu.SetActive(false);
+        return (int)time;
     }
 
     public void CheckGameConditions()
@@ -189,7 +58,7 @@ public class GameManager : MonoBehaviour
             stop = true;
             StopStartGame();
             end = true;
-            gameSceneManager.GetComponent<GameSceneManager>().LoadCreditsScene();
+            gameSceneManager.LoadCreditsScene();
         }
         int chickens = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Chicken"));
         int cows = animals.Count(animal => animal.GetComponent<SpriteRenderer>().sprite.name.Equals("Cow"));
@@ -201,7 +70,6 @@ public class GameManager : MonoBehaviour
         sheepCountText.text = sheep.ToString();
         foxCountText.text = foxes.ToString();
         wolfCountText.text = wolfs.ToString();
-
         int[] allAnimals = { chickens, cows, sheep, foxes, wolfs };
         if (CheckAllAnimalsCount(allAnimals, 0, 10) != -1) KillAllAnimalsWithName(0, CheckAllAnimalsCount(allAnimals, 0, 10));
         if (CheckAllAnimalsCount(allAnimals, 1, 10) != -1) KillAllAnimalsWithName(1, CheckAllAnimalsCount(allAnimals, 1, 10));
@@ -219,6 +87,94 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        inventoryManager = inventoryManager.GetComponent<InventoryManager>();
+        settingsManager = settingsManager.GetComponent<SettingsManager>();
+        lightManager = lightManager.GetComponent<LightManager>();
+        gameSceneManager = gameSceneManager.GetComponent<GameSceneManager>();
+        soundManager = FindFirstObjectByType<SoundManager>();
+    }
+
+    private void Update()
+    {
+        if (end) return;
+        if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
+        if (stop || escMenuActive) return;
+        time = (time + Time.deltaTime * 10) % maxTime;
+        timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
+        CheckTime();
+    }
+
+    private void CheckTime()
+    {
+        if (time < 6 * 60 || time > 22 * 60)
+        {
+            if (GameObject.FindGameObjectWithTag("Bear") == null) StartNight();
+        }
+        else
+        {
+            if (GameObject.FindGameObjectWithTag("Bear") != null) StartDay();
+            CheckMouseClicks();
+        }
+    }
+
+    private void StartNight()
+    {
+        night++;
+        isNight = true;
+        lightManager.ToggleLights();
+        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = false);
+        soundManager.PlayBearTheme();
+        bearSpawner.SpawnAnimal(false);
+    }
+
+    private void StartDay()
+    {
+        isNight = false;
+        lightManager.ToggleLights();
+        spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = true);
+        soundManager.PlayMainTheme();
+        Destroy(GameObject.FindGameObjectWithTag("Bear"));
+        soundManager.PlaySFX(3);
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        foreach (GameObject animal in animals) animal.GetComponent<AnimalScript>().SetHasDestPoint(false);
+    }
+
+    private void CheckMouseClicks()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+            GameObject[] poops = GameObject.FindGameObjectsWithTag("Poop");
+            foreach (GameObject animal in animals)
+            {
+                SpriteRenderer spriteRenderer = animal.GetComponent<SpriteRenderer>();
+                if (spriteRenderer.bounds.Contains(mousePosition)) animal.GetComponent<AnimalScript>().SendIntoFence();
+            }
+            foreach (GameObject poop in poops)
+            {
+                SpriteRenderer spriteRenderer = poop.GetComponent<SpriteRenderer>();
+                if (spriteRenderer.bounds.Contains(mousePosition))
+                {
+                    poop.SetActive(false);
+                    Destroy(poop);
+                    inventoryManager.ChangeManureValue(1);
+                }
+            }
+        }
+    }
+
+    private void ShowEscMenu()
+    {
+        escMenuActive = !escMenuActive;
+        escMenu.SetActive(escMenuActive);
+        StopStartGame();
+        settingsMenu.SetActive(false);
+        keybindingsMenu.SetActive(false);
+    }
+
     private int CheckAllAnimalsCount(int[] allAnimals, int animal, int maxCount)
     {
         for (int i = 0; i < allAnimals.Length; i++)
@@ -233,13 +189,8 @@ public class GameManager : MonoBehaviour
     {
         string killedName = killed == 0 ? "Chicken" : killed == 1 ? "Cow" : killed == 2 ? "Sheep" : killed == 3 ? "Fox" : "Wolf";
         string killerName = killer == 0 ? "Chicken" : killer == 1 ? "Cow" : killer == 2 ? "Sheep" : killer == 3 ? "Fox" : "Wolf";
-
-        string animalDeathString = "The " + killerName + " grew strong and the " + killedName + " was devoured!";
-        Debug.Log("The " + killerName + " grew strong and the " + killedName + " was devoured! THIS WAS LOGGED BY KILLALLANIMALSWITHNAMEFUNCTION");
-        animalDeathCanvas.SetActive(true);
-        Debug.Log("AnimalDeathCanvas WAS SET TO TRUE");
+        string animalDeathString = "The " + killerName + " grew strong and the " + killedName + " was " + (killer == 0 ? "pecked" : killer == 1 || killer == 2 ? "stomped" : "devoured") + "!";
         StartCoroutine(UpdateAnimalDeathText(animalDeathString));
-
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         animals.ToList().ForEach(animal =>
         {
@@ -254,46 +205,24 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator UpdateAnimalDeathText(string text)
     {
-        Debug.Log("Started updateAnimalDeathText Coroutine");
-        float currentTime = 0f;
-        float timeBeforeTextDisappears = 5f;
-        animalDeathText.text = text;
-        while (currentTime < timeBeforeTextDisappears)
+        animalDeathCanvas.SetActive(true);
+        animalDeathText.alpha = 1;
+        float elapsedTime = 0;
+        while (elapsedTime < deathTextFadeDuration)
         {
-            currentTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime;
+            animalDeathText.alpha = Mathf.Lerp(1, 0, elapsedTime / deathTextFadeDuration);
             yield return null;
         }
-        animalDeathCanvas.SetActive(false);
-    }
-
-    public void ReloadScene()
-    {
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        soundManager.GetComponent<SoundManager>().PlayMainTheme();
+        animalDeathText.alpha = 0;
     }
 
     private void StopStartGame()
     {
         bool isStop = stop || escMenuActive;
-        if (GameObject.FindGameObjectWithTag("Bear") != null) GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().stop = isStop;
+        if (GameObject.FindGameObjectWithTag("Bear") != null) GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().SetStop(isStop);
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-        foreach (GameObject animal in animals)
-        {
-            animal.GetComponent<AnimalScript>().stop = isStop;
-        }
+        foreach (GameObject animal in animals) animal.GetComponent<AnimalScript>().SetStop(isStop);
         spawnAnimalButtons.GetComponentsInChildren<Button>().ToList().ForEach(button => button.interactable = !(isStop || isNight));
-    }
-
-    public void ChangeMusicVolume()
-    {
-        soundManager.GetComponent<SoundManager>().ChangeMusicVolume(1);
-        settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
-    }
-
-    public void ChangeSFXVolume()
-    {
-        soundManager.GetComponent<SoundManager>().ChangeSFXVolume(1);
-        settingsManager.GetComponent<SettingsManager>().UpdateSettingsText();
     }
 }

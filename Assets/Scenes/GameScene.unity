@@ -2196,14 +2196,13 @@ GameObject:
   - component: {fileID: 506234593}
   - component: {fileID: 506234596}
   - component: {fileID: 506234595}
-  - component: {fileID: 506234594}
   m_Layer: 5
   m_Name: AnimalDeathCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &506234593
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2221,35 +2220,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -125}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 0, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &506234594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506234592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 1
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &506234595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2302,8 +2275,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 524113112}
+  - component: {fileID: 524113113}
   m_Layer: 0
-  m_Name: Lights
+  m_Name: LightManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2330,8 +2304,22 @@ Transform:
   - {fileID: 922546186}
   - {fileID: 425147563}
   - {fileID: 993592289}
+  - {fileID: 2004451996}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &524113113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524113111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44bcbec2339198b41bf50820de70fd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightTransitionTimeInSeconds: 2
 --- !u!224 &536691858 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8267478082998567828, guid: ddb4f299edf1a894582356377de98d09, type: 3}
@@ -3520,10 +3508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785d8563ec0a7c8428c04f031af41385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 5
-  minZoom: 2
-  maxZoom: 10
-  panSpeed: 0.5
 --- !u!1001 &825168330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107634,6 +107618,10 @@ PrefabInstance:
       propertyPath: MainThemeMusic
       value: 
       objectReference: {fileID: 8300000, guid: 0a2b522e216d37a4eb8f8c36cd42eb69, type: 3}
+    - target: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
+      propertyPath: bearEating.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7663523232465482945, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -107679,17 +107667,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
---- !u!114 &1210054038 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4232357839841575130, guid: 1341363079a635040b2edbc078c1e1d6, type: 3}
-  m_PrefabInstance: {fileID: 1210054037}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1191b09fcbaf0374fb21ad8ff6e93e3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1211177411 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8041726178303805515, guid: 1e6d6c2fe46152242b6af902c0d1212d, type: 3}
@@ -111411,10 +111388,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 506234593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -25}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1616355768
 MonoBehaviour:
@@ -111447,8 +111424,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+    rgba: 255
+  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -111465,8 +111442,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -111503,7 +111480,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -259.5553, y: 0, z: -338.55054, w: -214.41534}
+  m_margin: {x: -259.5553, y: 0, z: -259.2661, w: -226.74841}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -112154,7 +112131,7 @@ MonoBehaviour:
   meat: 20
   manure: 10
   logs: 20
-  selectedTool: scythe
+  selectedTool: hammer
 --- !u!4 &1753073614
 Transform:
   m_ObjectHideFlags: 0
@@ -112164,7 +112141,7 @@ Transform:
   m_GameObject: {fileID: 1753073612}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1137.9067, y: 426.72452, z: -5.810893}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -113477,7 +113454,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 524113112}
     m_Modifications:
     - target: {fileID: 4218174849905300980, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_Name
@@ -113489,15 +113466,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.3877484
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.36267996
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.039182782
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalRotation.w
@@ -113505,15 +113482,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -113543,6 +113520,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb0a8a07e47c9642bfd9b72aacc67cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2004451996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6387094312357113866, guid: 68e3ee5c07e435f4cbed99ac7b410f70, type: 3}
+  m_PrefabInstance: {fileID: 2004451994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2009400303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115118,15 +115100,14 @@ MonoBehaviour:
   settingsMenu: {fileID: 1588748668}
   keybindingsMenu: {fileID: 1957226084}
   spawnAnimalButtons: {fileID: 5478146653524176053}
-  inventoryManager: {fileID: 1753073612}
-  settingsManager: {fileID: 1737933676}
+  inventoryManager: {fileID: 1753073613}
+  settingsManager: {fileID: 1737933677}
+  lightManager: {fileID: 524113113}
   gameSceneManager: {fileID: 2004451995}
   bearSpawner: {fileID: 1453324058}
   maxWinAnimalCount: 100
-  soundManager: {fileID: 1210054038}
-  lightTransitionTime: 2
   night: 0
-  time: 960
+  time: 1260
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -115135,12 +115116,11 @@ SceneRoots:
   - {fileID: 824314940}
   - {fileID: 1687042742}
   - {fileID: 1304427742}
-  - {fileID: 3639755158862818465}
+  - {fileID: 524113112}
   - {fileID: 1753073614}
   - {fileID: 1210054037}
   - {fileID: 1737933678}
-  - {fileID: 524113112}
-  - {fileID: 2004451994}
+  - {fileID: 3639755158862818465}
   - {fileID: 1408319307}
   - {fileID: 814934006}
   - {fileID: 1957226083}

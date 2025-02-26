@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,6 +6,7 @@ public class TileManager : MonoBehaviour
 {
     [Header("----------Managers----------")]
     [SerializeField] private InventoryManager inventoryManager;
+    private SoundManager soundManager;
     [Header("----------Tilemaps----------")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap fences;
@@ -32,11 +32,13 @@ public class TileManager : MonoBehaviour
         int y = position.y + isFence.GetLength(1) / 2;
         isFence[x, y] = isAdd;
         SetCorrectFenceAndFencesAround(x, y);
-        FindFirstObjectByType<SoundManager>().GetComponent<SoundManager>().PlaySFX(3);
+        soundManager.PlaySFX(3);
     }
 
     private void Start()
     {
+        inventoryManager = inventoryManager.GetComponent<InventoryManager>();
+        soundManager = FindFirstObjectByType<SoundManager>();
         isFence = new bool[ground.cellBounds.size.x, ground.cellBounds.size.y];
         CheckAllFences();
         SetTilesToRandom();
@@ -53,7 +55,7 @@ public class TileManager : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int cellPosition = ground.WorldToCell(mousePosition);
-            switch (inventoryManager.GetComponent<InventoryManager>().GetToolSelected())
+            switch (inventoryManager.GetToolSelected())
             {
                 case "hammer":
                     UseHammer(cellPosition);
@@ -78,13 +80,13 @@ public class TileManager : MonoBehaviour
     {
         TileBase groundTile = ground.GetTile(position);
         if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || fences.GetTile(position) != null) return;
-        if (inventoryManager.GetComponent<InventoryManager>().ChangeLogValue(-fenceCost)) AddOrRemoveFence(position, true);
+        if (inventoryManager.ChangeLogValue(-fenceCost)) AddOrRemoveFence(position, true);
     }
 
     private void UseAxe(Vector3Int position)
     {
         if (fences.GetTile(position) == null) return;
-        inventoryManager.GetComponent<InventoryManager>().ChangeLogValue(fenceLogReturn);
+        inventoryManager.ChangeLogValue(fenceLogReturn);
         AddOrRemoveFence(position, false);
     }
     private void UseHoe(Vector3Int position)
@@ -92,13 +94,13 @@ public class TileManager : MonoBehaviour
         TileBase groundTile = ground.GetTile(position);
         Debug.Log(groundTile.name);
         if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || fences.GetTile(position) != null) return;
-        if (inventoryManager.GetComponent<InventoryManager>().ChangeManureValue(-fertilizationCost)) ground.SetTile(position, groundTiles[4]);
+        if (inventoryManager.ChangeManureValue(-fertilizationCost)) ground.SetTile(position, groundTiles[4]);
     }
 
     private void UseSeeds(Vector3Int position)
     {
         if (!ground.GetTile(position).Equals(groundTiles[4])) return;
-        if (inventoryManager.GetComponent<InventoryManager>().ChangeSeedsValue(-seedsPlantedCost))
+        if (inventoryManager.ChangeSeedsValue(-seedsPlantedCost))
         {
             ground.SetTile(position, groundTiles[5]);
             StartCoroutine(SetToGrass(position));
@@ -114,8 +116,8 @@ public class TileManager : MonoBehaviour
     private void UseScythe(Vector3Int position)
     {
         if (!ground.GetTile(position).Equals(groundTiles[6])) return;
-        inventoryManager.GetComponent<InventoryManager>().ChangeSeedsValue(seedsGainedFromHarvesting);
-        inventoryManager.GetComponent<InventoryManager>().ChangeGrassValue(GrassGainedFromHarvesting);
+        inventoryManager.ChangeSeedsValue(seedsGainedFromHarvesting);
+        inventoryManager.ChangeGrassValue(GrassGainedFromHarvesting);
         ground.SetTile(position, groundTiles[4]);
     }
 
@@ -125,18 +127,12 @@ public class TileManager : MonoBehaviour
         int height = isFence.GetLength(1);
         foreach (Vector3Int position in fences.cellBounds.allPositionsWithin)
         {
-            if (!fences.HasTile(position))
-            {
-                continue;
-            }
+            if (!fences.HasTile(position)) continue;
             isFence[position.x + width / 2, position.y + height / 2] = true;
         }
         for (int x = 0; x < width; x++)
         {
-            for (int y = 0; y < height; y++)
-            {
-                if (isFence[x, y]) SetCorrectFence(x, y);
-            }
+            for (int y = 0; y < height; y++) if (isFence[x, y]) SetCorrectFence(x, y);
         }
     }
 
@@ -183,28 +179,19 @@ public class TileManager : MonoBehaviour
 
     private void SetTilesToRandom()
     {
-        foreach (Vector3Int position in ground.cellBounds.allPositionsWithin)
-        {
-            ground.SetTile(position, GetRandomTile());
-        }
+        foreach (Vector3Int position in ground.cellBounds.allPositionsWithin) ground.SetTile(position, GetRandomTile());
     }
 
     private TileBase GetRandomTile()
     {
         int totalChance = 0;
-        foreach (int chance in tileChances)
-        {
-            totalChance += chance;
-        }
+        foreach (int chance in tileChances) totalChance += chance;
         int randomValue = Random.Range(0, totalChance);
         int chanceUsed = 0;
         for (int i = 0; i < groundTiles.Length; i++)
         {
             chanceUsed += tileChances[i];
-            if (randomValue < chanceUsed)
-            {
-                return groundTiles[i];
-            }
+            if (randomValue < chanceUsed) return groundTiles[i];
         }
         return null;
     }

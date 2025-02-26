@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7663523232465482945}
   - component: {fileID: 4232357839841575130}
   m_Layer: 0
-  m_Name: Audiomanager
+  m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,11 +48,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   music: {fileID: 1492205942866155423}
   SFX: {fileID: 6791458122022359702}
-  MainThemeMusic: {fileID: 8300000, guid: 0a2b522e216d37a4eb8f8c36cd42eb69, type: 3}
-  BearThemeMusic: {fileID: 8300000, guid: 25ddbc80f8a68d74d8fdea7913be3a8b, type: 3}
-  bearEating: {fileID: 8300000, guid: daeab8ebcba65a744823e28faf33fc85, type: 3}
-  isSFXMuted: 0
-  isMusicMuted: 0
+  musicThemes:
+  - {fileID: 8300000, guid: 0a2b522e216d37a4eb8f8c36cd42eb69, type: 3}
+  - {fileID: 8300000, guid: 25ddbc80f8a68d74d8fdea7913be3a8b, type: 3}
+  bearEating:
+  - {fileID: 8300000, guid: daeab8ebcba65a744823e28faf33fc85, type: 3}
+  mouseClicks:
+  - {fileID: 8300000, guid: d58ab19ed142ca34e922596a19666269, type: 3}
+  - {fileID: 8300000, guid: 9e1af40868295104c86fdf5ae1716547, type: 3}
+  fartNoises:
+  - {fileID: 8300000, guid: 0f53acc6ad907fe4ba5d29e4627cd39a, type: 3}
+  - {fileID: 8300000, guid: 89998cdf79bc46a4eb40415f4eac174c, type: 3}
+  fenceNoises:
+  - {fileID: 8300000, guid: 8c761b7b3caab334eb21721ccc42416f, type: 3}
 --- !u!1 &3412690905333075740
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,24 +3,50 @@ using UnityEngine.Tilemaps;
 
 public class AnimalScript : MonoBehaviour
 {
-    public SpriteRenderer sr;
-    private bool isFlipped = false;
-    public Tilemap ground;
-    public Tilemap fence;
-    public GameManager gameManager;
-    public GameObject poopPrefab;
-    public Vector3 spawnPoint;
-    Vector3 destPoint;
-    public bool hasDestPoint;
-    private float waitTimeLeft = 0;
+    [Header("----------Sprite Renderer----------")]
+    [SerializeField] private SpriteRenderer sr;
+    [Header("----------Tilemaps----------")]
+    [SerializeField] private Tilemap ground;
+    [SerializeField] private Tilemap fence;
+    [Header("----------Managers----------")]
+    [SerializeField] private GameManager gameManager;
+    [Header("----------Objects----------")]
+    [SerializeField] private GameObject poopPrefab;
+    [Header("----------Values----------")]
     [SerializeField] float range = 10;
     [SerializeField] float movementSpeed = 1;
     [SerializeField] float waitTime = 1;
-    public bool stop = false;
     private bool didPoopThisNight = false;
+    private bool isFlipped = false;
+    private bool stop = false;
+    private bool hasDestPoint;
+    private float waitTimeLeft = 0;
     private float poopTime = 1;
+    private Vector3 spawnPoint;
+    private Vector3 destPoint;
 
-    void Start()
+    public void SendIntoFence()
+    {
+        transform.position = spawnPoint;
+        hasDestPoint = false;
+    }
+
+    public void SetSpawnPoint(Vector3 spawn)
+    {
+        spawnPoint = spawn;
+    }
+
+    public void SetStop(bool isStop)
+    {
+        stop = isStop;
+    }
+
+    public void SetHasDestPoint(bool hasDestinationPoint)
+    {
+        hasDestPoint = hasDestinationPoint;
+    }
+
+    private void Start()
     {
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
@@ -28,7 +54,7 @@ public class AnimalScript : MonoBehaviour
         poopPrefab = Resources.Load<GameObject>("Poop");
     }
 
-    void Update()
+    private void Update()
     {
         if (stop) return;
         CheckIfCanPoop();
@@ -36,7 +62,7 @@ public class AnimalScript : MonoBehaviour
         else waitTimeLeft -= Time.deltaTime;
     }
 
-    public void AnimalMovement()
+    private void AnimalMovement()
     {
         if (!hasDestPoint) SearchForDest();
         if (hasDestPoint)
@@ -55,9 +81,9 @@ public class AnimalScript : MonoBehaviour
         poopTime -= Time.deltaTime;
         if (poopTime > 0) return;
         poopTime = 1;
-        if (!didPoopThisNight && (gameManager.time < 6 * 60))
+        if (!didPoopThisNight && (gameManager.GetTime() < 6 * 60))
         {
-            int max = (int)(6 * 60 / gameManager.time);
+            int max = (int)(6 * 60 / gameManager.GetTime());
             int rand = Random.Range(0, max);
             if (rand + 1 == max)
             {
@@ -68,7 +94,7 @@ public class AnimalScript : MonoBehaviour
         }
     }
 
-    void SearchForDest()
+    private void SearchForDest()
     {
         float x = UnityEngine.Random.Range(-range, range);
         float y = UnityEngine.Random.Range(-range, range);
@@ -89,7 +115,7 @@ public class AnimalScript : MonoBehaviour
         }
     }
 
-    bool IsPathClear(Vector3 start, Vector3 end)
+    private bool IsPathClear(Vector3 start, Vector3 end)
     {
         float steps = range * range;
         for (int i = 0; i <= steps; i++)
@@ -103,11 +129,5 @@ public class AnimalScript : MonoBehaviour
             }
         }
         return true;
-    }
-
-    public void SendIntoFence()
-    {
-        transform.position = spawnPoint;
-        hasDestPoint = false;
     }
 }
