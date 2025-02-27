@@ -91,13 +91,13 @@ public class GameManager : MonoBehaviour
         if (CheckAllAnimalsCount(allAnimals, 4, 10) != -1) KillAllAnimalsWithName(4, CheckAllAnimalsCount(allAnimals, 4, 10));
         if (chickens != 0 && chickens * 3 <= foxes) KillAllAnimalsWithName(3, 0);
         if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(4, 2);
-        if (allAnimals.Count(animal => animal == 0) > 2)
-        {
-            stop = true;
-            StopStartGame();
-            end = true;
-            retryButton.SetActive(true);
-        }
+        // if (allAnimals.Count(animal => animal == 0) > 2)
+        // {
+        //     stop = true;
+        //     StopStartGame();
+        //     end = true;
+        //     retryButton.SetActive(true);
+        // }
     }
 
     public void ReloadScene()
@@ -244,6 +244,7 @@ public class GameManager : MonoBehaviour
     {
         string killedName = killed == 0 ? "Chicken" : killed == 1 ? "Cow" : killed == 2 ? "Sheep" : killed == 3 ? "Fox" : "Wolf";
         string killerName = killer == 0 ? "Chicken" : killer == 1 ? "Cow" : killer == 2 ? "Sheep" : killer == 3 ? "Fox" : "Wolf";
+        Debug.Log(killer + " " + killed);
         string animalDeathString = "The " + killerName + " grew strong and the " + killedName + " was " + (killer == 0 ? "pecked" : killer == 1 || killer == 2 ? "stomped" : "devoured") + "!";
         StartCoroutine(UpdateAnimalDeathText(animalDeathString));
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
@@ -260,6 +261,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator UpdateAnimalDeathText(string text)
     {
+        animalDeathText.text = text;
         animalDeathCanvas.SetActive(true);
         animalDeathText.alpha = 1;
         float elapsedTime = 0;
