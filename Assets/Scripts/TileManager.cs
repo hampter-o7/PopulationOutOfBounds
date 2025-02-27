@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,9 +11,11 @@ public class TileManager : MonoBehaviour
     [SerializeField] private TutorialManager tutorialManager;
     [Header("----------Tilemaps----------")]
     [SerializeField] private Tilemap ground;
+    [SerializeField] private Tilemap trees;
     [SerializeField] private Tilemap fences;
     [Header("----------Tiles----------")]
     [SerializeField] private TileBase[] groundTiles;
+    [SerializeField] private TileBase[] treeTiles;
     [SerializeField] private TileBase[] fenceTiles;
     [Header("----------Costs----------")]
     [SerializeField] private int fenceCost = 1;
@@ -21,11 +24,14 @@ public class TileManager : MonoBehaviour
     [Header("----------Profits----------")]
     [SerializeField] private int fenceLogReturn = 1;
     [SerializeField] private int seedsGainedFromHarvesting = 3;
-    [SerializeField] private int GrassGainedFromHarvesting = 3;
+    [SerializeField] private int grassGainedFromHarvesting = 3;
+    [SerializeField] private int logsGainedFromChoppingTrees = 20;
+    [SerializeField] private int logsGainedFromShovelingStumps = 3;
     [Header("----------Time to grow----------")]
     [SerializeField] private int seedsGrowthTimeInSeconds = 60;
     [SerializeField] private int seedsGrowthTimeInSecondsForTutorial = 5;
     private bool[,] isFence;
+    private int maxTreeChance = 30;
     private readonly int[] tileWeights = { 100, 20, 5, 5 };
 
     public void AddOrRemoveFence(Vector3Int position, bool isAdd)
@@ -81,6 +87,9 @@ public class TileManager : MonoBehaviour
                 case "scythe":
                     UseScythe(cellPosition);
                     break;
+                case "shovel":
+                    UseShovel(cellPosition);
+                    break;
             }
         }
     }
@@ -88,21 +97,28 @@ public class TileManager : MonoBehaviour
     private void UseHammer(Vector3Int position)
     {
         TileBase groundTile = ground.GetTile(position);
-        if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || fences.GetTile(position) != null) return;
+        if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || trees.GetTile(position) != null || fences.GetTile(position) != null) return;
         if (inventoryManager.ChangeLogValue(-fenceCost)) AddOrRemoveFence(position, true);
-
     }
 
     private void UseAxe(Vector3Int position)
     {
-        if (fences.GetTile(position) == null) return;
-        inventoryManager.ChangeLogValue(fenceLogReturn);
-        AddOrRemoveFence(position, false);
+        TileBase treeTile = trees.GetTile(position);
+        if (treeTile == treeTiles[0] || treeTile == treeTiles[1])
+        {
+            inventoryManager.ChangeLogValue(logsGainedFromChoppingTrees);
+            trees.SetTile(position, treeTile.Equals(treeTiles[0]) ? treeTiles[2] : treeTiles[3]);
+        }
+        if (fences.GetTile(position) != null)
+        {
+            inventoryManager.ChangeLogValue(fenceLogReturn);
+            AddOrRemoveFence(position, false);
+        }
     }
     private void UseHoe(Vector3Int position)
     {
         TileBase groundTile = ground.GetTile(position);
-        if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || fences.GetTile(position) != null) return;
+        if (groundTile == null || groundTile.Equals(groundTiles[4]) || groundTile.Equals(groundTiles[5]) || groundTile.Equals(groundTiles[6]) || trees.GetTile(position) != null || fences.GetTile(position) != null) return;
         if (inventoryManager.ChangeManureValue(-fertilizationCost)) ground.SetTile(position, groundTiles[4]);
     }
 
@@ -126,9 +142,18 @@ public class TileManager : MonoBehaviour
     {
         if (!ground.GetTile(position).Equals(groundTiles[6])) return;
         inventoryManager.ChangeSeedsValue(seedsGainedFromHarvesting);
-        inventoryManager.ChangeGrassValue(GrassGainedFromHarvesting);
+        inventoryManager.ChangeGrassValue(grassGainedFromHarvesting);
         ground.SetTile(position, groundTiles[4]);
         if (Tutorial.isTutorial) tutorialManager.AdvanceTutorial(4);
+    }
+    private void UseShovel(Vector3Int position)
+    {
+        TileBase treeTile = trees.GetTile(position);
+        if (treeTile == null || treeTile == treeTiles[0] || treeTile == treeTiles[1]) return;
+        {
+            inventoryManager.ChangeLogValue(logsGainedFromShovelingStumps);
+            trees.SetTile(position, null);
+        }
     }
 
     private void CheckAllFences()
@@ -189,14 +214,18 @@ public class TileManager : MonoBehaviour
 
     private void SetTilesToRandom()
     {
-        foreach (Vector3Int position in ground.cellBounds.allPositionsWithin) ground.SetTile(position, GetRandomTile());
+        foreach (Vector3Int position in ground.cellBounds.allPositionsWithin)
+        {
+            ground.SetTile(position, GetRandomTile());
+            TryToSpawnATree(position);
+        }
     }
 
     private TileBase GetRandomTile()
     {
         int totalChance = 0;
         foreach (int chance in tileWeights) totalChance += chance;
-        int randomValue = Random.Range(0, totalChance);
+        int randomValue = UnityEngine.Random.Range(0, totalChance);
         int chanceUsed = 0;
         for (int i = 0; i < groundTiles.Length; i++)
         {
@@ -204,5 +233,18 @@ public class TileManager : MonoBehaviour
             if (randomValue < chanceUsed) return groundTiles[i];
         }
         return null;
+    }
+
+    private void TryToSpawnATree(Vector3Int position)
+    {
+        if (fences.GetTile(position) != null) return;
+        int chance = 2 * (Math.Abs(position.x) + Math.Abs(position.y));
+        if (chance == 0) return;
+        if (chance > 2 * maxTreeChance) chance = 90;
+        int random = UnityEngine.Random.Range(0, 100 - chance);
+        if (random == 0)
+        {
+            trees.SetTile(position, treeTiles[UnityEngine.Random.Range(0, 2)]);
+        }
     }
 }
