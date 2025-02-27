@@ -13,6 +13,7 @@ public class CameraManager : MonoBehaviour
         HandleZoom();
         if (Time.deltaTime > 0.1f) return;
         HandlePan();
+        HandleKeyboardMovement();
     }
 
     private void HandleZoom()
@@ -41,5 +42,17 @@ public class CameraManager : MonoBehaviour
             transform.Translate(move, Space.World);
             lastMousePosition = Input.mousePosition;
         }
+    }
+
+    private void HandleKeyboardMovement()
+    {
+        Vector3 move = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) move.y += 1;
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) move.y -= 1;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) move.x -= 1;
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) move.x += 1;
+
+        transform.Translate(panSpeed * Time.deltaTime * move * 10   , Space.World);
     }
 }
