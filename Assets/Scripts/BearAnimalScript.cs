@@ -73,7 +73,7 @@ public class BearAnimalScript : MonoBehaviour
         if (prey == null) return;
         SearchForDest();
         lastPosition = transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, destPoint, gameManager.GetNightNumber() * movementSpeed * Time.deltaTime / 2);
+        transform.position = Vector3.MoveTowards(transform.position, destPoint, gameManager.GetNightNumber() * movementSpeed * Time.deltaTime / 3);
         Vector3Int fenceCheck = fence.WorldToCell(transform.position);
         if (fence.HasTile(fenceCheck))
         {
