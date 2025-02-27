@@ -16,7 +16,7 @@ public class BearAnimalScript : MonoBehaviour
     private SoundManager soundManager;
     [Header("----------Values----------")]
     [SerializeField] private float movementSpeed = 2;
-    [SerializeField] private float stuckTimerMax = 1;
+    [SerializeField] private float stuckTimerMax = 4;
     [SerializeField] private float eatTimerMax = 2;
     [SerializeField] private float eatTimerScaling = 5;
     private float minimalDistanceToTargetAnimal = float.MaxValue;

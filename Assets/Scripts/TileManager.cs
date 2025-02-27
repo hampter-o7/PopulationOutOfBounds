@@ -70,7 +70,7 @@ public class TileManager : MonoBehaviour
         if (!Tutorial.isTutorial)
         {
             int currentTime = gameManager.GetTime();
-            if (currentTime < 6 * 60 || currentTime > 22 * 60 || gameManager.GetStop() || gameManager.GetEnd()) return;
+            if (currentTime < 6 * 60 || currentTime > 22 * 60 || gameManager.GetStop() || gameManager.GetEnd() || gameManager.GetEscMenuActive()) return;
         }
         if (Input.GetMouseButton(1))
         {
@@ -133,6 +133,11 @@ public class TileManager : MonoBehaviour
         RectTransform shadowRect2 = shadow2.rectTransform;
         while (time < axeRechargeTimer)
         {
+            if (gameManager.GetEscMenuActive())
+            {
+                yield return null;
+                continue;
+            }
             time += Time.deltaTime;
             if (inventoryManager.GetToolSelected().Equals("axe")) shadowRect1.sizeDelta = new Vector2(shadowRect1.sizeDelta.x, Mathf.Lerp(64, 0, time / axeRechargeTimer));
             shadowRect2.sizeDelta = new Vector2(shadowRect2.sizeDelta.x, Mathf.Lerp(32, 0, time / axeRechargeTimer));
@@ -162,7 +167,17 @@ public class TileManager : MonoBehaviour
 
     private IEnumerator SetToGrass(Vector3Int position)
     {
-        yield return new WaitForSeconds(Tutorial.isTutorial ? seedsGrowthTimeInSecondsForTutorial : seedsGrowthTimeInSeconds);
+        float time = 0;
+        while (time < (Tutorial.isTutorial ? seedsGrowthTimeInSecondsForTutorial : seedsGrowthTimeInSeconds))
+        {
+            if (gameManager.GetEscMenuActive())
+            {
+                yield return null;
+                continue;
+            }
+            time += Time.deltaTime;
+            yield return null;
+        }
         ground.SetTile(position, groundTiles[6]);
     }
 

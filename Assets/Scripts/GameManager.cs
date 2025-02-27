@@ -35,13 +35,16 @@ public class GameManager : MonoBehaviour
     [Header("----------Values----------")]
     [SerializeField] private int maxWinAnimalCount = 100;
     [SerializeField] private float deathTextFadeDuration = 5;
+    [SerializeField] private float timeSpeedupDuringDay = 5;
+    [SerializeField] private float timeSpeedupDuringNight = 10;
+
     [SerializeField] private float time = 12 * 60;
     private readonly int maxTime = 24 * 60;
     private int night = 0;
     private bool end = false;
     private bool stop = false;
     private bool isNight = false;
-    private bool escMenuActive = false;
+    private bool isEscMenuActive = false;
 
     public int GetNightNumber()
     {
@@ -61,6 +64,11 @@ public class GameManager : MonoBehaviour
     public bool GetEnd()
     {
         return end;
+    }
+
+    public bool GetEscMenuActive()
+    {
+        return isEscMenuActive;
     }
 
     public void CheckGameConditions()
@@ -91,13 +99,13 @@ public class GameManager : MonoBehaviour
         if (CheckAllAnimalsCount(allAnimals, 4, 10) != -1) KillAllAnimalsWithName(4, CheckAllAnimalsCount(allAnimals, 4, 10));
         if (chickens != 0 && chickens * 3 <= foxes) KillAllAnimalsWithName(3, 0);
         if (sheep != 0 && sheep * 5 <= wolfs) KillAllAnimalsWithName(4, 2);
-        // if (allAnimals.Count(animal => animal == 0) > 2)
-        // {
-        //     stop = true;
-        //     StopStartGame();
-        //     end = true;
-        //     retryButton.SetActive(true);
-        // }
+        if (allAnimals.Count(animal => animal == 0) > 2)
+        {
+            stop = true;
+            StopStartGame();
+            end = true;
+            retryButton.SetActive(true);
+        }
     }
 
     public void ReloadScene()
@@ -126,8 +134,8 @@ public class GameManager : MonoBehaviour
         }
         if (end) return;
         if (Input.GetKeyDown(KeyCode.Escape)) ShowEscMenu();
-        if (stop || escMenuActive) return;
-        time = (time + Time.deltaTime * 10) % maxTime;
+        if (stop || isEscMenuActive) return;
+        time = (time + Time.deltaTime * ((time > 6 * 60 && time < 22 * 60) ? timeSpeedupDuringDay : timeSpeedupDuringNight)) % maxTime;
         timer.text = String.Format("{0:00}:{1:00}", (int)(time / 60), (int)time % 60);
         CheckTime();
     }
@@ -223,8 +231,8 @@ public class GameManager : MonoBehaviour
 
     private void ShowEscMenu()
     {
-        escMenuActive = !escMenuActive;
-        escMenu.SetActive(escMenuActive);
+        isEscMenuActive = !isEscMenuActive;
+        escMenu.SetActive(isEscMenuActive);
         StopStartGame();
         settingsMenu.SetActive(false);
         keybindingsMenu.SetActive(false);
@@ -276,7 +284,7 @@ public class GameManager : MonoBehaviour
 
     private void StopStartGame()
     {
-        bool isStop = stop || escMenuActive;
+        bool isStop = stop || isEscMenuActive;
         if (GameObject.FindGameObjectWithTag("Bear") != null) GameObject.FindGameObjectWithTag("Bear").GetComponent<BearAnimalScript>().SetStop(isStop);
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject animal in animals) animal.GetComponent<AnimalScript>().SetStop(isStop);

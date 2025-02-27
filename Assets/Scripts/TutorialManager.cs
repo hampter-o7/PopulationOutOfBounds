@@ -23,13 +23,13 @@ public class TutorialManager : MonoBehaviour
     private readonly string text4 = "You should say thanks next time for speeding things up (•̀ - •́ ). In the real game you'll have to wait 60 seconds of your time to grow them.\n Anyway, on the bottom left there are buttons for spawning animals. Try spawning a chicken.";
     private readonly string text5 = "Ok so I don't know if you can see the chicken you just spawned in. Try moving around with middle mouse button and zooming out with the scroll wheel. Once you find a chicken just click it so I can check that you learned something.";
     private readonly string text6 = "Good job! I'm proud of you. (.•ᵕ•.)\n\n So if you didn't notice, clicking on the animal brings it back to its spawn point. During the scarry night... animals can escape from their pen! ( ˶°□°)";
-    private readonly string text7 = "When we are at the topic of the night already... Let me tell you that it's not pretty. A horrible monster spawns at night and tries to kill all your animals. You can try to build some fences with the hammer now. Give it a try!";
-    private readonly string text8 = "One or two more things. The monster is faster every night so you really want to get to a 100 animals (win condition) FAST. You start with one each. Be careful about the ratio of the animals though so they dont kill each other. You can check the ratios later in the settings.";
+    private readonly string text7 = "When we are at the topic of the night already... Let me tell you that it's not pretty. A horrible monster spawns at night and tries to kill all your animals. The monster is faster every night so you really want to get to a 100 animals (win condition) FAST. Fences stop the bear... Try to build some with a hammer now!";
+    private readonly string text8 = "One or two more things. You start with one animal each. Be careful about the ratio of the animals though so they dont kill each other. You also lose if there are 2 or less animal species left. You can check the ratios later in the settings.";
     private readonly string text9 = "Oh and I totally forgot to mention this... On the top right you can see your resources. Seeds, grass and meat for spawning new animals, manure for making new planting beds and logs for building fences. You start with 20 of each so be careful how you spend 'em.";
     private readonly string text10 = "You can figure out everything else on your own... It should be pretty straight forward.\n\n And by the way, no problem for the info (¬ ͜  ͡¬). Now you can go play your little game. Bye! (>v<)/";
     private readonly string angryText1 = "I said a different tool... (•`_´•)";
     private readonly string angryText2 = "I sad \"try spawning a chicken\". Don't get funny with me! (¬_¬)";
-    private readonly string angryText3 = "I said \"THE HAMMER\"! \\(`0´)/\n\nNow when I want you to pick the hammer now you don't want to do it huh. How dare you?";
+    private readonly string angryText3 = "I said \"A HAMMER\"! \\(`0´)/\n\nNow when I want you to pick the hammer now you don't want to do it huh. How dare you?";
     private readonly string imDoneWithYouText = "I've had enough. I you are so smart and don't need me... go play on your own. (•̀ ᴖ •́ )";
 
     public void AdvanceTutorial(int click)

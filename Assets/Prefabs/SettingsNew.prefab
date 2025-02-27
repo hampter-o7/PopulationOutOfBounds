@@ -736,7 +736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1X FOX > 3X Chicken => Foxes kill the chickens\r\n\r\n1X WOLF > 1X Sheep=>
+  m_text: "1X FOX > 3X Chicken => Foxes kill the chickens\r\n\r\n1X WOLF > 5X Sheep=>
     Wolves kill the sheep\r\n\r\n1X ANY ANIMAL > 10X Other animal=> \r\n\r\nOther
     animal gets killed by ANY animal "
   m_isRightToLeft: 0
