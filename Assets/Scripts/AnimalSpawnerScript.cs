@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimalSpawnerScript : MonoBehaviour
@@ -11,6 +9,7 @@ public class AnimalSpawnerScript : MonoBehaviour
     [Header("----------Managers----------")]
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private TutorialManager tutorialManager;
     private readonly Vector3[] bearSpawningPositions =  {
         new(-0.442f, 8.703f, 0),
         new(-15.28f, -1.31f, 0),
@@ -24,7 +23,7 @@ public class AnimalSpawnerScript : MonoBehaviour
         if (Tutorial.isTutorial)
         {
             if (isStart) return;
-            gameManager.AdvanceTutorial(animalSprite.name.Equals("Chicken") ? 1 : 0);
+            tutorialManager.GetComponent<TutorialManager>().AdvanceTutorial(animalSprite.name.Equals("Chicken") ? 6 : 5);
             doSpawn = animalSprite.name.Equals("Chicken");
         }
         if (!isStart && doSpawn)

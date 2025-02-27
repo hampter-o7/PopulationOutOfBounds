@@ -108002,6 +108002,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1153976805, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: tutorialManager
+      value: 
+      objectReference: {fileID: 1908007347}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 7139649147878497843}
@@ -108661,7 +108665,7 @@ PrefabInstance:
     - target: {fileID: 4968032454555240882, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8994638090709802535}
+      objectReference: {fileID: 1908007347}
     - target: {fileID: 4968032454555240882, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -108672,7 +108676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4968032454555240882, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: TutorialManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4968032454555240882, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -108698,6 +108702,11 @@ PrefabInstance:
 --- !u!224 &1152959709 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 254708463091694091, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
+  m_PrefabInstance: {fileID: 1152959708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1152959710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8984738012560078396, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
   m_PrefabInstance: {fileID: 1152959708}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1162682859
@@ -109679,11 +109688,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8041726178303805515, guid: 1e6d6c2fe46152242b6af902c0d1212d, type: 3}
   m_PrefabInstance: {fileID: 537387704}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1353875575 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8984738012560078396, guid: f07eee796f12eb24fbb67b774dc6538b, type: 3}
-  m_PrefabInstance: {fileID: 1152959708}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1377751391
 GameObject:
   m_ObjectHideFlags: 0
@@ -110552,6 +110556,10 @@ PrefabInstance:
       propertyPath: prefabAnimal
       value: 
       objectReference: {fileID: 5576568100904819441, guid: cccf477a86608ac468dd7233f71188ab, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: tutorialManager
+      value: 
+      objectReference: {fileID: 1908007347}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: inventoryManager
       value: 
@@ -113816,7 +113824,7 @@ GameObject:
   - component: {fileID: 1687042741}
   - component: {fileID: 1687042743}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: TileManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113865,6 +113873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 7139649147878497843}
   gameManager: {fileID: 8994638090709802535}
+  tutorialManager: {fileID: 1908007347}
   ground: {fileID: 917677354}
   fences: {fileID: 1594487921}
   groundTiles:
@@ -114255,6 +114264,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 295433193, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: tutorialManager
+      value: 
+      objectReference: {fileID: 1908007347}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 7139649147878497843}
@@ -114561,8 +114574,9 @@ GameObject:
   - component: {fileID: 1908007342}
   - component: {fileID: 1908007341}
   - component: {fileID: 1908007346}
+  - component: {fileID: 1908007347}
   m_Layer: 5
-  m_Name: TutorialCanvas
+  m_Name: TutorialManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114659,6 +114673,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908007340}
   m_CullTransparentMesh: 1
+--- !u!114 &1908007347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908007340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c8467512a1d9d44b57523728da8dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 8994638090709802535}
+  tutorialText: {fileID: 5183011693971636141}
+  spawnAnimalButtons: {fileID: 5478146653524176053}
+  tutorialCanvas: {fileID: 1908007340}
+  tutorialButton: {fileID: 1152959710}
 --- !u!4 &1954942301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3170158646453145720, guid: 08187e41943c6b14eba4257b9c833207, type: 3}
@@ -114931,6 +114962,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4591469621628248817, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: tutorialManager
+      value: 
+      objectReference: {fileID: 1908007347}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 7139649147878497843}
@@ -115097,6 +115132,10 @@ PrefabInstance:
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: 8233521805015788675, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: tutorialManager
+      value: 
+      objectReference: {fileID: 1908007347}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: inventoryManager
       value: 
@@ -115934,6 +115973,10 @@ PrefabInstance:
       propertyPath: animalSprite
       value: 
       objectReference: {fileID: -1183179499, guid: 43cc26d9913e1c9498069d4a8b1e075c, type: 3}
+    - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
+      propertyPath: tutorialManager
+      value: 
+      objectReference: {fileID: 1908007347}
     - target: {fileID: 9072855427715852155, guid: 871d48cec098cc64bbe4cfa0fb984062, type: 3}
       propertyPath: inventoryManager
       value: 
@@ -117986,6 +118029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 8994638090709802535}
+  tutorialManager: {fileID: 1908007347}
   numberOfSeeds: {fileID: 6983721189129073190}
   numberOfGrass: {fileID: 22693411}
   numberOfMeat: {fileID: 1223787591}
@@ -118443,7 +118487,6 @@ MonoBehaviour:
   keybindingsMenu: {fileID: 1957226084}
   spawnAnimalButtons: {fileID: 5478146653524176053}
   tutorialCanvas: {fileID: 1908007340}
-  tutorialButton: {fileID: 1353875575}
   inventoryManager: {fileID: 7139649147878497843}
   settingsManager: {fileID: 1588748673}
   lightManager: {fileID: 524113113}

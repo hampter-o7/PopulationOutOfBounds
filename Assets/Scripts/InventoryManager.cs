@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     [Header("----------Managers----------")]
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private TutorialManager tutorialManager;
     [Header("----------Texts----------")]
     [SerializeField] private TextMeshProUGUI numberOfSeeds;
     [SerializeField] private TextMeshProUGUI numberOfGrass;
@@ -69,11 +70,12 @@ public class InventoryManager : MonoBehaviour
     {
         tool.image.sprite = clickedButton.image.sprite;
         selectedTool = tool.image.sprite.name;
-        if (Tutorial.isTutorial) gameManager.GetComponent<GameManager>().AdvanceTutorial(!selectedTool.Equals("hammer") ? 2 : 1);
+        if (Tutorial.isTutorial) tutorialManager.AdvanceTutorial(selectedTool.Equals("hammer") ? 1 : 2);
     }
 
     private void Start()
     {
+        tutorialManager = tutorialManager.GetComponent<TutorialManager>();
         UpdateText();
     }
 

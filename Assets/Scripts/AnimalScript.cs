@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,6 +12,7 @@ public class AnimalScript : MonoBehaviour
     [SerializeField] private Tilemap fence;
     [Header("----------Managers----------")]
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private TutorialManager tutorialManager;
     [Header("----------Objects----------")]
     [SerializeField] private GameObject poopPrefab;
     [Header("----------Values----------")]
@@ -30,7 +32,7 @@ public class AnimalScript : MonoBehaviour
     {
         transform.position = spawnPoint;
         hasDestPoint = false;
-        if (Tutorial.isTutorial) gameManager.AdvanceTutorial(7);
+        if (Tutorial.isTutorial) tutorialManager.AdvanceTutorial(7);
     }
 
     public void SetSpawnPoint(Vector3 spawn)
@@ -53,6 +55,7 @@ public class AnimalScript : MonoBehaviour
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        tutorialManager = Resources.FindObjectsOfTypeAll<TutorialManager>().First().GetComponent<TutorialManager>();
         poopPrefab = Resources.Load<GameObject>("Poop");
     }
 

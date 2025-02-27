@@ -7,6 +7,7 @@ public class TileManager : MonoBehaviour
     [Header("----------Managers----------")]
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private TutorialManager tutorialManager;
     [Header("----------Tilemaps----------")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap fences;
@@ -29,7 +30,7 @@ public class TileManager : MonoBehaviour
 
     public void AddOrRemoveFence(Vector3Int position, bool isAdd)
     {
-        if (Tutorial.isTutorial) gameManager.AdvanceTutorial(11);
+        if (Tutorial.isTutorial) tutorialManager.AdvanceTutorial(11);
         int x = position.x + isFence.GetLength(0) / 2;
         int y = position.y + isFence.GetLength(1) / 2;
         isFence[x, y] = isAdd;
@@ -41,6 +42,7 @@ public class TileManager : MonoBehaviour
     {
         inventoryManager = inventoryManager.GetComponent<InventoryManager>();
         gameManager = gameManager.GetComponent<GameManager>();
+        tutorialManager = tutorialManager.GetComponent<TutorialManager>();
         isFence = new bool[ground.cellBounds.size.x, ground.cellBounds.size.y];
         CheckAllFences();
         SetTilesToRandom();
@@ -126,10 +128,7 @@ public class TileManager : MonoBehaviour
         inventoryManager.ChangeSeedsValue(seedsGainedFromHarvesting);
         inventoryManager.ChangeGrassValue(GrassGainedFromHarvesting);
         ground.SetTile(position, groundTiles[4]);
-        if (Tutorial.isTutorial)
-        {
-            gameManager.AdvanceTutorial(5);
-        }
+        if (Tutorial.isTutorial) tutorialManager.AdvanceTutorial(4);
     }
 
     private void CheckAllFences()
