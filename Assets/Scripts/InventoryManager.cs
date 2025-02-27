@@ -13,6 +13,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI numberOfMeat;
     [SerializeField] private TextMeshProUGUI numberOfManure;
     [SerializeField] private TextMeshProUGUI numberOfLogs;
+    [Header("----------Objects----------")]
+    [SerializeField] private GameObject shadow;
     [Header("----------Resources----------")]
     [SerializeField] private int seeds;
     [SerializeField] private int grass;
@@ -70,6 +72,7 @@ public class InventoryManager : MonoBehaviour
     {
         tool.image.sprite = clickedButton.image.sprite;
         selectedTool = tool.image.sprite.name;
+        shadow.SetActive(selectedTool.Equals("axe"));
         if (Tutorial.isTutorial) tutorialManager.AdvanceTutorial(selectedTool.Equals("hammer") ? 1 : 2);
     }
 

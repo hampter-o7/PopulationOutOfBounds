@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
     private int doneWithYouClicks = 0;
     private int tutorialClicks = 0;
 
-    private readonly string text1 = "On the top left of your screen there is a tool selector.\n\n The top tool in the circle is the selected one.\n\n Try selecting a different tool.";
+    private readonly string text1 = "On the top left of your screen there is a tool selector. Tools can be used only during the day. \n\n The top tool in the circle is the selected one.\n\n Try selecting a different tool.";
     private readonly string text2 = "With certain tools you can do different actions. You can build fences with a hammer, break fences and chop trees with an axe, make a planting bed with a hoe, plant seeds, harvest grown seeds with a scythe and shovel the stumps out with a shovel.";
     private readonly string text3 = "Try hoeing the ground and growing some seeds. I will speed up growth of your seeds.\n\n To use a tool just right click with your mouse on a tile (can also hold and drag).";
     private readonly string text4 = "You should say thanks next time for speeding things up (•̀ - •́ ). In the real game you'll have to wait 60 seconds of your time to grow them.\n Anyway, on the bottom left there are buttons for spawning animals. Try spawning a chicken.";

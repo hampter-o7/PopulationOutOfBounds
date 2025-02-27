@@ -40,7 +40,7 @@ public class BearAnimalScript : MonoBehaviour
         ground = GameObject.Find("Ground").GetComponent<Tilemap>();
         fence = GameObject.Find("Fence").GetComponent<Tilemap>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        tileManager = GameObject.Find("Grid").GetComponent<TileManager>();
+        tileManager = GameObject.Find("TileManager").GetComponent<TileManager>();
         inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         soundManager = FindFirstObjectByType<SoundManager>();
         lastPosition = transform.position;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class TileManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class TileManager : MonoBehaviour
     [SerializeField] private TileBase[] groundTiles;
     [SerializeField] private TileBase[] treeTiles;
     [SerializeField] private TileBase[] fenceTiles;
+    [Header("----------Objects----------")]
+    [SerializeField] private RawImage shadow1;
+    [SerializeField] private RawImage shadow2;
     [Header("----------Costs----------")]
     [SerializeField] private int fenceCost = 1;
     [SerializeField] private int fertilizationCost = 1;
@@ -30,8 +34,10 @@ public class TileManager : MonoBehaviour
     [Header("----------Time to grow----------")]
     [SerializeField] private int seedsGrowthTimeInSeconds = 60;
     [SerializeField] private int seedsGrowthTimeInSecondsForTutorial = 5;
+    [SerializeField] private int axeRechargeTimer = 10;
+    private bool canUseAxe = true;
     private bool[,] isFence;
-    private int maxTreeChance = 30;
+    private readonly int maxTreeChance = 30;
     private readonly int[] tileWeights = { 100, 20, 5, 5 };
 
     public void AddOrRemoveFence(Vector3Int position, bool isAdd)
@@ -106,8 +112,11 @@ public class TileManager : MonoBehaviour
         TileBase treeTile = trees.GetTile(position);
         if (treeTile == treeTiles[0] || treeTile == treeTiles[1])
         {
+            if (!canUseAxe) return;
             inventoryManager.ChangeLogValue(logsGainedFromChoppingTrees);
             trees.SetTile(position, treeTile.Equals(treeTiles[0]) ? treeTiles[2] : treeTiles[3]);
+
+            StartCoroutine(StartAxeRechargeTimer());
         }
         if (fences.GetTile(position) != null)
         {
@@ -115,6 +124,25 @@ public class TileManager : MonoBehaviour
             AddOrRemoveFence(position, false);
         }
     }
+
+    private IEnumerator StartAxeRechargeTimer()
+    {
+        canUseAxe = false;
+        float time = 0;
+        RectTransform shadowRect1 = shadow1.rectTransform;
+        RectTransform shadowRect2 = shadow2.rectTransform;
+        while (time < axeRechargeTimer)
+        {
+            time += Time.deltaTime;
+            if (inventoryManager.GetToolSelected().Equals("axe")) shadowRect1.sizeDelta = new Vector2(shadowRect1.sizeDelta.x, Mathf.Lerp(64, 0, time / axeRechargeTimer));
+            shadowRect2.sizeDelta = new Vector2(shadowRect2.sizeDelta.x, Mathf.Lerp(32, 0, time / axeRechargeTimer));
+            yield return null;
+        }
+        shadowRect1.sizeDelta = new Vector2(shadowRect1.sizeDelta.x, 0);
+        shadowRect2.sizeDelta = new Vector2(shadowRect2.sizeDelta.x, 0);
+        canUseAxe = true;
+    }
+
     private void UseHoe(Vector3Int position)
     {
         TileBase groundTile = ground.GetTile(position);
