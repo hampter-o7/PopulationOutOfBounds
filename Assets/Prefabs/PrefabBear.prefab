@@ -189,7 +189,10 @@ MonoBehaviour:
   ground: {fileID: 0}
   fence: {fileID: 0}
   gameManager: {fileID: 0}
+  tileManager: {fileID: 0}
   inventoryManager: {fileID: 0}
-  stop: 0
-  eatAnimalTimer: 0
+  movementSpeed: 2
+  stuckTimerMax: 4
+  eatTimerMax: 2
+  eatTimerScaling: 2
   targetAnimals: []

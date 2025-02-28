@@ -214,7 +214,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -262, y: 0}
+  m_AnchoredPosition: {x: -240, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &706844688213895220
@@ -245,16 +245,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'MOUSE BUTTONS:
-
-
-    LEFT -
-
-
-    MIDDLE -
-
-
-    RIGHT -'
+  m_text: "MOUSE BUTTONS:\n\nLEFT -\n\nMIDDLE -\n\nRIGHT -\n\nKEYBOARD BUTTONS:\n\n1,
+    2, 3, 4, 5, 6 -\n\nW, A, S, D, \u2191, \u2190, \u2193, \u2192 "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c47868a4ead257944b335030d4490fc2, type: 2}
   m_sharedMaterial: {fileID: -209798299898876099, guid: c47868a4ead257944b335030d4490fc2, type: 2}
@@ -585,7 +577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 163, y: -43}
+  m_AnchoredPosition: {x: 163, y: -44.850006}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4405090340592035516
@@ -619,11 +611,19 @@ MonoBehaviour:
   m_text: 'selecting tools, colecting items
 
 
-    zooming, panning
+    zooming, camera movement
 
 
-    using all
-    tools'
+    using
+    all tools
+
+
+
+
+    selecting correspondent tool
+
+
+    camera movement'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c47868a4ead257944b335030d4490fc2, type: 2}
   m_sharedMaterial: {fileID: -209798299898876099, guid: c47868a4ead257944b335030d4490fc2, type: 2}
@@ -748,7 +748,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 1000, y: 850}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3258050973576911968
 CanvasRenderer:

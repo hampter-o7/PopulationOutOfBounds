@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 891557404011894591}
   - component: {fileID: 4480178980494512391}
   - component: {fileID: 4733670204367797918}
-  - component: {fileID: 3312200239659704852}
+  - component: {fileID: 8584227333481224619}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -706,7 +706,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 510, y: -490}
-  m_SizeDelta: {x: 807.76, y: 0}
+  m_SizeDelta: {x: 999.38, y: 293.7975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4480178980494512391
 CanvasRenderer:
@@ -736,9 +736,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1X FOX > 3X Chicken => Foxes kill the chickens\r\n\r\n1X WOLF > 5X Sheep=>
-    Wolves kill the sheep\r\n\r\n1X ANY ANIMAL > 10X Other animal=> \r\n\r\nOther
-    animal gets killed by ANY animal "
+  m_text: "If there are 3:1 ratio foxes:chickens => foxes eat all the checkens.\n\r\nIf
+    there are 3:1 ratio wolves:sheep => wolves eat all the sheep.\n\nIf there are
+    10x ratio animal 1:animal 2 => animals 1 kills all animals 2.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c47868a4ead257944b335030d4490fc2, type: 2}
   m_sharedMaterial: {fileID: -209798299898876099, guid: c47868a4ead257944b335030d4490fc2, type: 2}
@@ -765,8 +765,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3312200239659704852
+--- !u!114 &8584227333481224619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &2881382299909712197
 GameObject:
   m_ObjectHideFlags: 0

@@ -114491,6 +114491,12 @@ MonoBehaviour:
   numberOfManure: {fileID: 1060461291}
   numberOfLogs: {fileID: 1453196388}
   shadow: {fileID: 802370427}
+  hammerSprite: {fileID: -1666911386, guid: eee3ce00e1f1ca645ac2211af145dafd, type: 3}
+  axeSprite: {fileID: 1971606673, guid: eee3ce00e1f1ca645ac2211af145dafd, type: 3}
+  hoeSprite: {fileID: -541932300, guid: eee3ce00e1f1ca645ac2211af145dafd, type: 3}
+  seedsSprite: {fileID: -488721925442295091, guid: eee3ce00e1f1ca645ac2211af145dafd, type: 3}
+  scytheSprite: {fileID: 1474538718, guid: eee3ce00e1f1ca645ac2211af145dafd, type: 3}
+  shovelSprite: {fileID: -1533642659, guid: eee3ce00e1f1ca645ac2211af145dafd, type: 3}
   seeds: 20
   grass: 20
   meat: 20
@@ -114950,6 +114956,8 @@ MonoBehaviour:
   bearSpawner: {fileID: 1453324058}
   maxWinAnimalCount: 100
   deathTextFadeDuration: 3
+  timeSpeedupDuringDay: 5
+  timeSpeedupDuringNight: 10
   time: 480
 --- !u!222 &9090144288399329526
 CanvasRenderer:
